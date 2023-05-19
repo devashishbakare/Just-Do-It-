@@ -1,0 +1,20 @@
+{
+  "name": "just_do_it",
+  "version": "1.0.0",
+  "description": "Place where you can get best of best shoes",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Devashish bakare",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.2",
+    "nodemon": "^2.0.22"
+  }
+}
