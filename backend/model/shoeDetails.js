@@ -31,7 +31,7 @@ const shoeDetailsSchema = new mongoose.Schema(
       require: true,
     },
     availableSize: {
-      type: [number],
+      type: [Number],
       default: [],
       require: true,
     },
