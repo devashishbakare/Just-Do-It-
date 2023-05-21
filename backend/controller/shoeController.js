@@ -252,6 +252,65 @@ const fetchFavorite = async (req, res) => {
     return res.status(500).json("catching error at fetching favorite");
   }
 };
+
+const fetchBasedOnType = async (req, res) => {
+  try {
+    const selectedOption = req.query.selectedOption;
+
+    if (!selectedOption) {
+      return res.status(500).json("selected option is empty");
+    }
+
+    const allDataBasedOnType = await ShoeDetails.find({
+      shoes_type: selectedOption,
+    });
+
+    return res.status(200).json(allDataBasedOnType);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error while fetching based on type");
+  }
+};
+
+const fetchCategory = async (req, res) => {
+  try {
+    const selectedOption = req.query.selectedOption;
+
+    if (!selectedOption) {
+      return res.status(500).json("selected option is empty");
+    }
+
+    const allDataBasedOnCategory = await ShoeDetails.find({
+      category: selectedOption,
+    });
+
+    return res.status(200).json(allDataBasedOnCategory);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error fetching base on category");
+  }
+};
+
+const searchProduct = async (req, res) => {
+  try {
+    let keyword = req.query.searchKey;
+    console.log("keyword ", keyword);
+
+    const seachCriteria = keyword
+      ? {
+          $or: [{ name: { $regex: `${keyword}`, $options: "i" } }],
+        }
+      : {};
+
+    const allProductInfo = await ShoeDetails.find(seachCriteria);
+
+    return res.status(200).json(allProductInfo);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error while searching");
+  }
+};
+
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -261,6 +320,9 @@ module.exports = {
   addToFavorite,
   deleleFromFavorite,
   fetchFavorite,
+  fetchBasedOnType,
+  fetchCategory,
+  searchProduct,
 };
 
 // const deleteCartItem = async (req, res) => {
