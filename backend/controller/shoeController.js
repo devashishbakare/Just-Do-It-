@@ -1,6 +1,7 @@
 const ShoeDetails = require("../model/shoeDetails");
 const CartItem = require("../model/cartItem");
 const User = require("../model/user");
+const FavoriteItem = require("../model/favoriteItem");
 const addProduct = async (req, res) => {
   try {
     const {
@@ -160,12 +161,106 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+const addToFavorite = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const productItemId = req.body.productItemId;
+
+    if (!userId || !productItemId) {
+      return res.status(500).json("Insufficient data to add in favorite");
+    }
+
+    const user = await User.findById(userId);
+    const product = await ShoeDetails.findById(productItemId);
+
+    if (!user || !product) {
+      return res.status(404).json("user or product not found");
+    }
+
+    const favoriteItemDetails = new FavoriteItem({
+      userId,
+      productItemId,
+    });
+
+    const favoriteItem = await favoriteItemDetails.save();
+
+    if (!favoriteItem) {
+      return res.status(500).json("error in creating favorite");
+    }
+
+    await user.updateOne({
+      $push: { favorites: favoriteItem._id },
+    });
+
+    const response = {
+      favoriteItem,
+      user,
+    };
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error adding to favorite");
+  }
+};
+
+const deleleFromFavorite = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const favoriteItemId = req.query.favoriteItemId;
+
+    if (!userId || !favoriteItemId) {
+      return res.status(500).json("insuffucient data to proceed");
+    }
+
+    const user = await User.findById(userId);
+    const favoriteItem = await FavoriteItem.findById(favoriteItemId);
+
+    if (!user || !favoriteItem) {
+      return res.status(404).json("user or favoriteItem not found");
+    }
+
+    const deletedFavoriteItemFromUser = await user.updateOne({
+      $pull: { favorites: favoriteItem._id },
+    });
+
+    const deletedStatus = await FavoriteItem.deleteOne(favoriteItem._id);
+
+    const response = {
+      deletedFavoriteItemFromUser,
+      deletedStatus,
+    };
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error at delete from favorite");
+  }
+};
+
+const fetchFavorite = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json("user not found");
+    }
+    const allFavoriteItems = await FavoriteItem.find({ userId });
+    return res.status(200).json(allFavoriteItems);
+  } catch (error) {
+    console.error("error", error);
+    return res.status(500).json("catching error at fetching favorite");
+  }
+};
 module.exports = {
   addProduct,
   fetchAllProduct,
   addToCart,
   fetchCartItems,
   deleteCartItem,
+  addToFavorite,
+  deleleFromFavorite,
+  fetchFavorite,
 };
 
 // const deleteCartItem = async (req, res) => {
