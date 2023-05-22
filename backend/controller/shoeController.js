@@ -295,14 +295,9 @@ const searchProduct = async (req, res) => {
   try {
     let keyword = req.query.searchKey;
     console.log("keyword ", keyword);
-
-    const seachCriteria = keyword
-      ? {
-          $or: [{ name: { $regex: `${keyword}`, $options: "i" } }],
-        }
-      : {};
-
-    const allProductInfo = await ShoeDetails.find(seachCriteria);
+    const allProductInfo = await ShoeDetails.find({
+      name: { $regex: keyword, $options: "i" },
+    });
 
     return res.status(200).json(allProductInfo);
   } catch (error) {

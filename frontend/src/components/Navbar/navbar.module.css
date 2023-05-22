@@ -1,0 +1,102 @@
+.navbarContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.nikeLogoConatainer {
+  height: 100%;
+  width: 10%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nikeLogo {
+  /* font-size: 400%;
+   */
+  height: 100%;
+  width: 80%;
+}
+
+.shoppingOptionsWrapper {
+  height: 100%;
+  width: 60%;
+  border: 1px solid black;
+}
+
+.activityWrapper {
+  height: 100%;
+  width: 30%;
+  border: 1px solid black;
+}
+
+.NavBarOptionsWrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 2%;
+  margin-left: 50%;
+}
+
+.navbarOptions {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid black; */
+  cursor: pointer;
+}
+
+.navbarOptoinsText {
+  font-weight: 600;
+}
+
+.hoverContainer {
+  position: absolute;
+  top: 6%;
+  right: 0%;
+  height: 250px;
+  width: 100%;
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.hoverOptionsContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+  /* border: 1px solid black; */
+}
+
+.optionContainer {
+  height: 100%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  justify-content: center;
+  /* border: 1px solid black; */
+}
+
+.hoverOptionHeading {
+  /* border: 1px solid black; */
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 5px 0px 5px 0px;
+  font-size: large;
+  font-weight: 600;
+}
+
+.hoverOptionText {
+  margin: 5px 0px 5px 0px;
+  /* text-align: left;
+  border: 1px solid black; */
+}
