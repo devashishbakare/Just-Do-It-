@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import style from "./navbar.module.css";
 import { SiNike } from "react-icons/si";
+import { BsPerson, BsMinecart, BsHeart } from "react-icons/bs";
+import { FaSearch } from "react-icons/fa";
 const Navbar = () => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -123,7 +125,25 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className={style.activityWrapper}></div>
+        <div className={style.activityWrapper}>
+          <div className={style.searchBarContainer}>
+            <div className={style.searchBar}>
+              <FaSearch className={style.searchIcon} />
+              <input className={style.seachInputFeild} placeholder="Search" />
+            </div>
+          </div>
+          <div className={style.navBarIconContainer}>
+            <div className={style.favoriteContainer}>
+              <BsHeart className={style.navBarIcons} />
+            </div>
+            <div className={style.cartConatainer}>
+              <BsMinecart className={style.navBarIcons} />
+            </div>
+            <div className={style.profileContainer}>
+              <BsPerson className={style.navBarIcons} />
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

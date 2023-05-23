@@ -3,10 +3,33 @@ import style from "./featurePage.module.css";
 const FeaturePage = () => {
   return (
     <>
-      <img
-        src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1824,c_limit/79b1ad80-0e05-4685-ac34-a80f9bd76bd7/women-s-shoes-clothing-accessories.jpg"
-        alt="girl_img"
-      />
+      <div className={style.featurePageContainer}>
+        <div className={style.featureVedioWrapper}>
+          <iframe
+            width="100%"
+            height="920px"
+            src="https://www.youtube.com/embed/PZIqV7wNyyU?autoplay=1&mute=1&loop=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div className={style.shopTextContainer}>
+          <div className={style.headingTextWrapper}>
+            <span className={style.topSmallHeadingText}>Summer Essentials</span>
+            <span className={style.topBigHeadingText}>CHASE THE DAY</span>
+            <span className={style.topSmallExplanationText}>
+              Move. Explore. Bring your boldest.
+            </span>
+            <span className={style.topSmallExplanationText}>
+              Get after summer’s endless possibilities with ready-for-anything
+              fits.
+            </span>
+            <button className={style.shopButton}>Shop</button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

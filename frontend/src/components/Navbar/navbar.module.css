@@ -7,7 +7,7 @@
 .nikeLogoConatainer {
   height: 100%;
   width: 10%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,13 +23,14 @@
 .shoppingOptionsWrapper {
   height: 100%;
   width: 60%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .activityWrapper {
   height: 100%;
   width: 30%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  display: flex;
 }
 
 .NavBarOptionsWrapper {
@@ -99,4 +100,60 @@
   margin: 5px 0px 5px 0px;
   /* text-align: left;
   border: 1px solid black; */
+}
+
+.searchBarContainer {
+  height: 100%;
+  width: 55%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navBarIconContainer {
+  height: 100%;
+  width: 45%;
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 1%;
+}
+.favoriteContainer,
+.cartConatainer,
+.profileContainer {
+  flex: 3;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navBarIcons {
+  font-size: 25px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.searchBar {
+  height: 65%;
+  width: 96%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  margin: 10px 10px 10px 10px;
+  position: relative;
+  border-radius: 30px;
+  border: 2px solid black;
+}
+
+.searchIcon {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.seachInputFeild {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+  font-size: large;
+  border-radius: 10px;
 }
