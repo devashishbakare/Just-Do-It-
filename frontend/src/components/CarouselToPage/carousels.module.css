@@ -1,0 +1,49 @@
+/* 
+ <div className={style.container}>
+    <div className={style.carouselWrapper}>
+    {displayedImages.map((image, index) => (
+        <div key={index} className={style.carouselBox}>
+        <img
+            className={style.curouselImage}
+            src={image}
+            alt="carousel_images"
+        />
+        </div>
+    ))}
+    </div>
+
+    <div className={style.prevButtonContainer} onClick={handlePrevClick}>
+    <MdOutlineArrowBackIosNew />
+    </div>
+
+    <div className={style.prevButtonContainer} onClick={handleNextClick}>
+    <MdOutlineArrowForwardIos />
+    </div>
+</div>/ */
+
+.container {
+  height: 100%;
+  width: 100%;
+  border: 4px solid #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.carouselWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prevButtonContainer {
+  height: 10%;
+  width: 10%;
+  border: 2px solid red;
+  position: absolute;
+}
+
+.nextButtonContainer {
+  position: absolute;
+}

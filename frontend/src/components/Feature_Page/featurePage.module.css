@@ -309,6 +309,8 @@
 .nikeFashionCarouselContainer {
   height: 60%;
   width: 100%;
-  border: 3px solid green;
+  /* border: 3px solid green;
   display: flex;
+  align-items: center;
+  justify-content: center; */
 }

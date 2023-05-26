@@ -7,7 +7,7 @@ import {
   FaInstagram,
   FaMapMarker,
 } from "react-icons/fa";
-import Carousel from "../Carousel";
+import Carousel from "../CarouselToPage/Carousels";
 const FeaturePage = () => {
   return (
     <>
