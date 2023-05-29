@@ -1,0 +1,43 @@
+/* <div className={style.shopPageContainer}>
+    <div className={style.nanBarContainer}><Navbar /></div>
+    <div className={style.shoppintCartContainer}>
+        <div className={style.asideContainer}></div>
+        <div className={style.shopProductContainer}></div>
+    </div>
+</div> */
+
+.shopPageContainer {
+  height: 100vh;
+  width: 100vw;
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+}
+
+.nanBarContainer {
+  height: 7%;
+  width: 100%;
+  border: 2px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shoppintCartContainer {
+  height: 93%;
+  width: 100%;
+  border: 3px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.asideContainer {
+  height: 100%;
+  width: 20%;
+  border: 2px solid blue;
+}
+
+.shopProductContainer {
+  height: 100%;
+  width: 80%;
+  border: 2px solid yellow;
+}

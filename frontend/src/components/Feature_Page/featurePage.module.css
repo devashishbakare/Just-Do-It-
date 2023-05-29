@@ -10,9 +10,9 @@
 }
 
 .shopTextContainer {
-  height: 25%;
+  height: 30%;
   width: 100%;
-  /* border: 4px solid blue; */
+  /* border: 4px solid green; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,68 +20,86 @@
 
 .headingTextWrapper {
   height: 100%;
-  width: 60%;
+  width: 100%;
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .topSmallHeadingText {
+  height: 10%;
+  width: 100%;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1rem;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 5px 0px;
+  /* border: 1px solid black; */
+  text-align: center;
 }
 .topBigHeadingText {
+  height: 20%;
+  width: 100%;
+  /* border: 1px solid black; */
+  text-align: center;
   font-family: "impact";
   font-weight: 500;
   text-transform: uppercase;
-  font-size: 72px;
+  font-size: 4rem;
   line-height: 60px;
   margin: 10px 0px;
 }
 
 .topSmallExplanationText {
-  font-size: 16px;
+  height: 8%;
+  width: 100%;
+  /* border: 1px solid black; */
+  text-align: center;
+  font-size: 1rem;
   line-height: inherit;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #111;
-  margin: 5px 0px;
+  margin-top: 1%;
 }
 
 .shopButton {
-  height: 40px;
-  width: 90px;
+  height: 18%;
+  width: 6%;
   background-color: black;
   color: white;
   border-radius: 35px;
   border: none;
   margin-top: 10px;
   cursor: pointer;
+  /* border: 1px solid red; */
 }
 
 .theLetestContainer {
-  height: 130%;
+  height: 100%;
   width: 100%;
   /* border: 2px solid green; */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .latestImageWrapper {
-  height: 75%;
+  height: 100%;
   width: 100%;
   /* border: 2px solid red; */
-  background-color: black;
+  background-color: white;
 }
 
 .theLatestShoeInfoContainer {
-  height: 25%;
+  height: 30%;
   width: 100%;
   /* border: 2px solid blue; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  /* overflow: hidden; */
 }
 .latestImage {
   height: 100%;
@@ -106,7 +124,7 @@
 }
 .sectionHeadingText {
   margin-left: 2%;
-  font-size: larger;
+  font-size: 1.5rem;
   font-weight: 600;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -129,7 +147,7 @@
 
 .eseentialsShopButton {
   position: absolute;
-  bottom: 15px;
+  bottom: 12%;
   left: 10%;
   height: 40px;
   width: 90px;
@@ -148,6 +166,7 @@
   display: flex;
   background-color: black;
   flex-direction: column;
+  gap: 2%;
 }
 
 .footerTopContainer {
@@ -169,12 +188,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 6%;
+  /* margin-bottom: 2%; */
   gap: 1%;
 }
 
 .infoBlock {
   height: 100%;
-  width: 25%;
+  width: 35%;
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
@@ -189,7 +210,7 @@
 }
 
 .infoBlockHeadingText {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
   font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
@@ -199,7 +220,7 @@
 }
 
 .infoBlockText {
-  font-size: 15px;
+  font-size: 0.85rem;
   font-weight: 200;
   font-family: "Open Sans", sans-serif;
   text-transform: capitalize;
@@ -207,6 +228,7 @@
   margin-top: 5%;
   opacity: 70%;
   margin-left: 3%;
+  /* border: 2px solid red; */
 }
 
 .navigationIconsWrapper {
@@ -226,7 +248,7 @@
 
 .navigationIcon {
   border: 1px solid white;
-  height: 80%;
+  height: 75%;
   width: 20%;
   border-radius: 50%;
   display: flex;
@@ -237,7 +259,7 @@
 }
 
 .iconsCss {
-  font-size: 25px;
+  font-size: 1.5rem;
   color: black;
 }
 .bottomFooterLeftWrapper {
@@ -291,7 +313,7 @@
 }
 .locationIcon {
   color: darkgray;
-  font-size: 22px;
+  font-size: 1.2rem;
   margin-left: 5%;
 }
 .contryName {
@@ -313,4 +335,36 @@
   display: flex;
   align-items: center;
   justify-content: center; */
+}
+
+.shoeFeatureCarouselContainer {
+  height: 60%;
+  width: 100%;
+  /* border: 1px solid green; */
+  margin: 0% 0% 3% 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newFeatureShoesContainer {
+  height: 10%;
+  width: 100%;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column-reverse;
+  /* align-items: center; */
+}
+
+.newFeatureButton {
+  height: 40%;
+  width: 12%;
+  border: 1px solid black;
+  margin-left: 1.5%;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
 }

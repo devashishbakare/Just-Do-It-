@@ -4,15 +4,9 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-const Carousels = () => {
+const Carousels = ({ images }) => {
   const [moveLeft, setMoveLeft] = useState(false);
   const [currIndex, setCurrIndex] = useState(0);
-  const images = [
-    "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/8b8054bd-e5e4-4c0d-9c6b-79c57367b041/nike-just-do-it.jpg",
-    "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/1d682443-c8ba-453b-8f3a-c53d8e76ea41/nike-just-do-it.jpg",
-    "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/12f2c38e-484a-44be-a868-2fae62fa7a49/nike-just-do-it.jpg",
-    "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/6ae71b3c-8d00-4242-9781-11a2f97c8910/nike-just-do-it.jpg",
-  ];
 
   const handleNextClick = () => {
     setMoveLeft(true);
