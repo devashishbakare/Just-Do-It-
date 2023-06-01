@@ -1,3 +1,14 @@
 .productListContainer {
-  color: red;
+  height: 100%;
+  width: 100%;
+}
+
+.productWrapper {
+  height: 100%;
+  width: 100;
+  border: 3px solid blue;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+  overflow-y: scroll;
 }

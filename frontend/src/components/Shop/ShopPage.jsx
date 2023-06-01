@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./shopPage.module.css";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Aside/Sidebar";
 import ProductContainer from "../ShopProducts/ProductContainer";
+import shopContext from "../../Context /ShopContext";
 const ShopPage = () => {
+  const [selectedGender, setSelectedGender] = useState([]);
+  const [shoeCategory, setShoeCategory] = useState([]);
+  const [priceFilter, setPriceFilter] = useState([]);
+  const [colorFilter, setColorFilter] = useState([]);
+
   return (
     <>
       <div className={style.shopPageContainer}>
@@ -12,10 +18,36 @@ const ShopPage = () => {
         </div>
         <div className={style.shoppintCartContainer}>
           <div className={style.asideContainer}>
-            <Sidebar />
+            <shopContext.Provider
+              value={{
+                selectedGender,
+                setSelectedGender,
+                shoeCategory,
+                setShoeCategory,
+                priceFilter,
+                setPriceFilter,
+                colorFilter,
+                setColorFilter,
+              }}
+            >
+              <Sidebar />
+            </shopContext.Provider>
           </div>
           <div className={style.shopProductContainer}>
-            <ProductContainer />
+            <shopContext.Provider
+              value={{
+                selectedGender,
+                setSelectedGender,
+                shoeCategory,
+                setShoeCategory,
+                priceFilter,
+                setPriceFilter,
+                colorFilter,
+                setColorFilter,
+              }}
+            >
+              <ProductContainer />
+            </shopContext.Provider>
           </div>
         </div>
       </div>
