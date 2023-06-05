@@ -1,3 +1,61 @@
-.sideBarContainer {
-  color: green;
+.asideContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.optionWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+.filterOptionContainer {
+  min-height: 8%;
+  width: 80%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid black;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: ceter;
+}
+#genderContainer {
+  border: none;
+}
+.textAndSymbol {
+  height: 80%;
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+}
+
+.filterText {
+  height: 100%;
+  width: 70%;
+  /* border: 1px solid green; */
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.filterSymbol {
+  height: 100%;
+  width: 30%;
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownSymbol {
+  font-size: 1.7rem;
 }
