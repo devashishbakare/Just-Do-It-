@@ -16,7 +16,7 @@
 .filterOptionContainer {
   min-height: 8%;
   width: 80%;
-  /* border: 1px solid black; */
+  /* border: 3px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,4 +58,43 @@
 
 .dropdownSymbol {
   font-size: 1.7rem;
+}
+.filterCheckboxContainer {
+  height: auto;
+  width: 80%;
+  /* border: 2px solid green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.optionInputWrapper {
+  height: 3rem;
+  width: 100%;
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  gap: 40%;
+}
+.selectOptions {
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+  align-items: center;
+  margin-left: 10%;
+  gap: 10%;
+}
+
+.checkboxInputCss {
+  transform: scale(1.3);
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.optionText {
+  width: 100%;
+  /* border: 1px solid green; */
+  font-size: 1.1rem;
+  font-weight: 500;
 }
