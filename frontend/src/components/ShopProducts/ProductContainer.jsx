@@ -4,7 +4,18 @@ import Product from "../Product/Product";
 import axios from "axios";
 import shopContext from "../../Context /ShopContext";
 import baseUrl from "../Constant";
-const ProductContainer = () => {
+const ProductContainer = ({ appliedFilters }) => {
+  useEffect(() => {
+    applyFilters(appliedFilters);
+  }, [appliedFilters]);
+
+  const applyFilters = (filters) => {
+    for (const sectionName in filters) {
+      const options = filters[sectionName];
+      console.log(options);
+    }
+  };
+
   const [storeProduct, setStoreProduct] = useState([]);
   useEffect(() => {
     const config = {
@@ -22,16 +33,14 @@ const ProductContainer = () => {
     fetchAllProduct();
   }, []);
 
-  const { selectedGender } = useContext(shopContext);
+  // const { selectedGender } = useContext(shopContext);
   return (
     <div className={style.productListContainer}>
-      {selectedGender.length === 0 && (
-        <div className={style.productWrapper}>
-          {storeProduct.map((eachProduct) => (
-            <Product key={eachProduct._id} props={eachProduct} />
-          ))}
-        </div>
-      )}
+      <div className={style.productWrapper}>
+        {storeProduct.map((eachProduct) => (
+          <Product key={eachProduct._id} props={eachProduct} />
+        ))}
+      </div>
     </div>
   );
 };
