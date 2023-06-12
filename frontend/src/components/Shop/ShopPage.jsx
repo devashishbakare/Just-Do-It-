@@ -10,19 +10,19 @@ const ShopPage = () => {
     sportFilterClick: false,
     priceFilterClick: false,
     gender: [
-      { name: "male", label: "Male", checked: false },
-      { name: "female", label: "Female", checked: false },
-      { name: "kid", label: "Kid", checked: false },
+      { name: "Male", label: "Male", checked: false },
+      { name: "Female", label: "Female", checked: false },
+      { name: "Kid", label: "Kid", checked: false },
     ],
     sport: [
-      { name: "lifestyle", label: "Lifestyle", checked: false },
-      { name: "running", label: "Running", checked: false },
-      { name: "basketball", label: "Basketball", checked: false },
+      { name: "Lifestyle", label: "Lifestyle", checked: false },
+      { name: "Running", label: "Running", checked: false },
+      { name: "Basketball", label: "Basketball", checked: false },
     ],
     price: [
-      { name: "twoToFive", label: "2K - 5K", checked: false },
-      { name: "fiveToEight", label: "5K - 8K", checked: false },
-      { name: "eightAndMore", label: "Over 8K", checked: false },
+      { name: "2-5", label: "2K - 5K", checked: false },
+      { name: "5-8", label: "5K - 8K", checked: false },
+      { name: "8-100", label: "Over 8K", checked: false },
     ],
   });
 
