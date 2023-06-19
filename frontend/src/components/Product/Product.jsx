@@ -7,7 +7,20 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 const Product = ({ props }) => {
+  /*
+   In this we can use if else?
+  */
+  const [selectedColor, setSelectedColor] = useState(-1);
+  const [selecttedSize, setSelectedSize] = useState(-1);
   const [showProductFlag, setShowProductFlag] = useState(false);
+  const [notificationBar, setNotificationBar] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowProductFlag(!showProductFlag);
+    setSelectedColor(-1);
+    setSelectedSize(-1);
+  };
+
   return (
     <>
       <div
@@ -28,25 +41,71 @@ const Product = ({ props }) => {
               {props.shoes_type}
               &nbsp;
               {props.category}
-              &nbsp; shoes
+              &nbsp;shoes
             </span>
             <span className={style.shoeColorCount}>
               Colors : &nbsp;{props.availableColors.length}
             </span>
           </div>
           <div className={style.shoePriceContainer}>
-            <span className={style.shoeAmountText}>{props.price}&nbsp; Rs</span>
+            <span className={style.shoeAmountText}>{props.price}&nbsp;Rs</span>
           </div>
         </div>
       </div>
       {showProductFlag && (
         <>
           <div className={style.productDesciptionContainer}>
+            {notificationBar === false && (
+              <>
+                <div className={style.notificationContainer}>
+                  <div className={style.extraInfoContainer}>
+                    <div className={style.headingWrapper}>
+                      <span
+                        className={`${style.notificationTextStyle} ${style.textUpdatedDiv}`}
+                      >
+                        Added To --Cart Or Favorite --
+                      </span>
+                    </div>
+                    <div className={style.closeButtonWrapper}>
+                      <span className={style.closeNotificationWrapper}>
+                        <AiFillCloseCircle
+                          className={style.closeButton}
+                          onClick={() => setNotificationBar(!notificationBar)}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  <div className={style.addProductInfo}>
+                    <div className={style.addedProductImageWrapper}>
+                      <img
+                        src={props.images[0]}
+                        alt=""
+                        className={style.addedProductImg}
+                      />
+                    </div>
+                    <div className={style.addedProductName}>
+                      <span className={style.addedProductNameHeading}>
+                        {props.name}
+                      </span>
+                      <span className={style.notificationTextStyle}>
+                        {props.shoes_type}
+                        &nbsp;
+                        {props.category}
+                        &nbsp;shoes
+                      </span>
+                      <span className={style.notificationTextStyle}>
+                        {props.price} &nbsp;Rs
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
             <div className={style.productDescriptionTable}>
               <div className={style.closureSection}>
                 <AiFillCloseCircle
                   className={style.closeButton}
-                  onClick={() => setShowProductFlag(!showProductFlag)}
+                  onClick={handleCloseModal}
                 />
               </div>
               <div className={style.productInfoDisplaySection}>
@@ -78,12 +137,12 @@ const Product = ({ props }) => {
                         {props.shoes_type}
                         &nbsp;
                         {props.category}
-                        &nbsp; shoes
+                        &nbsp;Shoes
                       </span>
                     </div>
                     <div className={style.showProductShoePriceContainer}>
                       <span className={style.showProductShoeAmountText}>
-                        {props.price}&nbsp; Rs
+                        {props.price}&nbsp;Rs
                       </span>
                     </div>
                   </div>
@@ -96,12 +155,22 @@ const Product = ({ props }) => {
                       </span>
                     </div>
                     <div className={style.colorWrapper}>
-                      {props.availableColors.map((color) => (
+                      {props.availableColors.map((color, index) => (
                         <>
                           <div
-                            className={style.colorDiv}
-                            style={{ backgroundColor: color }}
-                          ></div>
+                            className={`${style.colorOuterBorder} ${
+                              selectedColor === index
+                                ? style.highlightBorder
+                                : ""
+                            }`}
+                            onClick={() => setSelectedColor(index)}
+                            key={"color" + index}
+                          >
+                            <div
+                              className={style.colorDiv}
+                              style={{ backgroundColor: color }}
+                            ></div>
+                          </div>
                         </>
                       ))}
                     </div>
@@ -109,9 +178,15 @@ const Product = ({ props }) => {
                   <div className={style.availableSizeWrapper}>
                     <span className={style.sizeText}>Available Size</span>
                     <div className={style.showSizeContainer}>
-                      {props.availableSize.map((size) => (
+                      {props.availableSize.map((size, index) => (
                         <>
-                          <div className={style.shoeSizeWrapper}>
+                          <div
+                            className={`${style.shoeSizeWrapper} ${
+                              selecttedSize === index ? style.highlightSize : ""
+                            }`}
+                            key={"size" + index}
+                            onClick={() => setSelectedSize(index)}
+                          >
                             <span className={style.shoeSize}> {size} UK</span>
                           </div>
                         </>
@@ -145,3 +220,4 @@ const Product = ({ props }) => {
 };
 
 export default Product;
+//
