@@ -3,15 +3,18 @@ import style from "./product.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsMinecart, BsHeart } from "react-icons/bs";
 import { SiNike } from "react-icons/si";
+import baseUrl from "../Constant";
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-const Product = ({ props }) => {
+import axios from "axios";
+const Product = React.memo(({ props }) => {
   /*
    In this we can use if else
   */
   const userLoggedIn = localStorage.getItem("isLoggedIn");
+  console.log("userLoggedIn status " + userLoggedIn);
   const [selectedColor, setSelectedColor] = useState(-1);
   const [selecttedSize, setSelectedSize] = useState(-1);
   const [showProductFlag, setShowProductFlag] = useState(false);
@@ -19,11 +22,14 @@ const Product = ({ props }) => {
   const [notificationFor, setNotificationFor] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userTryToRegister, setUserTryToRegister] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [cartOrfavorite, setCartOrfavorite] = useState("");
 
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
     confirmPassword: "",
+    userName: "",
   });
 
   const handleChange = (event) => {
@@ -34,23 +40,83 @@ const Product = ({ props }) => {
     }));
   };
 
-  const handleLoginSubmit = (event) => {
+  const handleLoginSectionClick = () => {
+    setUserTryToRegister(false);
+    setCredentials({
+      email: "",
+      password: "",
+      confirmPassword: "",
+      userName: "",
+    });
+  };
+
+  const handleRegisterSectionClick = () => {
+    setUserTryToRegister(true);
+    setCredentials({
+      email: "",
+      password: "",
+      confirmPassword: "",
+      userName: "",
+    });
+  };
+
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
     if (userTryToRegister === true) {
-      //todo : handle registrastion here
-      console.log("Password:", credentials.password);
-      console.log("Confirm Password:", credentials.confirmPassword);
+      try {
+        const response = await axios.post(
+          `${baseUrl}/user/register`,
+          credentials
+        );
+        if (response.status === 200) {
+          localStorage.setItem("isLoggedIn", "true");
+          console.log("succesfull");
+          setResponseMessage("");
+
+          if (cartOrfavorite === "cart") {
+            setCartOrfavorite("");
+            handleAddToCart();
+          } else {
+            setCartOrfavorite("");
+            handleAddToFavorite();
+          }
+        }
+      } catch (err) {
+        console.log(err, " Error in registering user");
+        console.log(err.response.data);
+        setResponseMessage(err.response.data);
+      }
     } else {
-      //todo : handle login here
-      console.log("Username:", credentials.username);
-      console.log("Password:", credentials.password);
+      try {
+        const response = await axios.post(`${baseUrl}/user/login`, credentials);
+
+        if (response.status === 200) {
+          localStorage.setItem("isLoggedIn", "true");
+          console.log("succesfull");
+          setResponseMessage("");
+
+          if (cartOrfavorite === "cart") {
+            setCartOrfavorite("");
+            handleAddToCart();
+          } else {
+            setCartOrfavorite("");
+            handleAddToFavorite();
+          }
+        }
+      } catch (err) {
+        console.log(err, "Error while Logging");
+        console.log(err.response.data);
+        setResponseMessage(err.response.data);
+      }
     }
 
-    // Reset form fields
+    setShowLoginForm(false);
     setCredentials({
-      username: "",
+      email: "",
+      userName: "",
       password: "",
+      confirmPassword: "",
     });
   };
 
@@ -63,10 +129,13 @@ const Product = ({ props }) => {
   };
 
   const handleAddToCart = () => {
-    if (!showLoginForm) {
-      // I have a floating div, and its position is absolute, now I want to show one div above of that? how to do that?
+    if (userLoggedIn === "false") {
+      setCartOrfavorite("cart");
       setShowLoginForm(true);
     }
+
+    console.log("Add to cart");
+
     // if (slideNotification === true) {
     //   setNotificationFor("Cart");
     // } else {
@@ -79,6 +148,11 @@ const Product = ({ props }) => {
   };
 
   const handleAddToFavorite = () => {
+    if (userLoggedIn === "false") {
+      setCartOrfavorite("fav");
+      setShowLoginForm(true);
+    }
+    console.log("Add to Fav");
     // if (slideNotification === true) {
     //   setNotificationFor("Favorite");
     // } else {
@@ -126,21 +200,29 @@ const Product = ({ props }) => {
             {showLoginForm && (
               <>
                 <div className={style.loginDivContainer}>
-                  <div className={style.loginBoxContainer}>
+                  <div
+                    className={`${style.loginBoxContainer} ${
+                      userTryToRegister ? style.updatedLoginBoxContainer : ""
+                    }`}
+                  >
                     <form
                       className={style.formSection}
                       onSubmit={handleLoginSubmit}
                     >
                       <div className={style.loginOrRegisterContainer}>
                         <span
-                          className={style.TextWrapper}
-                          onClick={() => setUserTryToRegister(false)}
+                          className={`${style.TextWrapper} ${
+                            !userTryToRegister ? style.updatedTextWrapper : ""
+                          }`}
+                          onClick={handleLoginSectionClick}
                         >
                           Login
                         </span>
                         <span
-                          className={style.TextWrapper}
-                          onClick={() => setUserTryToRegister(true)}
+                          className={`${style.TextWrapper} ${
+                            userTryToRegister ? style.updatedTextWrapper : ""
+                          }`}
+                          onClick={handleRegisterSectionClick}
                         >
                           Register
                         </span>
@@ -154,13 +236,31 @@ const Product = ({ props }) => {
                         </span>
                       </div>
                       <div className={style.inputeContainer}>
-                        <div className={style.inputSectionWrapper}>
+                        <div
+                          className={`${style.inputSectionWrapper} ${
+                            userTryToRegister
+                              ? style.updatedInputSectionWrapper
+                              : ""
+                          }`}
+                        >
+                          {userTryToRegister && (
+                            <>
+                              <input
+                                type="text"
+                                className={style.inputBar}
+                                placeholder="Enter Your Name"
+                                name="userName"
+                                value={credentials.userName}
+                                onChange={handleChange}
+                              />
+                            </>
+                          )}
                           <input
                             type="text"
                             className={style.inputBar}
-                            name="username"
+                            name="email"
                             placeholder="Enter Your Email"
-                            value={credentials.username}
+                            value={credentials.email}
                             onChange={handleChange}
                           />
                           <input
@@ -194,21 +294,29 @@ const Product = ({ props }) => {
                       <div className={style.loginButtonContainer}>
                         {userTryToRegister ? (
                           <>
-                            <div className={style.loginButtonSection}>
-                              Login
-                            </div>
+                            <button className={style.loginButtonSection}>
+                              Register
+                            </button>
                           </>
                         ) : (
                           <>
-                            <div className={style.loginButtonSection}>
-                              Register
-                            </div>
+                            <button className={style.loginButtonSection}>
+                              Login
+                            </button>
                           </>
                         )}
-                        <div className={style.signInWrapper}>
-                          Notification Section
-                        </div>
                       </div>
+                      {responseMessage ? (
+                        <>
+                          <div className={style.responseMessageWrapper}>
+                            <span className={style.responseMessageText}>
+                              {responseMessage}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </form>
                   </div>
                 </div>
@@ -385,7 +493,7 @@ const Product = ({ props }) => {
       )}
     </>
   );
-};
+});
 
 export default Product;
 //

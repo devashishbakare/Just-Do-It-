@@ -510,12 +510,15 @@ body {
   justify-content: center;
 }
 .loginBoxContainer {
-  height: 70%;
-  width: 40%;
+  height: 60%;
+  width: 35%;
   background-color: rgb(254, 253, 253);
   border: 1px solid black;
-
+  margin-bottom: 12%;
   /* background-color: red; */
+}
+.updatedLoginBoxContainer {
+  height: 70%;
 }
 .formSection {
   height: 100%;
@@ -525,9 +528,9 @@ body {
   /* border: 3px solid green; */
 }
 .loginOrRegisterContainer {
-  height: 8%;
+  height: 10%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
 }
 .TextWrapper {
@@ -539,9 +542,13 @@ body {
   justify-content: center;
   font-size: 1.1rem;
   font-weight: 600;
+  cursor: pointer;
+}
+.updatedTextWrapper {
+  background-color: whitesmoke;
 }
 .loginHeadingWrapper {
-  height: 20%;
+  height: 25%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -549,7 +556,7 @@ body {
 .loginLogo {
   height: 60%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -560,59 +567,113 @@ body {
 .loginSlogan {
   height: 40%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   font-size: 1.7rem;
   font-family: Impact, fantasy;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 .inputeContainer {
   height: 40%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 
 .inputSectionWrapper {
   height: 67%;
   width: 100%;
-  border: 2px solid green;
+  /* border: 2px solid green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+.updatedInputSectionWrapper {
+  height: 85%;
+}
+.inputBar {
+  height: 33%;
+  width: 70%;
+  border: 1px solid black;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 30px;
+  padding-left: 5%;
+}
+.inputBar::placeholder {
+  opacity: 0.5;
+  transform: translateX(3%);
 }
 .termsAndPrivacySection {
-  height: 33;
+  height: 33%;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-/* 
-                <div className={style.loginDivContainer}>
-                  <div className={style.loginBoxContainer}>
-                    <form onSubmit={handleLoginSubmit}>
-      
-                      <div className={style.inputeContainer}>
-                        <div className={style.inputSectionWrapper}>
-                          <input className={style.inputBar}/>
-                        </div>
-                        <div className={style.termsAndPrivacySection}>
-                          <span className={style.privacyText}>
-                            By logging in, you agree to Nike's Privacy Policy
-                            and Term of use
-                          </span>
-                        </div>
-                      </div>
-                      <div className={style.loginButtonContainer}>
-                       
-                        <div className={style.loginButtonSection}>
-                          Register
-                        </div>
-                         
-                        <div className={style.signInWrapper}>
-                          Notification Section
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-*/
+
+.privacyText {
+  font-size: 0.8rem;
+  font-weight: 200;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.loginButtonContainer {
+  /* border: 1px solid red; */
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loginButtonSection {
+  height: 80%;
+  width: 80%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.signInWrapper {
+  height: 8%;
+  width: 100%;
+  border: 1px solid red;
+}
+
+.responseMessageWrapper {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+  background-color: white;
+}
+
+.responseMessageText {
+  margin: 11%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+  text-transform: capitalize;
+}

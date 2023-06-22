@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/Landing_Page/LandingPage";
 import ShopPage from "./components/Shop/ShopPage";
 function App() {
+  localStorage.setItem("isLoggedIn", "false");
   return (
     <>
       <BrowserRouter>

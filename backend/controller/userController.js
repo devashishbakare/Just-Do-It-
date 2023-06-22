@@ -3,9 +3,10 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 
 const registerUser = async (req, res) => {
+  console.log("req.body", req.body);
   try {
     const {
-      name,
+      userName,
       email,
       password,
       phoneNumber,
@@ -15,16 +16,9 @@ const registerUser = async (req, res) => {
       address,
     } = req.body;
 
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !phoneNumber ||
-      !selectedOption ||
-      !userImage ||
-      !address
-    )
+    console.log("address" + address);
+
+    if (!userName || !email || !password || !confirmPassword)
       return res.status(500).json("Please feild all input field correctly");
 
     if (password !== confirmPassword) {
@@ -38,23 +32,26 @@ const registerUser = async (req, res) => {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
-    const flag = selectedOption ? true : false;
+    const flag = selectedOption === undefined ? false : true;
+    console.log("flag " + flag);
 
     const userDetails = new User({
-      name,
-      email,
+      name: userName || "",
+      email: email || "",
       password: hash,
       isAdmin: flag,
-      userImage,
-      address,
-      phoneNumber,
+      userImage:
+        userImage ||
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      address: address || "Not Yet Added",
+      phoneNumber: phoneNumber || "Not Yet Added",
     });
 
     const user = await userDetails.save();
     return res.status(200).json(user);
   } catch (error) {
     console.log("error" + error);
-    return res.status(500).json("error in registering user");
+    return res.status(500).json("Error in registering user");
   }
 };
 
