@@ -70,7 +70,13 @@ const addToCart = async (req, res) => {
     const { userId, productItemId, size, color, quantity, productPrice } =
       req.body;
 
-    if (!productItemId || !size || !color || !quantity || !productPrice) {
+    if (
+      !productItemId ||
+      size === undefined ||
+      color === undefined ||
+      !quantity ||
+      !productPrice
+    ) {
       return res.status(500).json("All data are not selected");
     }
 

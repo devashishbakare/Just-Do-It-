@@ -71,6 +71,7 @@ const Product = React.memo(({ props }) => {
         );
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userId", response.data._id);
           console.log("succesfull");
           setResponseMessage("");
 
@@ -93,7 +94,8 @@ const Product = React.memo(({ props }) => {
 
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          console.log("succesfull");
+          localStorage.setItem("userId", response.data._id);
+          // console.log(response.data);
           setResponseMessage("");
 
           if (cartOrfavorite === "cart") {
@@ -128,40 +130,82 @@ const Product = React.memo(({ props }) => {
     setNotificationFor("");
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (userLoggedIn === "false") {
       setCartOrfavorite("cart");
       setShowLoginForm(true);
     }
 
     console.log("Add to cart");
+    const userId = localStorage.getItem("userId");
 
-    // if (slideNotification === true) {
-    //   setNotificationFor("Cart");
-    // } else {
-    //   setNotificationFor("Cart");
-    //   setSlideNotifcation(true);
-    //   setTimeout(() => {
-    //     setSlideNotifcation(false);
-    //   }, 4000);
-    // }
+    const config = {
+      userId: userId,
+      productItemId: props._id,
+      size: selecttedSize,
+      color: selectedColor,
+      quantity: 1,
+      productPrice: props.price,
+    };
+
+    try {
+      const response = await axios.post(`${baseUrl}/shoe/addToCart`, config);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        if (slideNotification === true) {
+          setNotificationFor("Cart");
+        } else {
+          setNotificationFor("Cart");
+          setSlideNotifcation(true);
+          setTimeout(() => {
+            setSlideNotifcation(false);
+          }, 4000);
+        }
+      } else {
+        console.log("there is error in add to cart");
+      }
+    } catch (err) {
+      console.log(err + " error in cart selection");
+      console.log(err.response.data);
+    }
+
+    // const { userId, productItemId, size, color, quantity, productPrice }
   };
 
-  const handleAddToFavorite = () => {
+  const handleAddToFavorite = async () => {
     if (userLoggedIn === "false") {
       setCartOrfavorite("fav");
       setShowLoginForm(true);
     }
     console.log("Add to Fav");
-    // if (slideNotification === true) {
-    //   setNotificationFor("Favorite");
-    // } else {
-    //   setNotificationFor("Favorite");
-    //   setSlideNotifcation(true);
-    //   setTimeout(() => {
-    //     setSlideNotifcation(false);
-    //   }, 4000);
-    // }
+
+    try {
+      const userId = localStorage.getItem("userId");
+      const config = {
+        userId,
+        productItemId: props._id,
+      };
+      const response = await axios.post(`${baseUrl}/shoe/addFavorite`, config);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        if (slideNotification === true) {
+          setNotificationFor("Favorite");
+        } else {
+          setNotificationFor("Favorite");
+          setSlideNotifcation(true);
+          setTimeout(() => {
+            setSlideNotifcation(false);
+          }, 4000);
+        }
+      } else {
+        console.log("there is error in add to cart");
+      }
+    } catch (err) {
+      console.log(err + " error in cart selection");
+      console.log(err.response.data);
+    }
   };
   return (
     <>
@@ -496,4 +540,3 @@ const Product = React.memo(({ props }) => {
 });
 
 export default Product;
-//
