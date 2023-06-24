@@ -180,7 +180,7 @@ body {
   flex-wrap: wrap;
   height: 35%;
   width: 100%;
-  /* background-color: lightgray; */
+  background-color: lightgray;
   /* border: 1px solid green; */
   gap: 1%;
   align-items: center;

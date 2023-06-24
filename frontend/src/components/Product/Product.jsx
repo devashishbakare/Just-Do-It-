@@ -77,9 +77,11 @@ const Product = React.memo(({ props }) => {
 
           if (cartOrfavorite === "cart") {
             setCartOrfavorite("");
+            setShowLoginForm(false);
             handleAddToCart();
           } else {
             setCartOrfavorite("");
+            setShowLoginForm(false);
             handleAddToFavorite();
           }
         }
@@ -95,10 +97,11 @@ const Product = React.memo(({ props }) => {
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("userId", response.data._id);
-          // console.log(response.data);
+          console.log(response.data);
           setResponseMessage("");
 
           if (cartOrfavorite === "cart") {
+            console.log("call from cart condition");
             setCartOrfavorite("");
             handleAddToCart();
           } else {
@@ -113,7 +116,6 @@ const Product = React.memo(({ props }) => {
       }
     }
 
-    setShowLoginForm(false);
     setCredentials({
       email: "",
       userName: "",
@@ -131,80 +133,90 @@ const Product = React.memo(({ props }) => {
   };
 
   const handleAddToCart = async () => {
-    if (userLoggedIn === "false") {
+    const isUserLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isUserLoggedIn === "false") {
+      console.log("call initialise from here");
       setCartOrfavorite("cart");
       setShowLoginForm(true);
-    }
+    } else {
+      setShowLoginForm(false);
+      console.log("Add to cart");
+      const userId = localStorage.getItem("userId");
 
-    console.log("Add to cart");
-    const userId = localStorage.getItem("userId");
+      const config = {
+        userId: userId,
+        productItemId: props._id,
+        size: selecttedSize,
+        color: selectedColor,
+        quantity: 1,
+        productPrice: props.price,
+      };
 
-    const config = {
-      userId: userId,
-      productItemId: props._id,
-      size: selecttedSize,
-      color: selectedColor,
-      quantity: 1,
-      productPrice: props.price,
-    };
+      try {
+        const response = await axios.post(`${baseUrl}/shoe/addToCart`, config);
 
-    try {
-      const response = await axios.post(`${baseUrl}/shoe/addToCart`, config);
-
-      if (response.status === 200) {
-        console.log(response.data);
-        if (slideNotification === true) {
-          setNotificationFor("Cart");
+        if (response.status === 200) {
+          console.log(response.data);
+          if (slideNotification === true) {
+            setNotificationFor("Cart");
+          } else {
+            setNotificationFor("Cart");
+            setSlideNotifcation(true);
+            setTimeout(() => {
+              setSlideNotifcation(false);
+            }, 4000);
+          }
+          setSelectedColor(-1);
+          setSelectedSize(-1);
         } else {
-          setNotificationFor("Cart");
-          setSlideNotifcation(true);
-          setTimeout(() => {
-            setSlideNotifcation(false);
-          }, 4000);
+          console.log("there is error in add to cart");
         }
-      } else {
-        console.log("there is error in add to cart");
+      } catch (err) {
+        console.log(err + " error in cart selection");
+        console.log(err.response.data);
       }
-    } catch (err) {
-      console.log(err + " error in cart selection");
-      console.log(err.response.data);
     }
-
-    // const { userId, productItemId, size, color, quantity, productPrice }
   };
 
   const handleAddToFavorite = async () => {
-    if (userLoggedIn === "false") {
+    const isUserLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isUserLoggedIn === "false") {
       setCartOrfavorite("fav");
       setShowLoginForm(true);
-    }
-    console.log("Add to Fav");
+    } else {
+      console.log("Add to Fav");
+      setShowLoginForm(false);
+      try {
+        const userId = localStorage.getItem("userId");
+        const config = {
+          userId,
+          productItemId: props._id,
+        };
+        const response = await axios.post(
+          `${baseUrl}/shoe/addFavorite`,
+          config
+        );
 
-    try {
-      const userId = localStorage.getItem("userId");
-      const config = {
-        userId,
-        productItemId: props._id,
-      };
-      const response = await axios.post(`${baseUrl}/shoe/addFavorite`, config);
-
-      if (response.status === 200) {
-        console.log(response.data);
-        if (slideNotification === true) {
-          setNotificationFor("Favorite");
+        if (response.status === 200) {
+          console.log(response.data);
+          if (slideNotification === true) {
+            setNotificationFor("Favorite");
+          } else {
+            setNotificationFor("Favorite");
+            setSlideNotifcation(true);
+            setTimeout(() => {
+              setSlideNotifcation(false);
+            }, 4000);
+          }
+          setSelectedColor(-1);
+          setSelectedSize(-1);
         } else {
-          setNotificationFor("Favorite");
-          setSlideNotifcation(true);
-          setTimeout(() => {
-            setSlideNotifcation(false);
-          }, 4000);
+          console.log("there is error in add to cart");
         }
-      } else {
-        console.log("there is error in add to cart");
+      } catch (err) {
+        console.log(err + " error in cart selection");
+        console.log(err.response.data);
       }
-    } catch (err) {
-      console.log(err + " error in cart selection");
-      console.log(err.response.data);
     }
   };
   return (
