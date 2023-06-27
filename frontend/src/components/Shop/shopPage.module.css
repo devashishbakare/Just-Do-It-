@@ -1,11 +1,3 @@
-/* <div className={style.shopPageContainer}>
-    <div className={style.nanBarContainer}><Navbar /></div>
-    <div className={style.shoppintCartContainer}>
-        <div className={style.asideContainer}></div>
-        <div className={style.shopProductContainer}></div>
-    </div>
-</div> */
-
 .shopPageContainer {
   height: 100vh;
   width: 100vw;

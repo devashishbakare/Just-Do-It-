@@ -157,3 +157,18 @@
   font-size: large;
   border-radius: 10px;
 }
+
+@media (max-width: 576px) {
+  .shoppingOptionsWrapper {
+    display: none;
+  }
+  .activityWrapper {
+    width: 90%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .NavBarOptionsWrapper {
+    margin-left: 20%;
+  }
+}

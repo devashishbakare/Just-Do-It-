@@ -2,6 +2,7 @@ const ShoeDetails = require("../model/shoeDetails");
 const CartItem = require("../model/cartItem");
 const User = require("../model/user");
 const FavoriteItem = require("../model/favoriteItem");
+
 const addProduct = async (req, res) => {
   try {
     const {
@@ -130,6 +131,13 @@ const fetchCartItems = async (req, res) => {
 
     const allCartItem = await CartItem.find({ userId });
 
+    let cartItemId = [];
+
+    //todo : we have to render a product selection in cart
+    //todo : just not productItem we have to sent, we have to send product details as well
+    //todo : we have to use promise to fetch from shoedetails, with the updated Obj
+    //todo : updated object is having a productSelect(size, color, quantity) and shoeDetails
+
     return res.status(200).json(allCartItem);
   } catch (error) {
     console.error("error", error);
@@ -246,13 +254,26 @@ const deleleFromFavorite = async (req, res) => {
 const fetchFavorite = async (req, res) => {
   try {
     const userId = req.params.id;
+    console.log("userId", userId);
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json("user not found");
     }
     const allFavoriteItems = await FavoriteItem.find({ userId });
-    return res.status(200).json(allFavoriteItems);
+
+    let listOfCarts = [];
+    for (const fav in allFavoriteItems) {
+      listOfCarts.push(allFavoriteItems[fav].productItemId);
+    }
+
+    const favoriteProductList = await Promise.all(
+      listOfCarts.map((id) => {
+        return ShoeDetails.findById(id);
+      })
+    );
+
+    return res.status(200).json(favoriteProductList);
   } catch (error) {
     console.error("error", error);
     return res.status(500).json("catching error at fetching favorite");
@@ -325,11 +346,3 @@ module.exports = {
   fetchCategory,
   searchProduct,
 };
-
-// const deleteCartItem = async (req, res) => {
-//   try {
-//   } catch (error) {
-//     console.error("error", error);
-//     return res.status(500).json("catching error at delete cart item");
-//   }
-// };

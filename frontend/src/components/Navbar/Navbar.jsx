@@ -3,8 +3,10 @@ import style from "./navbar.module.css";
 import { SiNike } from "react-icons/si";
 import { BsPerson, BsMinecart, BsHeart } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -133,13 +135,22 @@ const Navbar = () => {
             </div>
           </div>
           <div className={style.navBarIconContainer}>
-            <div className={style.favoriteContainer}>
+            <div
+              className={style.favoriteContainer}
+              onClick={() => navigate("/favorite")}
+            >
               <BsHeart className={style.navBarIcons} />
             </div>
-            <div className={style.cartConatainer}>
+            <div
+              className={style.cartConatainer}
+              onClick={() => navigate("/cart")}
+            >
               <BsMinecart className={style.navBarIcons} />
             </div>
-            <div className={style.profileContainer}>
+            <div
+              className={style.profileContainer}
+              onClick={() => navigate("/favorite")}
+            >
               <BsPerson className={style.navBarIcons} />
             </div>
           </div>
