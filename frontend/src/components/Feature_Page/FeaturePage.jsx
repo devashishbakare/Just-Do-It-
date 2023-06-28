@@ -9,8 +9,9 @@ import {
 } from "react-icons/fa";
 import ContactFooter from "../ContactSection/ContactFooter";
 import Carousel from "../CarouselToPage/Carousels";
-
+import { useNavigate } from "react-router-dom";
 const FeaturePage = () => {
+  const navigate = useNavigate();
   const featureStyleImages = [
     "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/8b8054bd-e5e4-4c0d-9c6b-79c57367b041/nike-just-do-it.jpg",
     "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/1d682443-c8ba-453b-8f3a-c53d8e76ea41/nike-just-do-it.jpg",
@@ -52,7 +53,12 @@ const FeaturePage = () => {
               Get in sports and brings endless possibilities with
               ready-for-anything fits.
             </span>
-            <button className={style.shopButton}>Shop</button>
+            <button
+              className={style.shopButton}
+              onClick={() => navigate("/shop")}
+            >
+              Shop
+            </button>
           </div>
         </div>
 

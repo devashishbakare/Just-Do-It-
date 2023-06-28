@@ -17,7 +17,7 @@
 }
 .prevButtonContainer {
   height: 10%;
-  width: 3.2%;
+  width: 2.8%;
   border: 1px solid black;
   position: absolute;
   top: 50%;
@@ -38,7 +38,7 @@
 }
 .nextButtonContainer {
   height: 10%;
-  width: 3.2%;
+  width: 2.8%;
   border: 1px solid black;
   position: absolute;
   top: 50%;

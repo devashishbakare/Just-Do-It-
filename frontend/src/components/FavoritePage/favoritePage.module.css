@@ -117,6 +117,7 @@
   color: white;
   border-radius: 30px;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
