@@ -188,10 +188,16 @@ const Product = React.memo(({ props }) => {
       setShowLoginForm(false);
       try {
         const userId = localStorage.getItem("userId");
+
         const config = {
-          userId,
+          userId: userId,
           productItemId: props._id,
+          size: selecttedSize,
+          color: selectedColor,
+          quantity: 1,
+          productPrice: props.price,
         };
+
         const response = await axios.post(
           `${baseUrl}/shoe/addFavorite`,
           config

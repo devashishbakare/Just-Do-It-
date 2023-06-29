@@ -22,7 +22,7 @@ const FavoritePage = () => {
             `${baseUrl}/shoe/fetchFavorite/${userId}`
           );
           if (response.status === 200) {
-            console.log(response.data);
+            console.log("value " + response.data[0].shoeDetails);
             setProducts(response.data);
           }
         } else {
@@ -31,22 +31,61 @@ const FavoritePage = () => {
         setIsLoading(false);
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
       }
     };
     fetchFavorite();
   }, []);
 
-  const handleRemoveFromFavorite = async (favoriteItem) => {
+  const handleRemoveFromFavorite = async (favoriteItem_id) => {
     try {
-      // const favoriteCartId =
+      setIsLoading(true);
+      const userId = localStorage.getItem("userId");
+      const config = {
+        userId,
+        favoriteItemId: favoriteItem_id,
+      };
+
+      const response = await axios.delete(`${baseUrl}/shoe/delteFromFavorite`, {
+        data: config,
+      });
+      if (response.status === 200) {
+        setProducts((prevProduct) =>
+          products.filter(
+            (eachProduct) => eachProduct.favoriteItemId !== favoriteItem_id
+          )
+        );
+      }
+      setIsLoading(false);
+      console.log("suuu " + favoriteItem_id);
     } catch (error) {
       console.log(error);
       console.log(error.data);
     }
   };
 
-  const handleFavoriteToCartMove = async () => {
+  const handleFavoriteToCartMove = async (addToCartItem_id) => {
     try {
+      setIsLoading(true);
+      const userId = localStorage.getItem("userId");
+      const config = {
+        userId: userId,
+        favoriteItemId: addToCartItem_id,
+        productItemId: products.shoeDetails._id,
+      };
+
+      const response = await axios.patch(`${baseUrl}/shoe/moveToCart`, {
+        data: config,
+      });
+      if (response.status === 200) {
+        setProducts((prevProduct) =>
+          products.filter(
+            (eachProduct) => eachProduct.favoriteItemId !== addToCartItem_id
+          )
+        );
+      }
+      setIsLoading(false);
+      console.log("suuu " + addToCartItem_id);
     } catch (error) {
       console.log(error);
       console.log(error.data);
@@ -69,42 +108,61 @@ const FavoritePage = () => {
             </>
           ) : (
             <>
-              {products.map((product) => (
-                <div className={style.favoriteCartWrapper}>
-                  <div className={style.imageWrapper}>
-                    <img
-                      src={product.images[0]}
-                      alt="shoe_image"
-                      className={style.productImage}
-                    />
-                  </div>
-                  <div className={style.productInfoWrapper}>
-                    <div className={style.nameAndPriceWrapper}>
-                      <span className={style.productName}>{product.name}</span>
-                      <span className={style.productPrice}>
-                        {product.price}
-                      </span>
+              {products.length > 0 ? (
+                <>
+                  {products.map((product) => (
+                    <div className={style.favoriteCartWrapper}>
+                      <div className={style.imageWrapper}>
+                        <img
+                          src={product.shoeDetails.images[0]}
+                          alt="shoe_image"
+                          className={style.productImage}
+                        />
+                      </div>
+                      <div className={style.productInfoWrapper}>
+                        <div className={style.nameAndPriceWrapper}>
+                          <span className={style.productName}>
+                            {product.shoeDetails.name}
+                          </span>
+                          <span className={style.productPrice}>
+                            {product.shoeDetails.price}
+                          </span>
+                        </div>
+                        <span className={style.productTypeShoes}>
+                          {product.shoeDetails.shoes_type}{" "}
+                          {product.shoeDetails.category} Shoes
+                        </span>
+                        <div className={style.ButtonWrapper}>
+                          <button
+                            className={style.addToCartButton}
+                            onClick={() =>
+                              handleFavoriteToCartMove(product.favoriteItemId)
+                            }
+                          >
+                            Add To Cart
+                          </button>
+                          <button
+                            className={style.removeFromFavoriteButton}
+                            onClick={() =>
+                              handleRemoveFromFavorite(product.favoriteItemId)
+                            }
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <span className={style.productTypeShoes}>
-                      {product.shoes_type} {product.category} Shoes
+                  ))}
+                </>
+              ) : (
+                <>
+                  <div className={style.noCartBoardContainer}>
+                    <span className={style.noElementInCart}>
+                      No Favorite Shoes Added...
                     </span>
-                    <div className={style.ButtonWrapper}>
-                      <button
-                        className={style.addToCartButton}
-                        onClick={handleFavoriteToCartMove}
-                      >
-                        Add To Cart
-                      </button>
-                      <button
-                        className={style.removeFromFavoriteButton}
-                        onClick={handleRemoveFromFavorite}
-                      >
-                        Remove
-                      </button>
-                    </div>
                   </div>
-                </div>
-              ))}
+                </>
+              )}
             </>
           )}
 

@@ -13,4 +13,5 @@ router.get("/fetchFavorite/:id", shoeController.fetchFavorite);
 router.get("/shoeCategory", shoeController.fetchCategory);
 router.get("/shoeType", shoeController.fetchBasedOnType);
 router.get("/searchProduct", shoeController.searchProduct);
+router.patch("/moveToCart", shoeController.moveToCartFromFavorite);
 module.exports = router;

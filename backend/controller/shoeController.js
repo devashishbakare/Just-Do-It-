@@ -177,29 +177,39 @@ const deleteCartItem = async (req, res) => {
 
 const addToFavorite = async (req, res) => {
   try {
-    const userId = req.body.userId;
-    const productItemId = req.body.productItemId;
+    const { userId, productItemId, size, color, quantity, productPrice } =
+      req.body;
 
-    if (!userId || !productItemId) {
-      return res.status(500).json("Insufficient data to add in favorite");
+    if (
+      !productItemId ||
+      size === undefined ||
+      color === undefined ||
+      !quantity ||
+      !productPrice
+    ) {
+      return res.status(500).json("All data are not selected");
     }
 
     const user = await User.findById(userId);
-    const product = await ShoeDetails.findById(productItemId);
 
-    if (!user || !product) {
-      return res.status(404).json("user or product not found");
+    if (!user) {
+      return res.status(404).json("user not found");
     }
 
+    let price = quantity * productPrice;
     const favoriteItemDetails = new FavoriteItem({
       userId,
       productItemId,
+      size,
+      color,
+      quantity,
+      price,
     });
 
     const favoriteItem = await favoriteItemDetails.save();
 
     if (!favoriteItem) {
-      return res.status(500).json("error in creating favorite");
+      return res.status(500).json("Error in add to favorite");
     }
 
     await user.updateOne({
@@ -210,17 +220,18 @@ const addToFavorite = async (req, res) => {
       favoriteItem,
       user,
     };
+
     return res.status(200).json(response);
   } catch (error) {
     console.error("error", error);
-    return res.status(500).json("catching error adding to favorite");
+    return res.status(500).json("catching error in add to cart");
   }
 };
 
 const deleleFromFavorite = async (req, res) => {
   try {
-    const userId = req.query.userId;
-    const favoriteItemId = req.query.favoriteItemId;
+    console.log(req.body);
+    const { userId, favoriteItemId } = req.body;
 
     if (!userId || !favoriteItemId) {
       return res.status(500).json("insuffucient data to proceed");
@@ -262,18 +273,23 @@ const fetchFavorite = async (req, res) => {
     }
     const allFavoriteItems = await FavoriteItem.find({ userId });
 
-    let listOfCarts = [];
-    for (const fav in allFavoriteItems) {
-      listOfCarts.push(allFavoriteItems[fav].productItemId);
-    }
-
-    const favoriteProductList = await Promise.all(
-      listOfCarts.map((id) => {
-        return ShoeDetails.findById(id);
+    const favoriteWithProduct = [];
+    const products = await Promise.all(
+      allFavoriteItems.map(async (favoriteItem) => {
+        console.log("pid " + favoriteItem.productItemId);
+        const productDetails = await ShoeDetails.findById(
+          favoriteItem.productItemId
+        );
+        const newObj = {
+          favoriteItemId: favoriteItem._id,
+          shoeDetails: productDetails,
+        };
+        favoriteWithProduct.push(newObj);
+        return productDetails;
       })
     );
 
-    return res.status(200).json(favoriteProductList);
+    return res.status(200).json(favoriteWithProduct);
   } catch (error) {
     console.error("error", error);
     return res.status(500).json("catching error at fetching favorite");
@@ -333,6 +349,49 @@ const searchProduct = async (req, res) => {
   }
 };
 
+const moveToCartFromFavorite = async (req, res) => {
+  const { userId, favoriteItemId, productItemId } = req.body;
+
+  console.log("suu " + req.body);
+  const user = await User.findById(userId);
+  const favoriteItem = await FavoriteItem.findById(favoriteItemId);
+
+  if (!user || !favoriteItem) {
+    return res.status(404).json("input not found");
+  }
+
+  const cartItemDetails = new CartItem({
+    userId,
+    productItemId,
+    size: favoriteItem.size,
+    color: favoriteItem.color,
+    quantity: 1,
+    price: favoriteItem.price,
+  });
+
+  const cartItem = await cartItemDetails.save();
+
+  if (!cartItem) {
+    return res.status(500).json("Error move to cart");
+  }
+
+  await user.updateOne({
+    $push: { cart: cartItem._id },
+  });
+
+  const updatedFavorite = await FavoriteItem.deleteOne({ _id: favoriteItemId });
+
+  const response = {
+    cartItem,
+    user,
+    updatedFavorite,
+  };
+  return res.status(200).json(response);
+
+  //add to cart
+  //delete from favorite
+};
+
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -345,4 +404,9 @@ module.exports = {
   fetchBasedOnType,
   fetchCategory,
   searchProduct,
+  moveToCartFromFavorite,
 };
+
+/*
+
+*/
