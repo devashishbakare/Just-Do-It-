@@ -24,7 +24,6 @@ const Product = React.memo(({ props }) => {
   const [userTryToRegister, setUserTryToRegister] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [cartOrfavorite, setCartOrfavorite] = useState("");
-
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",

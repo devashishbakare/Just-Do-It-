@@ -1,0 +1,203 @@
+.loginDivContainer {
+  /* position: absolute;
+  top: 0%;
+  left: 0%; */
+  height: 100%;
+  width: 100%;
+  /* z-index: 999;
+  background-color: transparent;
+  backdrop-filter: blur(1px); */
+  border: 3px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.ContactSectionWrapper {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navBarWrapper {
+  height: 7%;
+  width: 100%;
+}
+.formContainerWrapper {
+  height: 63%;
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginBoxContainer {
+  height: 90%;
+  width: 35%;
+  background-color: rgb(254, 253, 253);
+  border: 1px solid black;
+
+  /* background-color: red; */
+}
+.updatedLoginBoxContainer {
+  height: 97%;
+}
+.formSection {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* border: 3px solid green; */
+}
+.loginOrRegisterContainer {
+  height: 10%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+}
+.TextWrapper {
+  height: 100%;
+  width: 50%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.updatedTextWrapper {
+  background-color: whitesmoke;
+}
+.loginHeadingWrapper {
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.loginLogo {
+  height: 60%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nikeLogo {
+  font-size: 5rem;
+}
+.loginSlogan {
+  height: 40%;
+  width: 100%;
+  /* border: 1px solid black; */
+  font-size: 1.7rem;
+  font-family: Impact, fantasy;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.inputeContainer {
+  height: 40%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid blue; */
+}
+
+.inputSectionWrapper {
+  height: 67%;
+  width: 100%;
+  /* border: 2px solid green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+.updatedInputSectionWrapper {
+  height: 85%;
+}
+.inputBar {
+  height: 33%;
+  width: 70%;
+  border: 1px solid black;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 30px;
+  padding-left: 5%;
+}
+.inputBar::placeholder {
+  opacity: 0.5;
+  transform: translateX(3%);
+}
+.termsAndPrivacySection {
+  height: 33%;
+  width: 100%;
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.privacyText {
+  font-size: 0.8rem;
+  font-weight: 200;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.loginButtonContainer {
+  /* border: 1px solid red; */
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loginButtonSection {
+  height: 80%;
+  width: 80%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.signInWrapper {
+  height: 8%;
+  width: 100%;
+  border: 1px solid red;
+}
+
+.responseMessageWrapper {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+  background-color: white;
+}
+
+.responseMessageText {
+  margin: 11%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+  text-transform: capitalize;
+}
