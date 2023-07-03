@@ -122,23 +122,33 @@ const fetchCartItems = async (req, res) => {
   try {
     const userId = req.params.id;
 
-    console.log("userId", userId);
+    console.log("cart userId", userId);
 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json("user not found");
     }
 
-    const allCartItem = await CartItem.find({ userId });
+    const cartItems = await CartItem.find({ userId });
 
-    let cartItemId = [];
+    const cart = [];
 
-    //todo : we have to render a product selection in cart
-    //todo : just not productItem we have to sent, we have to send product details as well
-    //todo : we have to use promise to fetch from shoedetails, with the updated Obj
-    //todo : updated object is having a productSelect(size, color, quantity) and shoeDetails
+    const traverseWithPromise = await Promise.all(
+      cartItems.map(async (cartItem) => {
+        const cartProductDetails = await ShoeDetails.findById(
+          cartItem.productItemId
+        );
 
-    return res.status(200).json(allCartItem);
+        const storePopulatedFeild = {
+          cartItem,
+          productDetails: cartProductDetails,
+        };
+        cart.push(storePopulatedFeild);
+        return cartProductDetails;
+      })
+    );
+
+    return res.status(200).json(cart);
   } catch (error) {
     console.error("error", error);
     return res.status(500).json("Catching feild fetch cart item request");
@@ -276,7 +286,6 @@ const fetchFavorite = async (req, res) => {
     const favoriteWithProduct = [];
     const products = await Promise.all(
       allFavoriteItems.map(async (favoriteItem) => {
-        console.log("pid " + favoriteItem.productItemId);
         const productDetails = await ShoeDetails.findById(
           favoriteItem.productItemId
         );
@@ -387,9 +396,44 @@ const moveToCartFromFavorite = async (req, res) => {
     updatedFavorite,
   };
   return res.status(200).json(response);
+};
 
-  //add to cart
-  //delete from favorite
+const updateCartProductQuantity = async (req, res) => {
+  const { userId, cartItemId, quantity } = req.body;
+
+  try {
+    const cartProductItem = await CartItem.findById(cartItemId);
+    const user = await User.findById(userId);
+
+    if (!cartProductItem || !user) {
+      return res.status(404).json("Cart Item not found");
+    }
+
+    const updatedState = await cartProductItem.updateOne({ quantity });
+    const cartItems = await CartItem.find({ userId });
+
+    const cart = [];
+
+    const traverseWithPromise = await Promise.all(
+      cartItems.map(async (cartItem) => {
+        const cartProductDetails = await ShoeDetails.findById(
+          cartItem.productItemId
+        );
+
+        const storePopulatedFeild = {
+          cartItem,
+          productDetails: cartProductDetails,
+        };
+        cart.push(storePopulatedFeild);
+        return cartProductDetails;
+      })
+    );
+
+    return res.status(200).json(cart);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("error in updating quantity");
+  }
 };
 
 module.exports = {
@@ -405,8 +449,5 @@ module.exports = {
   fetchCategory,
   searchProduct,
   moveToCartFromFavorite,
+  updateCartProductQuantity,
 };
-
-/*
-
-*/

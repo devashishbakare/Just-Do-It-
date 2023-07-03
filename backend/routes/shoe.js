@@ -14,4 +14,5 @@ router.get("/shoeCategory", shoeController.fetchCategory);
 router.get("/shoeType", shoeController.fetchBasedOnType);
 router.get("/searchProduct", shoeController.searchProduct);
 router.patch("/moveToCart", shoeController.moveToCartFromFavorite);
+router.post("/updateQuantity", shoeController.updateCartProductQuantity);
 module.exports = router;

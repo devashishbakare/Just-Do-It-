@@ -123,7 +123,10 @@ const FavoritePage = () => {
                   {products.length > 0 ? (
                     <>
                       {products.map((product) => (
-                        <div className={style.favoriteCartWrapper}>
+                        <div
+                          className={style.favoriteCartWrapper}
+                          key={product.favoriteItemId}
+                        >
                           <div className={style.imageWrapper}>
                             <img
                               src={product.shoeDetails.images[0]}
