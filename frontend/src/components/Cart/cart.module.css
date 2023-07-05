@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
 }
+.loginComponentWrapper {
+  height: 100vh;
+  width: 100vw;
+}
 .navBarContainer {
   height: 7%;
   width: 100%;

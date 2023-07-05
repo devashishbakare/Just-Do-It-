@@ -402,34 +402,27 @@ const updateCartProductQuantity = async (req, res) => {
   const { userId, cartItemId, quantity } = req.body;
 
   try {
-    const cartProductItem = await CartItem.findById(cartItemId);
-    const user = await User.findById(userId);
-
-    if (!cartProductItem || !user) {
-      return res.status(404).json("Cart Item not found");
-    }
-
-    const updatedState = await cartProductItem.updateOne({ quantity });
-    const cartItems = await CartItem.find({ userId });
-
-    const cart = [];
-
-    const traverseWithPromise = await Promise.all(
-      cartItems.map(async (cartItem) => {
-        const cartProductDetails = await ShoeDetails.findById(
-          cartItem.productItemId
-        );
-
-        const storePopulatedFeild = {
-          cartItem,
-          productDetails: cartProductDetails,
-        };
-        cart.push(storePopulatedFeild);
-        return cartProductDetails;
-      })
+    const cartItem = await CartItem.findOneAndUpdate(
+      { _id: cartItemId },
+      { $set: { quantity: quantity } },
+      { new: true }
     );
 
-    return res.status(200).json(cart);
+    if (!cartItem) {
+      return res.status(404).json("CartId not found or error in updation");
+    }
+
+    const response = [];
+
+    const productDetails = await ShoeDetails.findById(cartItem.productItemId);
+
+    const storeObject = {
+      cartItem,
+      productDetails,
+    };
+    response.push(storeObject);
+
+    return res.status(200).json(response);
   } catch (error) {
     console.log(error);
     return res.status(500).json("error in updating quantity");

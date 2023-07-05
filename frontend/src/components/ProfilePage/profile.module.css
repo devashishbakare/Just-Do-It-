@@ -1,0 +1,23 @@
+/* <div className={style.logoutContainer}>
+        <button className={style.logoutButton}>Logout</button>
+      </div> */
+
+.logoutContainer {
+  height: 100vh;
+  width: 100vw;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoutButton {
+  height: 70px;
+  width: 150px;
+  border: 1px solid red;
+  background-color: red;
+  color: white;
+}
+.loginComponentWrapper {
+  height: 100vh;
+  width: 100vw;
+}

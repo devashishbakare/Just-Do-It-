@@ -3,7 +3,7 @@ import style from "./navbar.module.css";
 import { SiNike } from "react-icons/si";
 import { BsPerson, BsMinecart, BsHeart } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const Navbar = () => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
@@ -137,19 +137,19 @@ const Navbar = () => {
           <div className={style.navBarIconContainer}>
             <div
               className={style.favoriteContainer}
-              onClick={() => navigate("/favorite")}
+              onClick={() => navigate("/checkAuth", { state: "favorite" })}
             >
               <BsHeart className={style.navBarIcons} />
             </div>
             <div
               className={style.cartConatainer}
-              onClick={() => navigate("/cart")}
+              onClick={() => navigate("/checkAuth", { state: "cart" })}
             >
               <BsMinecart className={style.navBarIcons} />
             </div>
             <div
               className={style.profileContainer}
-              onClick={() => navigate("/favorite")}
+              onClick={() => navigate("/checkAuth", { state: "profile" })}
             >
               <BsPerson className={style.navBarIcons} />
             </div>
@@ -161,3 +161,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+//onClick={() => navigate("/profile", { state: userId })}
+//const location = useLocation();
+//const userId = location.state;

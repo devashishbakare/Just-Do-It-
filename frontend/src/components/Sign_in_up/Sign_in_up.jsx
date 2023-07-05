@@ -60,7 +60,7 @@ const Sign_in_up = ({ updateChange }) => {
           localStorage.setItem("userId", response.data._id);
           console.log("succesfull");
           setResponseMessage("");
-          updateChange(false);
+          updateChange(true);
         }
       } catch (err) {
         console.log(err, " Error in registering user");
@@ -76,7 +76,7 @@ const Sign_in_up = ({ updateChange }) => {
           localStorage.setItem("userId", response.data._id);
           console.log(response.data);
           setResponseMessage("");
-          updateChange(false);
+          updateChange(true);
         }
       } catch (err) {
         console.log(err, "Error while Logging");

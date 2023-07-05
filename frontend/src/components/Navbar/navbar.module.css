@@ -127,6 +127,14 @@
   justify-content: center;
 }
 
+.linkWrapper {
+  height: 100%;
+  width: 100%;
+  border: 1px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .navBarIcons {
   font-size: 25px;
   font-weight: bolder;
