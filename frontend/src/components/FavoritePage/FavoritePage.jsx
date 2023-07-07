@@ -7,6 +7,13 @@ import axios from "axios";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 const FavoritePage = () => {
+  //fetching login status
+  const LoginStatus = localStorage.getItem("isLoggedIn");
+  console.log("logIn Status  " + LoginStatus);
+  const [showLoginForm, setShowLoginForm] = useState(
+    LoginStatus === "false" ? false : true
+  );
+
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +42,12 @@ const FavoritePage = () => {
       }
     };
     fetchFavorite();
-  }, []);
+  }, [showLoginForm]);
+
+  //updating when user gets sign-in/up
+  const handleLoginStatusUpdate = (status) => {
+    setShowLoginForm(status);
+  };
 
   const handleRemoveFromFavorite = async (favoriteItem_id) => {
     try {
@@ -94,86 +106,100 @@ const FavoritePage = () => {
 
   return (
     <>
-      <div className={style.favoriteContainer}>
-        <div className={style.NavBarContainer}>
-          <NavBar />
-        </div>
-        <div className={style.favoriteWrapper}>
-          <span className={style.favoriteText}>Favorites</span>
-        </div>
-        <div className={style.favoriteProductWrapperContainer}>
-          {isLoading ? (
-            <>
-              <Spinners />
-            </>
-          ) : (
-            <>
-              {products.length > 0 ? (
+      {showLoginForm === false ? (
+        <>
+          <div className={style.loginComponentWrapper}>
+            <Sign_in_up updateChange={handleLoginStatusUpdate} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={style.favoriteContainer}>
+            <div className={style.NavBarContainer}>
+              <NavBar />
+            </div>
+            <div className={style.favoriteWrapper}>
+              <span className={style.favoriteText}>Favorites</span>
+            </div>
+            <div className={style.favoriteProductWrapperContainer}>
+              {isLoading ? (
                 <>
-                  {products.map((product) => (
-                    <div
-                      className={style.favoriteCartWrapper}
-                      key={product.favoriteItemId}
-                    >
-                      <div className={style.imageWrapper}>
-                        <img
-                          src={product.shoeDetails.images[0]}
-                          alt="shoe_image"
-                          className={style.productImage}
-                        />
-                      </div>
-                      <div className={style.productInfoWrapper}>
-                        <div className={style.nameAndPriceWrapper}>
-                          <span className={style.productName}>
-                            {product.shoeDetails.name}
-                          </span>
-                          <span className={style.productPrice}>
-                            {product.shoeDetails.price}
-                          </span>
-                        </div>
-                        <span className={style.productTypeShoes}>
-                          {product.shoeDetails.shoes_type}{" "}
-                          {product.shoeDetails.category} Shoes
-                        </span>
-                        <div className={style.ButtonWrapper}>
-                          <button
-                            className={style.addToCartButton}
-                            onClick={() =>
-                              handleFavoriteToCartMove(product.favoriteItemId)
-                            }
-                          >
-                            Add To Cart
-                          </button>
-                          <button
-                            className={style.removeFromFavoriteButton}
-                            onClick={() =>
-                              handleRemoveFromFavorite(product.favoriteItemId)
-                            }
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <Spinners />
                 </>
               ) : (
                 <>
-                  <div className={style.noCartBoardContainer}>
-                    <span className={style.noElementInCart}>
-                      No Favorite Shoes Added...
-                    </span>
-                  </div>
+                  {products.length > 0 ? (
+                    <>
+                      {products.map((product) => (
+                        <div
+                          className={style.favoriteCartWrapper}
+                          key={product.favoriteItemId}
+                        >
+                          <div className={style.imageWrapper}>
+                            <img
+                              src={product.shoeDetails.images[0]}
+                              alt="shoe_image"
+                              className={style.productImage}
+                            />
+                          </div>
+                          <div className={style.productInfoWrapper}>
+                            <div className={style.nameAndPriceWrapper}>
+                              <span className={style.productName}>
+                                {product.shoeDetails.name}
+                              </span>
+                              <span className={style.productPrice}>
+                                {product.shoeDetails.price}
+                              </span>
+                            </div>
+                            <span className={style.productTypeShoes}>
+                              {product.shoeDetails.shoes_type}{" "}
+                              {product.shoeDetails.category} Shoes
+                            </span>
+                            <div className={style.ButtonWrapper}>
+                              <button
+                                className={style.addToCartButton}
+                                onClick={() =>
+                                  handleFavoriteToCartMove(
+                                    product.favoriteItemId
+                                  )
+                                }
+                              >
+                                Add To Cart
+                              </button>
+                              <button
+                                className={style.removeFromFavoriteButton}
+                                onClick={() =>
+                                  handleRemoveFromFavorite(
+                                    product.favoriteItemId
+                                  )
+                                }
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <div className={style.noCartBoardContainer}>
+                        <span className={style.noElementInCart}>
+                          No Favorite Shoes Added...
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
-            </>
-          )}
 
-          <div className={style.contactSectionContainer}>
-            <ContactFooter />
+              <div className={style.contactSectionContainer}>
+                <ContactFooter />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

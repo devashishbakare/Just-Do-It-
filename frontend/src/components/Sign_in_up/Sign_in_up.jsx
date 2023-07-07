@@ -73,6 +73,7 @@ const Sign_in_up = ({ updateChange }) => {
 
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
+          console.log("here we updated a status after login");
           localStorage.setItem("userId", response.data._id);
           console.log(response.data);
           setResponseMessage("");

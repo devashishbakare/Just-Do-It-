@@ -4,7 +4,6 @@ import ShopPage from "./components/Shop/ShopPage";
 import FavoritePage from "./components/FavoritePage/FavoritePage";
 import Cart from "./components/Cart/Cart";
 import { Profile } from "./components/ProfilePage/Profile";
-import { Authenticate } from "./components/Authenticate";
 function App() {
   localStorage.setItem("isLoggedIn", "false");
   return (
@@ -13,10 +12,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/checkAuth/favorite" element={<FavoritePage />} />
-          <Route path="/checkAuth/cart" element={<Cart />} />
-          <Route path="/checkAuth/profile" element={<Profile />} />
-          <Route path="/checkAuth" element={<Authenticate />} />
+          <Route path="/favorite" element={<FavoritePage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>

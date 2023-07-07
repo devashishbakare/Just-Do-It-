@@ -137,19 +137,19 @@ const Navbar = () => {
           <div className={style.navBarIconContainer}>
             <div
               className={style.favoriteContainer}
-              onClick={() => navigate("/checkAuth", { state: "favorite" })}
+              onClick={() => navigate("/favorite")}
             >
               <BsHeart className={style.navBarIcons} />
             </div>
             <div
               className={style.cartConatainer}
-              onClick={() => navigate("/checkAuth", { state: "cart" })}
+              onClick={() => navigate("/cart")}
             >
               <BsMinecart className={style.navBarIcons} />
             </div>
             <div
               className={style.profileContainer}
-              onClick={() => navigate("/checkAuth", { state: "profile" })}
+              onClick={() => navigate("/profile")}
             >
               <BsPerson className={style.navBarIcons} />
             </div>
