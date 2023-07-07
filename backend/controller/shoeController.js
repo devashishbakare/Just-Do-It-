@@ -157,8 +157,7 @@ const fetchCartItems = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
   try {
-    const cartItemId = req.query.cartItemId;
-    const userId = req.query.userId;
+    const { userId, cartItemId } = req.body;
 
     const cartItem = await CartItem.findById(cartItemId);
     const user = await User.findById(userId);

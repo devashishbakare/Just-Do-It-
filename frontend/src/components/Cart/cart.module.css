@@ -45,8 +45,8 @@
   width: 70%;
   /* border: 5px solid orange; */
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 2%;
   overflow-y: scroll;
 }
@@ -67,7 +67,7 @@
 }
 
 .showProductCart {
-  height: 30%;
+  height: 38%;
   width: 80%;
   /* border: 2px solid green; */
   display: flex;
@@ -181,6 +181,7 @@
   align-items: center;
   /* border: 1px solid red; */
   flex-direction: row-reverse;
+  cursor: pointer;
 }
 .deleteCart {
   font-size: 1.5rem;
@@ -240,6 +241,7 @@
   height: 31%;
   width: 100%;
   /* border: 1px solid black; */
+  margin-top: 3%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -256,7 +258,7 @@
   padding-right: 8%;
 }
 .summeryButtonText {
-  height: 50%;
+  height: 70%;
   width: 100%;
   background-color: black;
   color: white;

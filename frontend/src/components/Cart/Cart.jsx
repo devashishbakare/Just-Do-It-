@@ -30,10 +30,9 @@ const Cart = () => {
       setIsLoading(true);
       try {
         const userId = localStorage.getItem("userId");
-        console.log("can't we come here?");
+
         const response = await axios.get(`${baseUrl}/shoe/cartItems/${userId}`);
         if (response.status === 200) {
-          console.log(response.data);
           setCartProducts(response.data);
         }
 
@@ -41,7 +40,7 @@ const Cart = () => {
         cartProducts.map((cartProduct) => {
           const quantity = cartProduct.cartItem.quantity;
           const price = cartProduct.cartItem.price;
-          console.log("her im computing");
+
           sum += quantity * price;
         });
         localStorage.setItem("cartSum", sum);
@@ -61,8 +60,6 @@ const Cart = () => {
   };
 
   const handleQuantitySelection = async (quantity, cartId, index) => {
-    console.log(quantity + " " + cartId + " " + index);
-
     let productOldQuantity = cartProducts[index].cartItem.quantity;
     let productPrice = cartProducts[index].cartItem.price;
     if (quantity > productOldQuantity) {
@@ -100,6 +97,38 @@ const Cart = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleCartProductDeletion = async (indexToRemove) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const cartItemId = cartProducts[indexToRemove].cartItem._id;
+
+      const config = {
+        userId,
+        cartItemId,
+      };
+      const response = await axios.delete(`${baseUrl}/shoe/deleteCartItem`, {
+        data: config,
+      });
+      if (response.status === 200) {
+        let productOldQuantity = cartProducts[indexToRemove].cartItem.quantity;
+        let productPrice = cartProducts[indexToRemove].cartItem.price;
+        let removeSum = productOldQuantity * productPrice;
+        let oldCartSum = parseInt(localStorage.getItem("cartSum"), 10);
+        let currCartSum = oldCartSum - removeSum;
+        localStorage.setItem("cartSum", currCartSum);
+        setCartSum(currCartSum);
+        const updatedCartProducts = cartProducts.filter(
+          (cartProduct, index) => {
+            return index != indexToRemove;
+          }
+        );
+        setCartProducts(updatedCartProducts);
+      }
+    } catch (error) {
+      console.log("error in deleting cart");
     }
   };
 
@@ -196,7 +225,12 @@ const Cart = () => {
                                   </select>
                                 </div>
 
-                                <span className={style.deleteIconWrapper}>
+                                <span
+                                  className={style.deleteIconWrapper}
+                                  onClick={() =>
+                                    handleCartProductDeletion(index)
+                                  }
+                                >
                                   <RiDeleteBin6Line
                                     className={style.deleteCart}
                                   />
