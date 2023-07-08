@@ -1,39 +1,32 @@
 const mongoose = require("mongoose");
+const Address = require("./address");
 
-const orderSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    require: true,
+const orderSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      require: true,
+    },
+    cartIds: {
+      type: Array,
+      default: [],
+      require: true,
+    },
+    address: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+    },
+    paymentMethod: {
+      type: String,
+      default: "COD",
+    },
+    totalAmount: {
+      type: Number,
+      required: true,
+    },
   },
-  shoeDetailsId: {
-    type: Array,
-    default: [],
-    require: true,
-  },
-
-  numberOfProduct: {
-    type: Number,
-    required: true,
-  },
-  shippingAddress: {
-    type: String,
-    required: true,
-  },
-  paymentMethod: {
-    type: String,
-    enum: ["credit card", "debit card", "UPI", "Cash_On_Delivery"],
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: ["Dispatched", "Delivered", "Cancelled", "Returned"],
-    required: true,
-  },
-  totalAmount: {
-    type: Number,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 const Order = mongoose.model("Order", orderSchema);
 

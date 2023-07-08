@@ -2,7 +2,8 @@ const ShoeDetails = require("../model/shoeDetails");
 const CartItem = require("../model/cartItem");
 const User = require("../model/user");
 const FavoriteItem = require("../model/favoriteItem");
-
+const Address = require("../model/address");
+const Order = require("../model/order");
 const addProduct = async (req, res) => {
   try {
     const {
@@ -428,6 +429,92 @@ const updateCartProductQuantity = async (req, res) => {
   }
 };
 
+const addAddress = async (req, res) => {
+  const { country, fullName, mobileNumber, pincode, addressLine, landmark } =
+    req.body;
+
+  try {
+    if (
+      !country ||
+      !fullName ||
+      !mobileNumber ||
+      !pincode ||
+      !addressLine ||
+      !landmark
+    ) {
+      return res.status(500).json("Address datails are not sufficient");
+    }
+
+    const saveAddress = new Address({
+      country,
+      fullName,
+      mobileNumber,
+      pincode,
+      addressLine,
+      landmark,
+    });
+    const address = await saveAddress.save();
+
+    if (!address) {
+      return res.status(500).json("Error while creating address");
+    }
+    return res.status(200).json(address._id);
+  } catch (error) {
+    console.log(error);
+    return res.status("something went wrong in adding address");
+  }
+};
+
+const placeOrder = async (req, res) => {
+  const { userId, cartItemIds, addressId, paymentMethod, totalAmount } =
+    req.body;
+
+  try {
+    if (
+      !cartItemIds ||
+      !userId ||
+      !addressId ||
+      !paymentMethod ||
+      !totalAmount
+    ) {
+      return res.status(500).json("In-sufficient Data while placing order");
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json("user not found");
+    }
+
+    let cartIds = [];
+    for (let index in cartItemIds) {
+      let cartIdDetails = cartItemIds[index];
+      cartIds.push(cartIdDetails.cartItem._id);
+    }
+
+    const saveOrder = new Order({
+      userId,
+      cartIds,
+      address: addressId,
+      paymentMethod,
+      totalAmount,
+    });
+
+    const order = await saveOrder.save();
+
+    const updatedUser = await user.updateOne(
+      {
+        $push: { orders: order._id },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({ order, updatedUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("something went wrong with placing order");
+  }
+};
+
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -442,4 +529,6 @@ module.exports = {
   searchProduct,
   moveToCartFromFavorite,
   updateCartProductQuantity,
+  addAddress,
+  placeOrder,
 };

@@ -7,7 +7,7 @@ import baseUrl from "../Constant";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 const Cart = () => {
   let storeCartSum = parseInt(localStorage.getItem("cartSum"), 10);
   const [cartSum, setCartSum] = useState(
@@ -34,18 +34,19 @@ const Cart = () => {
 
         const response = await axios.get(`${baseUrl}/shoe/cartItems/${userId}`);
         if (response.status === 200) {
+          let sum = 0;
+          for (let index in response.data) {
+            let cartProduct = response.data[index];
+            const quantity = cartProduct.cartItem.quantity;
+            const price = cartProduct.productDetails.price;
+            sum += quantity * price;
+            console.log("index " + index);
+          }
+
+          localStorage.setItem("cartSum", sum);
           setCartProducts(response.data);
+          setCartSum(sum);
         }
-
-        let sum = 0;
-        cartProducts.map((cartProduct) => {
-          const quantity = cartProduct.cartItem.quantity;
-          const price = cartProduct.cartItem.price;
-
-          sum += quantity * price;
-        });
-        localStorage.setItem("cartSum", sum);
-        setCartSum(sum);
       } catch (error) {
         console.log("Error in fetching cart product");
         console.log(error);
@@ -131,6 +132,11 @@ const Cart = () => {
     } catch (error) {
       console.log("error in deleting cart");
     }
+  };
+
+  const handleCheckout = () => {
+    localStorage.setItem("cartDetails", JSON.stringify(cartProducts));
+    navigate("/checkout");
   };
 
   return (
@@ -266,7 +272,7 @@ const Cart = () => {
                         <div className={style.summeryButton}>
                           <button
                             className={style.summeryButtonText}
-                            onClick={() => navigate("/checkout")}
+                            onClick={handleCheckout}
                           >
                             Checkout
                           </button>
