@@ -1,0 +1,338 @@
+.checkoutContainer {
+  height: 100vh;
+  width: 100vw;
+  /* border: 3px solid green; */
+  display: flex;
+  flex-direction: column;
+}
+.navBarContainer {
+  height: 7%;
+  width: 100%;
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkoutDetailsContainer {
+  height: 93%;
+  width: 100%;
+  /* border: 1px solid blue; */
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderSummeryText {
+  height: 7%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* margin-left: 2%; */
+  padding-left: 7%;
+  /* border: 1px solid red; */
+}
+.checkoutWidthCenterWrapper {
+  height: 93%;
+  width: 90%;
+  /* border: 2px solid red; */
+  display: flex;
+}
+.orderSummeryWrapper {
+  overflow-y: scroll;
+  height: 100%;
+  width: 70%;
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1%;
+}
+/*  */
+.orderSummeryPriceWrapper {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid blue; */
+}
+
+/* ******************** order summery box *********************** */
+.cartSummaryTextWrapper {
+  height: 45%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 3px solid green; */
+}
+
+.summeryHeadingText {
+  height: 20%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-left: 5%;
+}
+.subTotalWrapper {
+  height: 15%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5%;
+  align-items: center;
+}
+.deliveryChargesWrapper {
+  height: 15%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5%;
+  align-items: center;
+}
+.cartTotalAmountWrapper {
+  height: 18%;
+  width: 100%;
+  border: 1px solid black;
+  display: flex;
+  border-left: none;
+  border-right: none;
+  justify-content: space-between;
+  padding-left: 5%;
+  align-items: center;
+}
+.summeryButton {
+  height: 31%;
+  width: 100%;
+  /* border: 1px solid black; */
+  margin-top: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leftWrap {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+.rightWrap {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.8;
+  padding-right: 8%;
+}
+.summeryButtonText {
+  height: 60%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 35px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* *************** Page Details, dropdown Menu***************** */
+
+.sliderBarContainer {
+  height: 12%;
+  width: 90%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.leftText {
+  height: 100%;
+  width: 85%;
+  /* border: 1px solid green; */
+  display: flex;
+  align-items: center;
+  margin-left: 5%;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.rightText {
+  height: 100%;
+  width: 15%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.arrowCss {
+  font-size: 2rem;
+}
+
+.addressDetailsContainer {
+  height: 70%;
+  width: 90%;
+  overflow-y: scroll;
+  border: 1px solid green;
+}
+
+.formInputAndTextWrapper {
+  height: 15%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  gap: 1%;
+}
+.leftSideText {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  margin-left: 2%;
+  /* border: 1px solid green; */
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.rightSideText {
+  height: 70%;
+  width: 65%;
+  display: flex;
+  align-items: center;
+  padding-left: 3%;
+  font-size: 1.1rem;
+  /* border: 1px solid red; */
+  outline: none;
+}
+
+.paymentMethodContainer {
+  height: 70px;
+  width: 90%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+
+.paymentMethodBox,
+.paymentAviailableBox {
+  margin-left: 3%;
+  position: relative;
+  width: 10%;
+  height: 70%;
+  border: 1px solid black;
+  overflow: hidden;
+}
+.paymentAviailableBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: black;
+}
+
+.paymentMethodBox:before {
+  content: "";
+  position: absolute;
+  top: 42%;
+  left: 0;
+  /* right: 40%; */
+  width: 100%;
+  height: 0%;
+  border: 0.2px solid black;
+
+  transform: rotate(-150deg);
+  box-sizing: border-box;
+}
+
+.paymentMethodText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+@media (max-width: 576px) {
+  .checkoutWidthCenterWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+  .orderSummeryWrapper {
+    height: 70%;
+    width: 100%;
+  }
+  .orderSummeryPriceWrapper {
+    height: 30%;
+    width: 100%;
+  }
+  .cartSummaryTextWrapper {
+    height: 100%;
+    width: 100%;
+  }
+  .sliderBarContainer {
+    width: 95%;
+  }
+  .addressDetailsContainer {
+    width: 95%;
+  }
+  .formInputAndTextWrapper {
+    height: 30%;
+    flex-direction: column;
+    align-items: normal;
+  }
+  .leftSideText {
+    width: 100%;
+  }
+  .rightSideText {
+    width: 90%;
+    margin-left: 2%;
+  }
+  .paymentMethodContainer {
+    width: 95%;
+  }
+  .paymentMethodBox:before {
+    transform: rotate(-140deg);
+  }
+  .orderSummeryText {
+    width: 95%;
+    padding-left: 0%;
+  }
+}
+@media (min-width: 577px) and (max-width: 991px) {
+  .checkoutWidthCenterWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+  .orderSummeryWrapper {
+    height: 70%;
+    width: 100%;
+  }
+  .orderSummeryPriceWrapper {
+    height: 30%;
+    width: 100%;
+  }
+  .cartSummaryTextWrapper {
+    height: 100%;
+    width: 90%;
+  }
+  .formInputAndTextWrapper {
+    height: 30%;
+    flex-direction: column;
+    align-items: normal;
+  }
+  .leftSideText {
+    width: 100%;
+  }
+  .rightSideText {
+    width: 70%;
+    margin-left: 2%;
+  }
+  .orderSummeryText {
+    padding-left: 1%;
+  }
+}

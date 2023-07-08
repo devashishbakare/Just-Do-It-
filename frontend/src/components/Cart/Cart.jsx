@@ -7,13 +7,14 @@ import baseUrl from "../Constant";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   let storeCartSum = parseInt(localStorage.getItem("cartSum"), 10);
   const [cartSum, setCartSum] = useState(
     storeCartSum === null ? 0 : storeCartSum
   );
 
+  const navigate = useNavigate();
   //fatching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
   console.log("logIn Status  " + LoginStatus);
@@ -263,7 +264,10 @@ const Cart = () => {
                           </span>
                         </div>
                         <div className={style.summeryButton}>
-                          <button className={style.summeryButtonText}>
+                          <button
+                            className={style.summeryButtonText}
+                            onClick={() => navigate("/checkout")}
+                          >
                             Checkout
                           </button>
                         </div>

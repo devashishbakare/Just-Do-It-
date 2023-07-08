@@ -265,6 +265,7 @@
   border-radius: 35px;
   font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
