@@ -5,6 +5,7 @@ import FavoritePage from "./components/FavoritePage/FavoritePage";
 import Cart from "./components/Cart/Cart";
 import { Profile } from "./components/ProfilePage/Profile";
 import { Checkout } from "./components/CheckoutCart/Checkout";
+import { OrderDetails } from "./components/OrderDetails/OrderDetails";
 function App() {
   localStorage.setItem("isLoggedIn", "false");
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orderDetails" element={<OrderDetails />} />
         </Routes>
       </BrowserRouter>
     </>

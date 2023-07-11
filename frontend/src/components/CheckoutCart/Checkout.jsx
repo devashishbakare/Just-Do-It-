@@ -65,7 +65,7 @@ export const Checkout = React.memo(() => {
             addressLine: "",
             landmark: "",
           });
-
+          //todo : navigate to order details page
           console.log("all good");
         }
       }
