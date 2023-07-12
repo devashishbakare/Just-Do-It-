@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./orderDetails.module.css";
 import Navbar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import baseUrl from "../Constant";
 export const OrderDetails = () => {
+  const location = useLocation();
+  const orderId = location.state;
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchOrderDetails = async () => {
+      //here we need to make call to remove the cartItem from the user document cart array[]
+      //we need to fetch the data from the this orderId;
+      setIsLoading(true);
+      try {
+        const userId = localStorage.getItem("userId");
+        const removeCartItem = await axios.delete();
+        if (removeCartItem.status === 200) {
+        } else {
+          //todo : send to notification that something went wrong for deleting cart item from user
+        }
+      } catch (error) {
+        console.log("Error in fetching data from orderId");
+        console.log(error);
+      }
+      setIsLoading(false);
+    };
+
+    fetchOrderDetails();
+  }, []);
   return (
     <>
       <div className={style.orderDetailsContainer}>
@@ -41,66 +68,7 @@ export const OrderDetails = () => {
                 </div>
               </div>
             </div>
-            {/* **************************** */}
-            <div className={style.showProductCart}>
-              <div className={style.cartProductImageWrapper}>
-                <img
-                  src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/8b8054bd-e5e4-4c0d-9c6b-79c57367b041/nike-just-do-it.jpg"
-                  alt="shoe_image"
-                  className={style.cartProductImag}
-                />
-              </div>
-              <div className={style.cartProductDetailsWrapper}>
-                <div className={style.headingAndPriceWrapper}>
-                  <div className={style.cartProductName}>Nike jorden 1X3K</div>
-                  <div className={style.cartProductPrice}>10054 Rs</div>
-                </div>
-                <span className={style.productTypeShoesNaming}>
-                  mens Road Running Shoes
-                </span>
-                <div className={style.productSizeAndColorWrapper}>
-                  <span className={style.sizeText}>Size : 8 Uk</span>
-                  <span className={style.colorText}>Color : &nbsp; Orange</span>
-                </div>
 
-                <div className={style.quantityWrapper}>
-                  <div className={style.increaseIcon}>
-                    <span className={style.quantityText}>Quantity</span>
-                    <span className={style.quantityText}>2</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* **************************** */}
-            <div className={style.showProductCart}>
-              <div className={style.cartProductImageWrapper}>
-                <img
-                  src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_500,c_limit/8b8054bd-e5e4-4c0d-9c6b-79c57367b041/nike-just-do-it.jpg"
-                  alt="shoe_image"
-                  className={style.cartProductImag}
-                />
-              </div>
-              <div className={style.cartProductDetailsWrapper}>
-                <div className={style.headingAndPriceWrapper}>
-                  <div className={style.cartProductName}>Nike jorden 1X3K</div>
-                  <div className={style.cartProductPrice}>10054 Rs</div>
-                </div>
-                <span className={style.productTypeShoesNaming}>
-                  mens Road Running Shoes
-                </span>
-                <div className={style.productSizeAndColorWrapper}>
-                  <span className={style.sizeText}>Size : 8 Uk</span>
-                  <span className={style.colorText}>Color : &nbsp; Orange</span>
-                </div>
-
-                <div className={style.quantityWrapper}>
-                  <div className={style.increaseIcon}>
-                    <span className={style.quantityText}>Quantity</span>
-                    <span className={style.quantityText}>2</span>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className={style.productOrderAddressWrapper}>
               <span className={style.productOrderAddressHeadingText}>
                 Delivery Address

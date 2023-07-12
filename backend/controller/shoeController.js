@@ -508,13 +508,70 @@ const placeOrder = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json({ order, updatedUser });
+    return res.status(200).json(order._id);
   } catch (error) {
     console.log(error);
     return res.status(500).json("something went wrong with placing order");
   }
 };
+const deleteAllCartItem = async (req, res) => {
+  try {
+    const { userId } = req.body;
 
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json("user not found");
+    }
+
+    user.cart = [];
+
+    await user.save();
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error, "error in deleting cartItme from user cart Array");
+    return res.status(500).json("error in deleteing cart Item from user model");
+  }
+};
+
+const fetchOrderDetails = async (req, res) => {
+  try {
+    const { orderId, userId } = req.body;
+
+    const order = await Order.findById(orderId);
+    const user = await User.findById(userId);
+
+    if (!order || !user) {
+      return res.status(404).json("user of order not found");
+    }
+
+    const cartItemCollections = order.cartIds;
+    const orderDetails = {
+      address: order.address,
+      totalAmount: order.totalAmount,
+    };
+    cartItemDetails = [];
+
+    const cartItemInfo = await Promise.all(
+      cartItemCollections.map(async (eachCartItem) => {
+        const cartItem = await CartItem.findById(eachCartItem);
+        const productInfo = await ShoeDetails.findById(cartItem.productItemId);
+        const cartItemInfoCollections = {
+          color: cartItem.color,
+          size: cartItem.size,
+          price: cartItem.price,
+          quantity: cartItem.quantity,
+          productInfo,
+        };
+        cartItemDetails.push(cartItemInfoCollections);
+      })
+    );
+    return res.status(200).json({ orderDetails, cartItemDetails });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("not able to fetch order details");
+  }
+};
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -531,4 +588,6 @@ module.exports = {
   updateCartProductQuantity,
   addAddress,
   placeOrder,
+  deleteAllCartItem,
+  fetchOrderDetails,
 };

@@ -5,10 +5,12 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import axios from "axios";
 import baseUrl from "../Constant";
 import Spinners from "../Spinners";
+import { useNavigate } from "react-router-dom";
 export const Checkout = React.memo(() => {
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
+  const navigate = useNavigate();
   const [address, setAddress] = useState({
     country: "",
     fullName: "",
@@ -65,8 +67,10 @@ export const Checkout = React.memo(() => {
             addressLine: "",
             landmark: "",
           });
+
           //todo : navigate to order details page
           console.log("all good");
+          navigate("/orderDetails", { state: response.data });
         }
       }
     } catch (error) {

@@ -17,4 +17,6 @@ router.patch("/moveToCart", shoeController.moveToCartFromFavorite);
 router.post("/updateQuantity", shoeController.updateCartProductQuantity);
 router.post("/addAddress", shoeController.addAddress);
 router.post("/placeOrder", shoeController.placeOrder);
+router.delete("/deleteAllCartItems", shoeController.deleteAllCartItem);
+router.get("/orderDetails", shoeController.fetchOrderDetails);
 module.exports = router;
