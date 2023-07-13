@@ -19,4 +19,5 @@ router.post("/addAddress", shoeController.addAddress);
 router.post("/placeOrder", shoeController.placeOrder);
 router.delete("/deleteAllCartItems", shoeController.deleteAllCartItem);
 router.get("/orderDetails", shoeController.fetchOrderDetails);
+router.delete("/deleteOrder", shoeController.deleteOrder);
 module.exports = router;

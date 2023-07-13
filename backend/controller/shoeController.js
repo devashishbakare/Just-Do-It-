@@ -517,6 +517,7 @@ const placeOrder = async (req, res) => {
 const deleteAllCartItem = async (req, res) => {
   try {
     const { userId } = req.body;
+    console.log("users " + req.body.userId);
 
     const user = await User.findById(userId);
     if (!user) {
@@ -536,18 +537,19 @@ const deleteAllCartItem = async (req, res) => {
 
 const fetchOrderDetails = async (req, res) => {
   try {
-    const { orderId, userId } = req.body;
-
+    const userId = req.query.userId;
+    const orderId = req.query.orderId;
+    console.log("userId " + userId + " orderId " + orderId);
     const order = await Order.findById(orderId);
     const user = await User.findById(userId);
 
     if (!order || !user) {
       return res.status(404).json("user of order not found");
     }
-
+    const address = await Address.findById(order.address);
     const cartItemCollections = order.cartIds;
     const orderDetails = {
-      address: order.address,
+      address,
       totalAmount: order.totalAmount,
     };
     cartItemDetails = [];
@@ -566,12 +568,44 @@ const fetchOrderDetails = async (req, res) => {
         cartItemDetails.push(cartItemInfoCollections);
       })
     );
-    return res.status(200).json({ orderDetails, cartItemDetails });
+    const response = {
+      orderDetails,
+      cartItemDetails,
+    };
+    return res.status(200).json(response);
   } catch (error) {
     console.log(error);
     return res.status(500).json("not able to fetch order details");
   }
 };
+
+const deleteOrder = async (req, res) => {
+  try {
+    let orderId = req.body.orderId;
+    console.log(orderId + "orderId");
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json("order not found");
+    }
+
+    const deleteAddress = await Address.findByIdAndDelete(order.address);
+
+    const user = await User.findById(order.userId);
+
+    const updatedStatus = await user.updateOne({
+      $pull: { orders: order._id },
+    });
+
+    const updatedOrder = await Order.findByIdAndDelete(orderId);
+
+    return res.status(200).json({ updatedStatus, user });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("something went wrong while deleting user");
+  }
+};
+
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -590,4 +624,5 @@ module.exports = {
   placeOrder,
   deleteAllCartItem,
   fetchOrderDetails,
+  deleteOrder,
 };
