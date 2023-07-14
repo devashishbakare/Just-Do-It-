@@ -16,6 +16,7 @@
   border: 1px solid red;
   background-color: red;
   color: white;
+  cursor: pointer;
 }
 .loginComponentWrapper {
   height: 100vh;

@@ -48,6 +48,15 @@ const registerUser = async (req, res) => {
     });
 
     const user = await userDetails.save();
+
+    if (req.session.hasOwnProperty("isLoggedIn")) {
+      req.session.isLoggedIn = true;
+      await req.session.save();
+    } else {
+      req.session.isLoggedIn = true;
+      await req.session.save();
+    }
+
     return res.status(200).json(user);
   } catch (error) {
     console.log("error" + error);
@@ -74,6 +83,14 @@ const loginUser = async (req, res) => {
       return res.status(404).json("password not correct");
     }
 
+    if (req.session.hasOwnProperty("isLoggedIn")) {
+      req.session.isLoggedIn = true;
+      await req.session.save();
+    } else {
+      req.session.isLoggedIn = true;
+      await req.session.save();
+    }
+
     return res.status(200).json(user);
   } catch (error) {
     console.log("error", error);
@@ -81,7 +98,31 @@ const loginUser = async (req, res) => {
   }
 };
 
+const checkLoginStatus = (req, res) => {
+  if (req.session.hasOwnProperty("isLoggedIn")) {
+    if (req.session.userLoggedIn === true) {
+      return res.status(200).json(true);
+    }
+  }
+  return res.status(200).json(false);
+};
+
+const logout = async (req, res) => {
+  try {
+    if (req.session.hasOwnProperty("isLoggedIn")) {
+      req.session.isLoggedIn = false;
+      await req.session.save();
+    }
+    return res.status(200).json("User logged out successfully");
+  } catch (error) {
+    console.log(error, " error");
+    return res.status(500).json("something went wrong while logging out");
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  checkLoginStatus,
+  logout,
 };

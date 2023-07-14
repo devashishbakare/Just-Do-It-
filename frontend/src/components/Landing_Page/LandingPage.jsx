@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./landingPage.module.css";
 import Navbar from "../Navbar/Navbar";
 import FeaturePage from "../Feature_Page/FeaturePage";
+
 const LandingPage = () => {
   return (
     <>
