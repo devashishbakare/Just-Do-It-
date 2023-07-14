@@ -7,7 +7,7 @@ import baseUrl from "../Constant";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 import axios from "axios";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   let storeCartSum = parseInt(localStorage.getItem("cartSum"), 10);
   const [cartSum, setCartSum] = useState(
@@ -17,19 +17,18 @@ const Cart = () => {
   const navigate = useNavigate();
   //fatching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status  " + LoginStatus);
+  console.log("logIn Status in cart " + LoginStatus);
   const [showLoginForm, setShowLoginForm] = useState(
     LoginStatus === "false" ? false : true
   );
 
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
     const fetchCartProducts = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const userId = localStorage.getItem("userId");
 
         const response = await axios.get(`${baseUrl}/shoe/cartItems/${userId}`);
@@ -50,10 +49,12 @@ const Cart = () => {
       } catch (error) {
         console.log("Error in fetching cart product");
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetchCartProducts();
+    console.log("rending count");
   }, [showLoginForm]);
 
   //updating when user gets sign-in/up
@@ -161,125 +162,151 @@ const Cart = () => {
                 </div>
                 <div className={style.cartHeadingText}>Cart</div>
                 <div className={style.cartProductContainer}>
-                  <div className={style.productItemSummeryWrapper}>
-                    <div className={style.productItemWrapper}>
-                      {cartProducts.map((cartProduct, index) => (
-                        <>
-                          <div
-                            className={style.showProductCart}
-                            key={index + "-" + cartProduct.cartItem._id}
-                          >
-                            <div className={style.cartProductImageWrapper}>
-                              <img
-                                src={cartProduct.productDetails.images[0]}
-                                alt="shoe_image"
-                                className={style.cartProductImag}
-                              />
-                            </div>
-                            <div className={style.cartProductDetailsWrapper}>
-                              <div className={style.headingAndPriceWrapper}>
-                                <div className={style.cartProductName}>
-                                  {cartProduct.productDetails.name}
-                                </div>
-                                <div className={style.cartProductPrice}>
-                                  {cartProduct.productDetails.price} Rs
-                                </div>
-                              </div>
-                              <span className={style.productTypeShoesNaming}>
-                                {cartProduct.productDetails.shoes_type} Road{" "}
-                                {cartProduct.productDetails.category} Shoes
-                              </span>
-                              <div className={style.productSizeAndColorWrapper}>
-                                <span className={style.sizeText}>
-                                  Size : {cartProduct.cartItem.size} Uk
-                                </span>
-                                <span className={style.colorText}>
-                                  Color : &nbsp;
-                                  {
-                                    cartProduct.productDetails.availableColors[
-                                      cartProduct.cartItem.color
-                                    ]
-                                  }
-                                </span>
-                              </div>
-
-                              <div className={style.quantityWrapper}>
-                                <div className={style.increaseIcon}>
-                                  <span className={style.quantityText}>
-                                    Quantity
-                                  </span>
-                                  <select
-                                    onChange={(event) =>
-                                      handleQuantitySelection(
-                                        event.target.value,
-                                        cartProduct.cartItem._id,
-                                        index
-                                      )
-                                    }
-                                    className={style.quantitySelectionWrapper}
-                                    defaultValue={cartProduct.cartItem.quantity}
-                                    value={cartProduct.cartItem.quantity}
-                                  >
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                  </select>
-                                </div>
-
-                                <span
-                                  className={style.deleteIconWrapper}
-                                  onClick={() =>
-                                    handleCartProductDeletion(index)
-                                  }
-                                >
-                                  <RiDeleteBin6Line
-                                    className={style.deleteCart}
+                  {cartProducts.length > 0 ? (
+                    <>
+                      <div className={style.productItemSummeryWrapper}>
+                        <div className={style.productItemWrapper}>
+                          {cartProducts.map((cartProduct, index) => (
+                            <>
+                              <div
+                                className={style.showProductCart}
+                                key={index + "-" + cartProduct.cartItem._id}
+                              >
+                                <div className={style.cartProductImageWrapper}>
+                                  <img
+                                    src={cartProduct.productDetails.images[0]}
+                                    alt="shoe_image"
+                                    className={style.cartProductImag}
                                   />
-                                </span>
+                                </div>
+                                <div
+                                  className={style.cartProductDetailsWrapper}
+                                >
+                                  <div className={style.headingAndPriceWrapper}>
+                                    <div className={style.cartProductName}>
+                                      {cartProduct.productDetails.name}
+                                    </div>
+                                    <div className={style.cartProductPrice}>
+                                      {cartProduct.productDetails.price} Rs
+                                    </div>
+                                  </div>
+                                  <span
+                                    className={style.productTypeShoesNaming}
+                                  >
+                                    {cartProduct.productDetails.shoes_type} Road{" "}
+                                    {cartProduct.productDetails.category} Shoes
+                                  </span>
+                                  <div
+                                    className={style.productSizeAndColorWrapper}
+                                  >
+                                    <span className={style.sizeText}>
+                                      Size : {cartProduct.cartItem.size} Uk
+                                    </span>
+                                    <span className={style.colorText}>
+                                      Color : &nbsp;
+                                      {
+                                        cartProduct.productDetails
+                                          .availableColors[
+                                          cartProduct.cartItem.color
+                                        ]
+                                      }
+                                    </span>
+                                  </div>
+
+                                  <div className={style.quantityWrapper}>
+                                    <div className={style.increaseIcon}>
+                                      <span className={style.quantityText}>
+                                        Quantity
+                                      </span>
+                                      <select
+                                        onChange={(event) =>
+                                          handleQuantitySelection(
+                                            event.target.value,
+                                            cartProduct.cartItem._id,
+                                            index
+                                          )
+                                        }
+                                        className={
+                                          style.quantitySelectionWrapper
+                                        }
+                                        defaultValue={
+                                          cartProduct.cartItem.quantity
+                                        }
+                                        value={cartProduct.cartItem.quantity}
+                                      >
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                      </select>
+                                    </div>
+
+                                    <span
+                                      className={style.deleteIconWrapper}
+                                      onClick={() =>
+                                        handleCartProductDeletion(index)
+                                      }
+                                    >
+                                      <RiDeleteBin6Line
+                                        className={style.deleteCart}
+                                      />
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
+                            </>
+                          ))}
+                        </div>
+
+                        <div className={style.summeryWrapper}>
+                          <div className={style.cartSummaryTextWrapper}>
+                            <div className={style.summeryHeadingText}>
+                              Summary
+                            </div>
+                            <div className={style.subTotalWrapper}>
+                              <span className={style.leftWrap}>Subtotal </span>
+                              <span className={style.rightWrap}>
+                                Rs : {cartSum}
+                              </span>
+                            </div>
+                            <div className={style.deliveryChargesWrapper}>
+                              <span className={style.leftWrap}>
+                                Estimated Delivery charge
+                              </span>
+                              <span className={style.rightWrap}>Free</span>
+                            </div>
+                            <div className={style.cartTotalAmountWrapper}>
+                              <span className={style.leftWrap}>Total </span>
+                              <span className={style.rightWrap}>
+                                Rs : {cartSum}
+                              </span>
+                            </div>
+                            <div className={style.summeryButton}>
+                              <button
+                                className={style.summeryButtonText}
+                                onClick={handleCheckout}
+                              >
+                                Checkout
+                              </button>
                             </div>
                           </div>
-                        </>
-                      ))}
-                    </div>
-                    <div className={style.summeryWrapper}>
-                      <div className={style.cartSummaryTextWrapper}>
-                        <div className={style.summeryHeadingText}>Summary</div>
-                        <div className={style.subTotalWrapper}>
-                          <span className={style.leftWrap}>Subtotal </span>
-                          <span className={style.rightWrap}>
-                            Rs : {cartSum}
-                          </span>
-                        </div>
-                        <div className={style.deliveryChargesWrapper}>
-                          <span className={style.leftWrap}>
-                            Estimated Delivery charge
-                          </span>
-                          <span className={style.rightWrap}>Free</span>
-                        </div>
-                        <div className={style.cartTotalAmountWrapper}>
-                          <span className={style.leftWrap}>Total </span>
-                          <span className={style.rightWrap}>
-                            Rs : {cartSum}
-                          </span>
-                        </div>
-                        <div className={style.summeryButton}>
-                          <button
-                            className={style.summeryButtonText}
-                            onClick={handleCheckout}
-                          >
-                            Checkout
-                          </button>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={style.noCartBoardContainer}>
+                        <span className={style.noElementInCart}>
+                          No Cart Item Added ...
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className={style.contactSectionContainer}>
                   <ContactFooter />

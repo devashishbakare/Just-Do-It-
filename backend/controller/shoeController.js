@@ -130,7 +130,11 @@ const fetchCartItems = async (req, res) => {
       return res.status(404).json("user not found");
     }
 
-    const cartItems = await CartItem.find({ userId });
+    const cartItems = await Promise.all(
+      user.cart.map(async (cartId) => {
+        return await CartItem.findById(cartId);
+      })
+    );
 
     const cart = [];
 
@@ -524,11 +528,11 @@ const deleteAllCartItem = async (req, res) => {
       return res.status(404).json("user not found");
     }
 
-    user.cart = [];
+    const status = await user.updateOne({ $set: { cart: [] } });
 
     await user.save();
 
-    return res.status(200).json(user);
+    return res.status(200).json(status);
   } catch (error) {
     console.log(error, "error in deleting cartItme from user cart Array");
     return res.status(500).json("error in deleteing cart Item from user model");

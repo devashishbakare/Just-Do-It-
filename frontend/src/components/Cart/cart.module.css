@@ -47,6 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 2%;
   overflow-y: scroll;
 }
@@ -267,7 +268,12 @@
   font-weight: 600;
   cursor: pointer;
 }
-
+.noElementInCart {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
 @media (max-width: 576px) {
   .cartProductContainer {
     flex: none;

@@ -161,6 +161,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-//onClick={() => navigate("/profile", { state: userId })}
-//const location = useLocation();
-//const userId = location.state;

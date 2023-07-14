@@ -36,8 +36,8 @@ export const Checkout = React.memo(() => {
   };
 
   const handlePlaceOrder = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       let addAddress = await axios.post(`${baseUrl}/shoe/addAddress`, address);
       let addressId;
       if (addAddress.status === 200) {
@@ -76,8 +76,9 @@ export const Checkout = React.memo(() => {
     } catch (error) {
       console.log(error);
       console.log("Error in placing order");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
