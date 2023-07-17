@@ -44,17 +44,27 @@ export const Checkout = React.memo(() => {
         addressId = addAddress.data;
       }
       if (addressId) {
-        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
         const cartItemIds = JSON.parse(localStorage.getItem("cartDetails"));
 
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        };
+
         const data = {
-          userId,
           cartItemIds,
           addressId,
           paymentMethod: "COD",
           totalAmount,
         };
-        const response = await axios.post(`${baseUrl}/shoe/placeOrder`, data);
+        const response = await axios.post(
+          `${baseUrl}/shoe/placeOrder`,
+          data,
+          config
+        );
         if (response.status === 200) {
           //todo : navigate to the page of viewOrder details, where user can delete the order
           //todo : on right side of page you have to add the cancle order

@@ -24,7 +24,7 @@ export const Profile = () => {
       const response = await axios.get(`${baseUrl}/user/logout`);
       if (response.status === 200) {
         localStorage.removeItem("cartSum");
-        localStorage.removeItem("userId");
+        localStorage.removeItem("token");
         localStorage.setItem("isLoggedIn", "false");
         console.log(response.data);
       }

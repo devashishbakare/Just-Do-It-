@@ -69,8 +69,9 @@ const fetchAllProduct = async (req, res) => {
 
 const addToCart = async (req, res) => {
   try {
-    const { userId, productItemId, size, color, quantity, productPrice } =
-      req.body;
+    const { productItemId, size, color, quantity, productPrice } = req.body;
+
+    const userId = req.userId;
 
     if (
       !productItemId ||
@@ -121,7 +122,7 @@ const addToCart = async (req, res) => {
 
 const fetchCartItems = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.userId;
 
     console.log("cart userId", userId);
 
@@ -162,7 +163,8 @@ const fetchCartItems = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
   try {
-    const { userId, cartItemId } = req.body;
+    const userId = req.userId;
+    const { cartItemId } = req.body;
 
     const cartItem = await CartItem.findById(cartItemId);
     const user = await User.findById(userId);
@@ -191,9 +193,9 @@ const deleteCartItem = async (req, res) => {
 
 const addToFavorite = async (req, res) => {
   try {
-    const { userId, productItemId, size, color, quantity, productPrice } =
-      req.body;
+    const { productItemId, size, color, quantity, productPrice } = req.body;
 
+    const userId = req.userId;
     if (
       !productItemId ||
       size === undefined ||
@@ -245,7 +247,8 @@ const addToFavorite = async (req, res) => {
 const deleleFromFavorite = async (req, res) => {
   try {
     console.log(req.body);
-    const { userId, favoriteItemId } = req.body;
+    const userId = req.userId;
+    const { favoriteItemId } = req.body;
 
     if (!userId || !favoriteItemId) {
       return res.status(500).json("insuffucient data to proceed");
@@ -278,7 +281,7 @@ const deleleFromFavorite = async (req, res) => {
 
 const fetchFavorite = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.userId;
     console.log("userId", userId);
     const user = await User.findById(userId);
 
@@ -363,7 +366,8 @@ const searchProduct = async (req, res) => {
 };
 
 const moveToCartFromFavorite = async (req, res) => {
-  const { userId, favoriteItemId, productItemId } = req.body;
+  const userId = req.userId;
+  const { favoriteItemId, productItemId } = req.body;
 
   console.log("suu " + req.body);
   const user = await User.findById(userId);
@@ -403,8 +407,9 @@ const moveToCartFromFavorite = async (req, res) => {
 };
 
 const updateCartProductQuantity = async (req, res) => {
-  const { userId, cartItemId, quantity } = req.body;
+  const { cartItemId, quantity } = req.body;
 
+  const userId = req.userId;
   try {
     const cartItem = await CartItem.findOneAndUpdate(
       { _id: cartItemId },
@@ -470,8 +475,9 @@ const addAddress = async (req, res) => {
 };
 
 const placeOrder = async (req, res) => {
-  const { userId, cartItemIds, addressId, paymentMethod, totalAmount } =
-    req.body;
+  const userId = req.userId;
+  console.log("userId in placeOrder " + userId);
+  const { cartItemIds, addressId, paymentMethod, totalAmount } = req.body;
 
   try {
     if (
@@ -520,8 +526,7 @@ const placeOrder = async (req, res) => {
 };
 const deleteAllCartItem = async (req, res) => {
   try {
-    const { userId } = req.body;
-    console.log("users " + req.body.userId);
+    const userId = req.userId;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -541,9 +546,10 @@ const deleteAllCartItem = async (req, res) => {
 
 const fetchOrderDetails = async (req, res) => {
   try {
-    const userId = req.query.userId;
-    const orderId = req.query.orderId;
-    console.log("userId " + userId + " orderId " + orderId);
+    const userId = req.userId;
+
+    const orderId = req.params.id;
+    console.log("userId in details " + userId + " orderId " + orderId);
     const order = await Order.findById(orderId);
     const user = await User.findById(userId);
 
@@ -585,7 +591,8 @@ const fetchOrderDetails = async (req, res) => {
 
 const deleteOrder = async (req, res) => {
   try {
-    let orderId = req.body.orderId;
+    const { orderId } = req.body;
+    const userId = req.userId;
     console.log(orderId + "orderId");
     const order = await Order.findById(orderId);
 
@@ -595,7 +602,7 @@ const deleteOrder = async (req, res) => {
 
     const deleteAddress = await Address.findByIdAndDelete(order.address);
 
-    const user = await User.findById(order.userId);
+    const user = await User.findById(userId);
 
     const updatedStatus = await user.updateOne({
       $pull: { orders: order._id },

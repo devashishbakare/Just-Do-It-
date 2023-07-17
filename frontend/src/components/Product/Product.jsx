@@ -70,7 +70,7 @@ const Product = React.memo(({ props }) => {
         );
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userId", response.data._id);
+          localStorage.setItem("token", response.data);
           console.log("succesfull");
           setResponseMessage("");
 
@@ -95,7 +95,7 @@ const Product = React.memo(({ props }) => {
 
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userId", response.data._id);
+          localStorage.setItem("token", response.data);
           console.log(response.data);
           setResponseMessage("");
 
@@ -140,10 +140,9 @@ const Product = React.memo(({ props }) => {
     } else {
       setShowLoginForm(false);
       console.log("Add to cart");
-      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
 
-      const config = {
-        userId: userId,
+      const info = {
         productItemId: props._id,
         size: selecttedSize,
         color: selectedColor,
@@ -151,8 +150,19 @@ const Product = React.memo(({ props }) => {
         productPrice: props.price,
       };
 
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+
       try {
-        const response = await axios.post(`${baseUrl}/shoe/addToCart`, config);
+        const response = await axios.post(
+          `${baseUrl}/shoe/addToCart`,
+          info,
+          config
+        );
 
         if (response.status === 200) {
           console.log(response.data);
@@ -186,10 +196,15 @@ const Product = React.memo(({ props }) => {
       console.log("Add to Fav");
       setShowLoginForm(false);
       try {
-        const userId = localStorage.getItem("userId");
-
+        const token = localStorage.getItem("token");
         const config = {
-          userId: userId,
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        };
+
+        const info = {
           productItemId: props._id,
           size: selecttedSize,
           color: selectedColor,
@@ -199,6 +214,7 @@ const Product = React.memo(({ props }) => {
 
         const response = await axios.post(
           `${baseUrl}/shoe/addFavorite`,
+          info,
           config
         );
 

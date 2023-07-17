@@ -29,9 +29,15 @@ const Cart = () => {
     const fetchCartProducts = async () => {
       try {
         setIsLoading(true);
-        const userId = localStorage.getItem("userId");
-
-        const response = await axios.get(`${baseUrl}/shoe/cartItems/${userId}`);
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        };
+        console.log("can I come here 2");
+        const response = await axios.get(`${baseUrl}/shoe/cartItems`, config);
         if (response.status === 200) {
           let sum = 0;
           for (let index in response.data) {
@@ -81,15 +87,26 @@ const Cart = () => {
       setCartSum(updatedSum);
     }
 
-    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     try {
       const data = {
-        userId,
+        token,
         cartItemId: cartId,
         quantity,
       };
 
-      const response = await axios.post(`${baseUrl}/shoe/updateQuantity`, data);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.post(
+        `${baseUrl}/shoe/updateQuantity`,
+        data,
+        config
+      );
 
       if (response.status === 200) {
         setCartProducts((prevCart) => {
@@ -105,16 +122,24 @@ const Cart = () => {
 
   const handleCartProductDeletion = async (indexToRemove) => {
     try {
-      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
       const cartItemId = cartProducts[indexToRemove].cartItem._id;
 
-      const config = {
-        userId,
+      const data = {
         cartItemId,
       };
-      const response = await axios.delete(`${baseUrl}/shoe/deleteCartItem`, {
-        data: config,
-      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        data: data,
+      };
+
+      const response = await axios.delete(
+        `${baseUrl}/shoe/deleteCartItem`,
+        config
+      );
       if (response.status === 200) {
         let productOldQuantity = cartProducts[indexToRemove].cartItem.quantity;
         let productPrice = cartProducts[indexToRemove].cartItem.price;
@@ -125,7 +150,7 @@ const Cart = () => {
         setCartSum(currCartSum);
         const updatedCartProducts = cartProducts.filter(
           (cartProduct, index) => {
-            return index != indexToRemove;
+            return index !== indexToRemove;
           }
         );
         setCartProducts(updatedCartProducts);

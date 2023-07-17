@@ -1,6 +1,7 @@
 // const xyz = async (req, res) => {}
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
   console.log("req.body", req.body);
@@ -56,8 +57,15 @@ const registerUser = async (req, res) => {
       req.session.isLoggedIn = true;
       await req.session.save();
     }
+    const payload = {
+      userId: user._id,
+    };
 
-    return res.status(200).json(user);
+    const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+      expiresIn: "14d",
+    });
+
+    return res.status(200).json(token);
   } catch (error) {
     console.log("error" + error);
     return res.status(500).json("Error in registering user");
@@ -83,6 +91,14 @@ const loginUser = async (req, res) => {
       return res.status(404).json("password not correct");
     }
 
+    const payload = {
+      userId: user._id,
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+      expiresIn: "14d",
+    });
+
     if (req.session.hasOwnProperty("isLoggedIn")) {
       req.session.isLoggedIn = true;
       await req.session.save();
@@ -91,7 +107,7 @@ const loginUser = async (req, res) => {
       await req.session.save();
     }
 
-    return res.status(200).json(user);
+    return res.status(200).json(token);
   } catch (error) {
     console.log("error", error);
     return res.status(500).json("error in login user");

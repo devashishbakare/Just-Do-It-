@@ -13,8 +13,8 @@ export const OrderDetails = React.memo(() => {
   const location = useLocation();
   const orderId = location.state;
   console.log("orderId", orderId);
-  const userId = localStorage.getItem("userId");
-  console.log("userId!!! " + userId);
+  const token = localStorage.getItem("token");
+  console.log("token!!! " + token);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   console.log("is Loggd in " + isLoggedIn);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,18 +26,24 @@ export const OrderDetails = React.memo(() => {
       try {
         setIsLoading(true);
         console.log("here we go!!!");
-        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
+
         const config = {
-          userId,
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
         };
         //deleting cart item, after placing order
         const deleteCartItem = await axios.delete(
           `${baseUrl}/shoe/deleteAllCartItems`,
-          { data: config }
+          config
         );
+
         //fetching data from orderId
         const orderDetails = await axios.get(
-          `${baseUrl}/shoe/orderDetails?userId=${userId}&orderId=${orderId}`
+          `${baseUrl}/shoe/orderDetails/${orderId}`,
+          config
         );
 
         if (orderDetails.status === 200) {
@@ -60,12 +66,21 @@ export const OrderDetails = React.memo(() => {
   const handleDeleteOrder = async (req, res) => {
     try {
       setIsLoading(true);
-      const config = {
+      const data = {
         orderId,
       };
-      const response = await axios.delete(`${baseUrl}/shoe/deleteOrder`, {
-        data: config,
-      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        data: data,
+      };
+
+      const response = await axios.delete(
+        `${baseUrl}/shoe/deleteOrder`,
+        config
+      );
 
       if (response.status === 200) {
         toast.success("Order has been deleted successfully", {

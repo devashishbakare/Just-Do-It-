@@ -22,13 +22,22 @@ const FavoritePage = () => {
     const fetchFavorite = async () => {
       setIsLoading(true);
       try {
-        const userId = localStorage.getItem("userId");
-        console.log("userId " + userId);
-        if (userId) {
+        const token = localStorage.getItem("token");
+        console.log("token " + token);
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        };
+
+        if (token) {
           const response = await axios.get(
-            `${baseUrl}/shoe/fetchFavorite/${userId}`
+            `${baseUrl}/shoe/fetchFavorite`,
+            config
           );
           if (response.status === 200) {
+            console.log("favorite fetch data " + response.data);
             console.log("value " + response.data[0].shoeDetails);
             setProducts(response.data);
           }
@@ -52,15 +61,22 @@ const FavoritePage = () => {
   const handleRemoveFromFavorite = async (favoriteItem_id) => {
     try {
       setIsLoading(true);
-      const userId = localStorage.getItem("userId");
-      const config = {
-        userId,
+      const token = localStorage.getItem("token");
+      const data = {
         favoriteItemId: favoriteItem_id,
       };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        data: data,
+      };
 
-      const response = await axios.delete(`${baseUrl}/shoe/delteFromFavorite`, {
-        data: config,
-      });
+      const response = await axios.delete(
+        `${baseUrl}/shoe/delteFromFavorite`,
+        config
+      );
       if (response.status === 200) {
         setProducts((prevProduct) =>
           products.filter(
@@ -76,19 +92,29 @@ const FavoritePage = () => {
     }
   };
 
-  const handleFavoriteToCartMove = async (addToCartItem_id) => {
+  const handleFavoriteToCartMove = async (addToCartItem_id, product_id) => {
+    console.log("favId " + addToCartItem_id);
+    console.log("productId " + product_id);
     try {
       setIsLoading(true);
-      const userId = localStorage.getItem("userId");
-      const config = {
-        userId: userId,
+      const token = localStorage.getItem("token");
+      const data = {
         favoriteItemId: addToCartItem_id,
-        productItemId: products.shoeDetails._id,
+        productItemId: product_id,
       };
 
-      const response = await axios.patch(`${baseUrl}/shoe/moveToCart`, {
-        data: config,
-      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.patch(
+        `${baseUrl}/shoe/moveToCart`,
+        data,
+        config
+      );
       if (response.status === 200) {
         setProducts((prevProduct) =>
           products.filter(
@@ -99,8 +125,7 @@ const FavoritePage = () => {
       setIsLoading(false);
       console.log("suuu " + addToCartItem_id);
     } catch (error) {
-      console.log(error);
-      console.log(error.data);
+      console.log("error in moving to cart " + error);
     }
   };
 
@@ -160,7 +185,8 @@ const FavoritePage = () => {
                                 className={style.addToCartButton}
                                 onClick={() =>
                                   handleFavoriteToCartMove(
-                                    product.favoriteItemId
+                                    product.favoriteItemId,
+                                    product.shoeDetails._id
                                   )
                                 }
                               >

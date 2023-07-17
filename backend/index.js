@@ -6,6 +6,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 dotenv.config();
 const cors = require("cors");
+const authMiddleware = require("./config/authMiddleware");
 const db = require("./config/mongoose");
 db();
 
@@ -27,6 +28,7 @@ app.use(
 
 app.use(cors());
 app.use(express.json());
+app.use(authMiddleware);
 app.use("/", require("./routes/index"));
 
 app.listen(process.env.PORT, (err) => {
