@@ -1,6 +1,6 @@
 .logoutContainer {
-  height: 100vh;
-  width: 100vw;
+  height: auto;
+  width: auto;
   border: 1px solid black;
   display: flex;
   align-items: center;
@@ -40,11 +40,10 @@
 .profileContaintContainer {
   height: 93%;
   width: 92%;
-  border: 3px solid blue;
+  /* border: 3px solid blue; */
   display: flex;
   flex-direction: column;
 }
-
 /* ************** USER PROFILE ******************** */
 
 .profileInfoContainer {
@@ -121,19 +120,25 @@
 .topMenuWrapper {
   height: 10%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
+  gap: 1%;
 }
 .menu {
   height: 100%;
   width: 10%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   font-weight: 600;
+  cursor: pointer;
+}
+.selectedMenu {
+  background-color: black;
+  color: white;
 }
 .menuOutputContainer {
   height: 90%;
@@ -316,6 +321,11 @@
   display: flex;
   gap: 1%;
   align-items: center;
+  justify-content: space-between;
+}
+.viewInCartText {
+  /* border: 1px solid black; */
+  padding-right: 5%;
 }
 
 .increaseIcon {
@@ -357,6 +367,9 @@
   .userPersonaliseInfoContainer {
     width: 100%;
   }
+  .showProductCart {
+    width: 100%;
+  }
 }
 
 @media (min-width: 577px) and (max-width: 991px) {
@@ -368,5 +381,8 @@
   }
   .orderDetailsCart {
     width: 60%;
+  }
+  .showProductCart {
+    width: 90%;
   }
 }

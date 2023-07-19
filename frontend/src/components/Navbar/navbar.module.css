@@ -58,11 +58,12 @@
   right: 0%;
   height: 250px;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
+  z-index: 999;
 }
 
 .hoverOptionsContainer {
@@ -126,7 +127,70 @@
   align-items: center;
   justify-content: center;
 }
+.profileContainer {
+  /* border: 2px solid red; */
+  position: relative;
+}
 
+.profileMenuContainer {
+  height: 200px;
+  width: 150px;
+  position: absolute;
+  /* border: 1px solid black; */
+  top: 6%;
+  right: 0%;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  color: black;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 999;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.profileMenuWrapper {
+  display: flex;
+  height: 25%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  /* border: 1px solid black; */
+}
+.profileHoverMenu {
+  font-size: 1rem;
+  color: rgb(51, 50, 50);
+}
+.profileMenuWrapper:hover {
+  font-weight: 600;
+  font-size: 1.1rem;
+  background-color: rgb(227, 224, 224);
+}
+/*   <span className={style.menuIcons}>
+                          <BsPersonFill />
+                        </span>
+                        <span className={style.profileHoverMenu}>Profile</span> */
+.menuIcons {
+  height: 100%;
+  width: 35%;
+  /* border: 1px solid red; */
+  justify-content: end;
+}
+.menuIconStyle {
+  font-size: 1.1rem;
+}
+.profileHoverMenu {
+  height: 100%;
+  width: 65%;
+  /* border: 1px solid green; */
+  justify-content: start;
+}
+.menuIcons,
+.profileHoverMenu {
+  display: flex;
+  align-items: center;
+}
 .linkWrapper {
   height: 100%;
   width: 100%;
@@ -164,6 +228,15 @@
   width: 100%;
   font-size: large;
   border-radius: 10px;
+}
+.signInText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-right: 5%;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
