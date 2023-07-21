@@ -1,18 +1,9 @@
-.logoutContainer {
-  height: auto;
-  width: auto;
-  border: 1px solid black;
+.centerSpinner {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.logoutButton {
-  height: 70px;
-  width: 150px;
-  border: 1px solid red;
-  background-color: red;
-  color: white;
-  cursor: pointer;
 }
 .loginComponentWrapper {
   height: 100vh;
@@ -51,6 +42,7 @@
   width: 100%;
   /* border: 2px solid yellow; */
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -59,6 +51,7 @@
   width: 100%;
   /* border: 2px solid green; */
   display: flex;
+  justify-content: center;
 }
 
 .profileInfoWrapper {
@@ -122,6 +115,7 @@
   width: 100%;
   /* border: 1px solid black; */
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1%;
 }
@@ -149,22 +143,77 @@
 
 /**************** ORDER CART ******************  */
 
-.orderDetailsCart {
-  height: 40%;
-  width: 40%;
-  margin-left: 0.5%;
-  border: 1px solid whitesmoke;
+.ordersWrapper {
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+
+.orderSummeryContainer {
+  height: 50%;
+  width: 50%;
+  border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   margin-top: 1%;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
 }
+.orderDetailsHeadingWrapper {
+  height: 25%;
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  background-color: lightgray;
+}
+.dataWrapper {
+  height: 75%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+}
+
+.nikeImageWrapper {
+  height: 100%;
+  width: 35%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nikeProductImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.orderDetailsDataWrapper {
+  height: 100%;
+  width: 65%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.orderDetailsCart {
+  height: 100%;
+  width: 100%;
+  margin-left: 0.5%;
+  border: 1px solid whitesmoke;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+  border: 1px solid black;
+}
 
 .orderDetailsCartHeading {
   height: 25%;
   width: 100%;
-  /* border: 1px solid black; */
+  border: 1px solid green;
+  background-color: lightgray;
   display: flex;
 }
 .orderDetailsCartDetails {
@@ -195,7 +244,7 @@
 }
 
 .TopRowrightFeild {
-  margin-left: 3%;
+  margin-left: 2%;
 }
 
 .navigationLink {
@@ -205,6 +254,7 @@
   align-items: center;
   flex-direction: row-reverse;
   margin-right: 5%;
+  /* border: 1px solid red; */
 }
 .orderRowLeftFeild {
   height: 100%;
@@ -353,7 +403,134 @@
   padding-right: 5%;
 }
 
-/*  *********** Product Cart Css **************  */
+.orderNavigation {
+  height: 100%;
+  width: 40%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgb(45, 45, 196);
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  cursor: pointer;
+  padding-right: 5%;
+  /* border: 3px solid red; */
+}
+
+.noElementBlock {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: lightgray;
+  opacity: 0.8;
+}
+/*  *********** Edit Profile Form Css **************  */
+
+.editProfileFormContainer {
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+  justify-content: center;
+}
+.editProfileFormWrapper {
+  height: auto;
+  width: 50%;
+  /* border: 1px solid green; */
+  background-color: rgb(245, 244, 244);
+}
+.rowWrapper {
+  height: 15%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+  gap: 4%;
+}
+.label {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.inputWrapper {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  /* border: 1px solid green; */
+}
+
+.inputField {
+  height: 55%;
+  width: 70%;
+  border: 1px solid lightgray;
+  outline: none;
+  border-radius: 30px;
+  padding-left: 5%;
+  font-size: 0.95rem;
+}
+.inputField::placeholder {
+  font-size: 0.95rem;
+  padding-left: 3%;
+}
+
+.checkBoxWrapper {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  /* border: 1px solid green; */
+  align-items: center;
+}
+.checkBoxInput {
+  /* border: 1px solid green; */
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.updateProflieContainer {
+  height: 15%;
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+}
+.updateProflieButton {
+  height: 60%;
+  width: 25%;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  margin-left: 33%;
+  cursor: pointer;
+}
+.uploadPictureText {
+  height: 100%;
+  width: 42%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* border: 1px solid black; */
+  font-size: 1rem;
+  font-weight: 600;
+}
+.uploadPictureInput {
+  height: 100%;
+  width: 58%;
+  display: flex;
+  align-items: center;
+  /* border: 1px solid black; */
+}
 @media (max-width: 576px) {
   .profileInfoWrapper {
     width: 100%;
@@ -361,7 +538,10 @@
   .menu {
     width: 25%;
   }
-  .orderDetailsCart {
+  .orderSummeryContainer {
+    width: 100%;
+  }
+  .editProfileFormWrapper {
     width: 100%;
   }
   .userPersonaliseInfoContainer {
@@ -369,6 +549,10 @@
   }
   .showProductCart {
     width: 100%;
+  }
+  .updateProflieButton {
+    width: 50%;
+    margin-left: 25%;
   }
 }
 
@@ -379,10 +563,18 @@
   .menu {
     width: 15%;
   }
-  .orderDetailsCart {
-    width: 60%;
+  .orderSummeryContainer {
+    width: 70%;
+  }
+
+  .editProfileFormWrapper {
+    width: 70%;
   }
   .showProductCart {
     width: 90%;
+  }
+  .updateProflieButton {
+    width: 50%;
+    margin-left: 25%;
   }
 }

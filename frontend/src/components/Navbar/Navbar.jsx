@@ -41,13 +41,12 @@ const Navbar = () => {
         localStorage.removeItem("token");
         localStorage.setItem("isLoggedIn", "false");
         console.log(response.data);
+        navigate("/");
       }
     } catch (error) {
       console.log(error.response);
       console.log("there is error in logging out at frontend");
     }
-
-    navigate("/");
   };
 
   return (
