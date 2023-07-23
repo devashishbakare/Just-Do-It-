@@ -10,6 +10,7 @@ import { OrderDetails } from "./components/OrderDetails/OrderDetails";
 import baseUrl from "./components/Constant";
 import axios from "axios";
 import { Login } from "./components/SignIn/Login";
+import { ProductDetails } from "./components/ProductDetails/ProductDetails";
 function App() {
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/productDetails" element={<ProductDetails />} />
           <Route path="/favorite" element={<FavoritePage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />

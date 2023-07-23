@@ -1,0 +1,391 @@
+.productDetailsContainer {
+  height: 100vh;
+  width: 100vw;
+  /* border: 3px solid green; */
+}
+
+.navBarWrapper {
+  height: 7%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.containtWrapper {
+  height: 93%;
+  width: 100%;
+  border: 5px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+/* *************** Product details CSS  *****************/
+.productDesciptionContainer {
+  min-height: 100%;
+  width: 85%;
+  /* border: 3px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* overflow-y: scroll; */
+}
+
+.productDescriptionTable {
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+.closureSection {
+  height: 5%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.closeButton {
+  font-size: 1.5rem;
+  margin-right: 1.5%;
+  cursor: pointer;
+}
+.productInfoDisplaySection {
+  height: 95%;
+  width: 100%;
+  /* border: 3px solid red; */
+  display: flex;
+}
+.productImageWrapper {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid black; */
+}
+
+.productInfoWrapper {
+  height: 100%;
+  width: 50%;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+  /* gap: 1.5%; */
+}
+.availableColorsWrapper {
+  height: 25%;
+  width: 90%;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.availableSizeWrapper {
+  height: 25%;
+  width: 90%;
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  height: 15%;
+  width: 90%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+
+.productSummaryWrapper {
+  height: 50%;
+  width: 90%;
+  /* border: 1px solid blue; */
+}
+
+.colorTextWrapper {
+  display: flex;
+  height: 35%;
+  width: 100%;
+  /* background-color: red; */
+  /* border: 1px solid green; */
+}
+.colorWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  height: 40%;
+  width: 100%;
+  background-color: lightgray;
+  /* border: 2px solid green; */
+  gap: 1%;
+  align-items: center;
+}
+.availableText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.colorOuterBorder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 11%;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 2%;
+  /* border: 1px solid white; */
+
+  /* border: 1px solid black; */
+}
+
+.colorDiv {
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+  cursor: pointer;
+  /* border: 2px solid black; */
+}
+.highlightBorder {
+  border: 1px solid black;
+  /* background-color: red; */
+}
+.sizeText {
+  height: 30%;
+  width: 100%;
+  /* border: 2px solid green; */
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.shoeSizeWrapper {
+  height: 2.3rem;
+  width: 15%;
+  border: 2px solid black;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  /* margin: 0.3rem; */
+}
+.showSizeContainer {
+  height: 60%;
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 5%;
+  align-items: center;
+  overflow-x: auto;
+}
+.shoeSize {
+  font-weight: 550;
+  font-size: 1.1rem;
+}
+.buttonWrapper {
+  height: 70%;
+  width: 45%;
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.buttonText {
+  font-weight: 600;
+}
+
+.summaryHeadingText {
+  height: 20%;
+  width: 100%;
+  display: block;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  /* border: 1px solid black; */
+}
+.shoeSummaryContainer {
+  height: 80%;
+  width: 100%;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid green; */
+  overflow-y: scroll;
+}
+.shoeImageContainer {
+  position: relative;
+  height: 70%;
+  width: 100%;
+  /* border: 3px solid black; */
+}
+
+.shoeDetailInfoContainer {
+  height: 30%;
+  width: 100%;
+  /* border: 3px solid black; */
+  display: flex;
+  flex-direction: column;
+}
+
+.imageWrapper {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.prevButtonContainer {
+  height: 10%;
+  width: 9%;
+  /* border: 2px solid red; */
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.nextButtonContainer {
+  height: 10%;
+  width: 9%;
+  /* border: 2px solid red; */
+  position: absolute;
+  top: 50%;
+  right: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carouselIcons {
+  font-size: larger;
+}
+/* 
+ 
+*/
+
+.showShoeHeadingContainer {
+  height: 55%;
+  width: 100%;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.showProductShoeHeadingText {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.6rem 0px 0.4rem 1.1rem;
+}
+
+.showProductShoeTypeText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.6rem 0px 0.4rem 1.1rem;
+}
+.showProductShoePriceContainer {
+  height: 45%;
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.showProductShoePriceContainer {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+.highlightSize {
+  background-color: black;
+  color: white;
+  /* border: 1px solid white; */
+}
+/* ************ Product Details END **************** */
+
+.contactSectionContainer {
+  min-height: 33%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*  */
+
+@media (max-width: 576px) {
+  .productDesciptionContainer {
+    width: 100%;
+  }
+  .productDescriptionTable {
+    height: 100%;
+    width: 100%;
+  }
+  .productInfoDisplaySection {
+    height: 98%;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .productImageWrapper {
+    height: 40%;
+    width: 100%;
+  }
+  .shoeImageContainer {
+    width: 80%;
+  }
+  .imageWrapper {
+    object-fit: cover;
+  }
+  .shoeDetailInfoContainer {
+    margin-top: 5%;
+  }
+  .productInfoWrapper {
+    width: 100%;
+  }
+  .colorWrapper {
+    height: 50%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+}
