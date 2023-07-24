@@ -3,7 +3,7 @@
   width: 100vw;
   /* border: 2px solid red; */
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 .loginComponentWrapper {
   height: 100vh;
@@ -24,9 +24,9 @@
   margin: 10px 0px 10px 2%;
 }
 .cartProductContainer {
-  height: 93%;
+  height: 93vh;
   width: 100%;
-  /* border: 2px solid red; */
+  border: 2px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +68,7 @@
 }
 
 .showProductCart {
-  height: 38%;
+  height: 30%;
   width: 80%;
   /* border: 2px solid green; */
   display: flex;
@@ -259,7 +259,7 @@
   padding-right: 8%;
 }
 .summeryButtonText {
-  height: 70%;
+  height: 60%;
   width: 100%;
   background-color: black;
   color: white;

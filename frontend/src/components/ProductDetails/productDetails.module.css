@@ -1,6 +1,9 @@
 .productDetailsContainer {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+
   /* border: 3px solid green; */
 }
 
@@ -19,6 +22,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* flex-wrap: wrap; */
   overflow-y: scroll;
 }
 
@@ -249,6 +253,9 @@
   height: 70%;
   width: 100%;
   /* border: 3px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .shoeDetailInfoContainer {
@@ -341,7 +348,7 @@
   color: white;
   /* border: 1px solid white; */
 }
-/* ************ Product Details END **************** */
+/* ************ Contact Section **************** */
 
 .contactSectionContainer {
   min-height: 33%;
@@ -351,7 +358,111 @@
   justify-content: center;
 }
 
-/*  */
+/********************** Notification css ******************** */
+
+.notificationContainer {
+  position: absolute;
+  top: 1%;
+  right: -35%;
+  z-index: 999;
+  height: 30%;
+  width: 35%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 1%;
+  border: 1px solid black;
+}
+
+.slideNotifacationBar {
+  transition: 1s ease-in-out;
+  transform: translate(-105%);
+}
+
+.addProductInfo {
+  height: 75%;
+  width: 100%;
+  border: 1px solid white;
+  display: flex;
+  gap: 1%;
+}
+
+.extraInfoContainer {
+  height: 24%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid white; */
+}
+.addedProductImageWrapper {
+  height: 100%;
+  width: 49%;
+  /* border: 1px solid white; */
+}
+.addedProductName {
+  height: 100%;
+  width: 49%;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.addedProductImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.addedProductNameHeading {
+  /* border: 1px solid white; */
+
+  background: #cfe7fa;
+  background: linear-gradient(to right, #cfe7fa 0%, #6393c1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.notificationTextStyle {
+  /* border: 1px solid white; */
+  background: #cfe7fa;
+  background: linear-gradient(to right, #cfe7fa 0%, #6393c1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 500;
+  margin-top: 0.4rem;
+  font-size: 1rem;
+}
+.headingWrapper {
+  height: 100%;
+  width: 80%;
+  /* border: 1px solid white; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeButtonWrapper {
+  height: 100%;
+  width: 20%;
+  /* border: 1px solid white; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.textUpdatedDiv {
+  margin: none;
+  font-size: 1.1rem;
+  margin-bottom: 2%;
+}
+
+.notficationCloseButton {
+  color: white;
+  font-size: 1.7rem;
+}
 
 @media (max-width: 576px) {
   .productDesciptionContainer {
@@ -367,13 +478,14 @@
     overflow-y: scroll;
   }
   .productImageWrapper {
-    height: 40%;
+    height: 45%;
     width: 100%;
   }
   .shoeImageContainer {
     width: 80%;
   }
   .imageWrapper {
+    width: 90%;
     object-fit: cover;
   }
   .shoeDetailInfoContainer {
@@ -385,7 +497,47 @@
   .colorWrapper {
     height: 50%;
   }
+  .notificationContainer {
+    width: 70%;
+  }
+  .slideNotifacationBar {
+    transform: translate(-50%);
+  }
+  .prevButtonContainer {
+    height: 15%;
+    top: 42%;
+    left: -11%;
+    background-color: black;
+  }
+  .nextButtonContainer {
+    height: 15%;
+    top: 42%;
+    right: -11%;
+    background-color: black;
+  }
+  .carouselIcons {
+    color: white;
+  }
+  .buttonWrapper {
+    height: 85%;
+  }
 }
 
 @media (min-width: 577px) and (max-width: 991px) {
+  .productDesciptionContainer {
+    width: 100%;
+  }
+  .productDescriptionTable {
+    height: 85%;
+    width: 90%;
+    border: 1px solid red;
+  }
+  .buttonWrapper {
+    border: 1px solid red;
+    height: 70%;
+    width: 95%;
+  }
+  .colorWrapper {
+    height: 35%;
+  }
 }

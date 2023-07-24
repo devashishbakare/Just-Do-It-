@@ -11,11 +11,16 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const url = location.state.from;
+  const data = location.state.data;
   console.log("url " + url);
 
   const handleLoginStatusUpdate = (status) => {
     setShowLoginForm(status);
-    navigate(`${url}`);
+    if (data) {
+      navigate(`${url}`, { state: data });
+    } else {
+      navigate(`${url}`);
+    }
   };
 
   return (

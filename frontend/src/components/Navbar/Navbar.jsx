@@ -20,6 +20,7 @@ const Navbar = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(
     LoginStatus === "false" ? false : true
   );
+
   const currentState = { from: window.location.pathname };
   const [isHovered, setIsHovered] = useState(false);
   const [profileMouseHover, setProfileMouseHover] = useState(false);
@@ -40,6 +41,7 @@ const Navbar = () => {
         localStorage.removeItem("cartSum");
         localStorage.removeItem("token");
         localStorage.setItem("isLoggedIn", "false");
+        localStorage.removeItem("productDetails");
         console.log(response.data);
         navigate("/");
       }

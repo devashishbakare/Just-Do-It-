@@ -16,118 +16,15 @@ import {
 
 export const ProductDetails = () => {
   const location = useLocation();
-  const props = location.state;
-  console.log(props);
-  const userLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const props = JSON.parse(localStorage.getItem("productDetails"));
+  const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState(-1);
   const [selecttedSize, setSelectedSize] = useState(-1);
   const [showProductFlag, setShowProductFlag] = useState(false);
   const [slideNotification, setSlideNotifcation] = useState(false);
   const [notificationFor, setNotificationFor] = useState("");
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [userTryToRegister, setUserTryToRegister] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [cartOrfavorite, setCartOrfavorite] = useState("");
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    userName: "",
-  });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setCredentials((prevCredentials) => ({
-      ...prevCredentials,
-      [name]: value,
-    }));
-  };
-
-  const handleLoginSectionClick = () => {
-    setUserTryToRegister(false);
-    setCredentials({
-      email: "",
-      password: "",
-      confirmPassword: "",
-      userName: "",
-    });
-  };
-
-  const handleRegisterSectionClick = () => {
-    setUserTryToRegister(true);
-    setCredentials({
-      email: "",
-      password: "",
-      confirmPassword: "",
-      userName: "",
-    });
-  };
-
-  const handleLoginSubmit = async (event) => {
-    event.preventDefault();
-
-    if (userTryToRegister === true) {
-      try {
-        const response = await axios.post(
-          `${baseUrl}/user/register`,
-          credentials
-        );
-        if (response.status === 200) {
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("token", response.data);
-          console.log("succesfull");
-          setResponseMessage("");
-
-          if (cartOrfavorite === "cart") {
-            setCartOrfavorite("");
-            setShowLoginForm(false);
-            handleAddToCart();
-          } else {
-            setCartOrfavorite("");
-            setShowLoginForm(false);
-            handleAddToFavorite();
-          }
-        }
-      } catch (err) {
-        console.log(err, " Error in registering user");
-        console.log(err.response.data);
-        setResponseMessage(err.response.data);
-      }
-    } else {
-      try {
-        const response = await axios.post(`${baseUrl}/user/login`, credentials);
-
-        if (response.status === 200) {
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("token", response.data);
-          console.log(response.data);
-          setResponseMessage("");
-
-          if (cartOrfavorite === "cart") {
-            console.log("call from cart condition");
-            setCartOrfavorite("");
-            handleAddToCart();
-          } else {
-            setCartOrfavorite("");
-            handleAddToFavorite();
-          }
-        }
-      } catch (err) {
-        console.log(err, "Error while Logging");
-        console.log(err.response.data);
-        setResponseMessage(err.response.data);
-      }
-    }
-
-    setCredentials({
-      email: "",
-      userName: "",
-      password: "",
-      confirmPassword: "",
-    });
-  };
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleCloseModal = () => {
     setShowProductFlag(!showProductFlag);
@@ -139,15 +36,10 @@ export const ProductDetails = () => {
 
   const handleAddToCart = async () => {
     const isUserLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isUserLoggedIn === false) {
-      console.log("call initialise from here");
-      setCartOrfavorite("cart");
-      setShowLoginForm(true);
+    if (isUserLoggedIn == "false") {
+      navigate("/login", { state: currentState });
     } else {
-      setShowLoginForm(false);
-      console.log("Add to cart");
       const token = localStorage.getItem("token");
-
       const info = {
         productItemId: props._id,
         size: selecttedSize,
@@ -195,12 +87,10 @@ export const ProductDetails = () => {
 
   const handleAddToFavorite = async () => {
     const isUserLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isUserLoggedIn === false) {
-      setCartOrfavorite("fav");
-      setShowLoginForm(true);
+    if (isUserLoggedIn == "false") {
+      navigate("/login", { state: currentState });
+      console.log("does rendering come'e here?");
     } else {
-      console.log("Add to Fav");
-      setShowLoginForm(false);
       try {
         const token = localStorage.getItem("token");
         const config = {
@@ -246,6 +136,22 @@ export const ProductDetails = () => {
       }
     }
   };
+  const handleCarousel = (direction) => {
+    if (direction === "prev") {
+      console.log("index " + currentImageIndex);
+      setCurrentImageIndex(
+        currentImageIndex === 0
+          ? props.images.length - 1
+          : currentImageIndex - 1
+      );
+    } else {
+      setCurrentImageIndex(
+        currentImageIndex === props.images.length - 1
+          ? 0
+          : currentImageIndex + 1
+      );
+    }
+  };
   return (
     <>
       <div className={style.productDetailsContainer}>
@@ -254,22 +160,78 @@ export const ProductDetails = () => {
         </div>
         <div className={style.containtWrapper}>
           <div className={style.productDesciptionContainer}>
+            {slideNotification && (
+              <>
+                <div
+                  className={`${style.notificationContainer} ${
+                    slideNotification ? style.slideNotifacationBar : ""
+                  }`}
+                >
+                  <div className={style.extraInfoContainer}>
+                    <div className={style.headingWrapper}>
+                      <span
+                        className={`${style.notificationTextStyle} ${style.textUpdatedDiv}`}
+                      >
+                        Added To {notificationFor}
+                      </span>
+                    </div>
+                    <div className={style.closeButtonWrapper}>
+                      <span className={style.closeNotificationWrapper}>
+                        <AiFillCloseCircle
+                          className={style.notficationCloseButton}
+                          onClick={() => setSlideNotifcation(false)}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  <div className={style.addProductInfo}>
+                    <div className={style.addedProductImageWrapper}>
+                      <img
+                        src={props.images[0]}
+                        alt=""
+                        className={style.addedProductImg}
+                      />
+                    </div>
+                    <div className={style.addedProductName}>
+                      <span className={style.addedProductNameHeading}>
+                        {props.name}
+                      </span>
+                      <span className={style.notificationTextStyle}>
+                        {props.shoes_type}
+                        &nbsp;
+                        {props.category}
+                        &nbsp;shoes
+                      </span>
+                      <span className={style.notificationTextStyle}>
+                        {props.price} &nbsp;Rs
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
             <div className={style.productDescriptionTable}>
               <div className={style.productInfoDisplaySection}>
                 <div className={style.productImageWrapper}>
                   <div className={style.shoeImageContainer}>
                     <img
-                      src={props.images[0]}
+                      src={props.images[currentImageIndex]}
                       alt="shoeImage"
                       className={style.imageWrapper}
                     />
-                    <div className={style.prevButtonContainer}>
+                    <div
+                      className={style.prevButtonContainer}
+                      onClick={() => handleCarousel("prev")}
+                    >
                       <MdOutlineArrowBackIosNew
                         className={style.carouselIcons}
                       />
                     </div>
 
-                    <div className={style.nextButtonContainer}>
+                    <div
+                      className={style.nextButtonContainer}
+                      onClick={() => handleCarousel("next")}
+                    >
                       <MdOutlineArrowForwardIos
                         className={style.carouselIcons}
                       />
@@ -366,6 +328,9 @@ export const ProductDetails = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className={style.contactSectionContainer}>
+          <ContactFooter />
         </div>
       </div>
     </>
