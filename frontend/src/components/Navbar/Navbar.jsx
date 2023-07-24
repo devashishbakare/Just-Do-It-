@@ -43,6 +43,7 @@ const Navbar = () => {
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("productDetails");
         console.log(response.data);
+        setUserLoggedIn(false);
         navigate("/");
       }
     } catch (error) {

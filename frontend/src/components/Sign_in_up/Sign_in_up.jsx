@@ -95,6 +95,30 @@ const Sign_in_up = ({ updateChange }) => {
     });
   };
 
+  const handleGuestLogin = async () => {
+    try {
+      const data = {
+        email: "johndoe@gmail.com",
+        userName: "",
+        password: "7890",
+        confirmPassword: "",
+      };
+      const response = await axios.post(`${baseUrl}/user/login`, data);
+
+      if (response.status === 200) {
+        localStorage.setItem("isLoggedIn", "true");
+        console.log("here we updated a status after login");
+        localStorage.setItem("token", response.data);
+        console.log(response.data);
+        setResponseMessage("");
+        updateChange(true);
+      }
+    } catch (error) {
+      console.log("error in guest login " + error);
+      console.log(error.response.data);
+    }
+  };
+
   return (
     <>
       <div className={style.loginDivContainer}>
@@ -107,7 +131,7 @@ const Sign_in_up = ({ updateChange }) => {
               userTryToRegister ? style.updatedLoginBoxContainer : ""
             }`}
           >
-            <form className={style.formSection} onSubmit={handleLoginSubmit}>
+            <div className={style.formSection}>
               <div className={style.loginOrRegisterContainer}>
                 <span
                   className={`${style.TextWrapper} ${
@@ -191,16 +215,33 @@ const Sign_in_up = ({ updateChange }) => {
               <div className={style.loginButtonContainer}>
                 {userTryToRegister ? (
                   <>
-                    <button className={style.loginButtonSection}>
+                    <button
+                      className={`${style.registerButton} ${style.loginButtonSection}`}
+                      onClick={handleLoginSubmit}
+                    >
                       Register
                     </button>
                   </>
                 ) : (
                   <>
-                    <button className={style.loginButtonSection}>Login</button>
+                    <div className={style.guestLoginContainer}>
+                      <button
+                        className={style.loginButtonSection}
+                        onClick={handleLoginSubmit}
+                      >
+                        Login
+                      </button>
+                      <button
+                        className={style.loginButtonSection}
+                        onClick={handleGuestLogin}
+                      >
+                        Guest Login
+                      </button>
+                    </div>
                   </>
                 )}
               </div>
+
               {responseMessage ? (
                 <>
                   <div className={style.responseMessageWrapper}>
@@ -212,7 +253,7 @@ const Sign_in_up = ({ updateChange }) => {
               ) : (
                 ""
               )}
-            </form>
+            </div>
           </div>
         </div>
 
