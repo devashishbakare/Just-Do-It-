@@ -149,14 +149,14 @@ const Navbar = () => {
               <span className={style.navbarOptoinsText}>Kid</span>
             </div>
             <div
-              className={style.navbarOptions}
+              className={`${style.navbarOptions} ${style.lastTwoMenu}`}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
               <span className={style.navbarOptoinsText}>Sale</span>
             </div>
             <div
-              className={style.navbarOptions}
+              className={`${style.navbarOptions} ${style.lastTwoMenu}`}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >

@@ -308,6 +308,9 @@
   .locationWrapper {
     margin-left: 5%;
   }
+  .bottomFooterRightWrapper {
+    display: none;
+  }
 }
 
 /* when I apply this media query @media (min-width: 577px) and (max-width: 991px), a changes that I made here, will be available to @media (max-width: 576px)? */

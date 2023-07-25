@@ -10,12 +10,16 @@
 }
 
 .shopTextContainer {
-  height: 30%;
+  height: 40vh;
   width: 100%;
   /* border: 4px solid green; */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 3%;
+}
+.nikeFashionCarouselContainer {
+  margin-bottom: 8%;
 }
 
 .headingTextWrapper {
@@ -54,7 +58,7 @@
 .topSmallExplanationText {
   height: 8%;
   width: 100%;
-  /* border: 1px solid black; */
+  /* border: 3px solid blue; */
   text-align: center;
   font-size: 1rem;
   line-height: inherit;
@@ -64,13 +68,14 @@
 }
 
 .shopButton {
-  height: 18%;
-  width: 6%;
+  height: 15%;
+  width: 10%;
+  font-size: 1.1rem;
   background-color: black;
   color: white;
   border-radius: 35px;
   border: none;
-  margin-top: 10px;
+  margin-top: 2%;
   cursor: pointer;
   /* border: 1px solid red; */
 }
@@ -89,16 +94,18 @@
   width: 100%;
   /* border: 2px solid red; */
   background-color: white;
+  margin-bottom: 5%;
 }
 
 .theLatestShoeInfoContainer {
-  height: 30%;
+  height: 40vh;
   width: 100%;
   /* border: 2px solid blue; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  margin-bottom: 3%;
   /* overflow: hidden; */
 }
 .latestImage {
@@ -113,21 +120,9 @@
   /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
+  margin-bottom: 2%;
 }
 
-.sectionHeading {
-  height: 10%;
-  width: 100%;
-  /* border: 1px solid black; */
-  display: flex;
-  align-items: center;
-}
-.sectionHeadingText {
-  margin-left: 2%;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
 .productDisplayWrapper {
   height: 90%;
   width: 100%;
@@ -165,4 +160,158 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.shoeFeatureCarouselContainer {
+  height: auto;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+.singleImageCarouselContainer {
+  height: 45vh;
+  width: 100%;
+  /* border: 3px solid green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.carouselImageWrapper {
+  position: relative;
+  height: 85%;
+  width: 70%;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  /* border: 2px solid red; */
+}
+.imageWrapper {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.prevButtonContainer,
+.nextButtonContainer {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  /* border: 2px solid green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: black;
+  cursor: pointer;
+}
+.prevButtonContainer {
+  top: 45%;
+  left: -18%;
+}
+.nextButtonContainer {
+  top: 45%;
+  right: -17%;
+}
+.carouselIcons {
+  color: white;
+}
+
+@media (max-width: 576px) {
+  .featureVedioWrapper {
+    height: 40vh;
+  }
+  .shopTextContainer {
+    height: 35vh;
+  }
+  .shopButton {
+    margin-top: 5%;
+    height: 15%;
+    font-size: 1rem;
+    width: 20%;
+  }
+  .theLetestContainer {
+    margin-top: 5%;
+    height: 35vh;
+  }
+  .theLatestShoeInfoContainer {
+    height: 35vh;
+  }
+  .topSmallExplanationText {
+    display: none;
+  }
+  .theLatestButton {
+    height: 15%;
+    margin-top: 15%;
+  }
+  .productDisplayContainer {
+    height: auto;
+  }
+  .sectionHeading {
+    height: 70px;
+    /* border: 5px solid red; */
+    margin-left: 8%;
+  }
+  .productDisplayWrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .productDisplay {
+    height: 500px;
+    width: 90%;
+    /* border: 2px solid green; */
+  }
+  .shoeFeatureCarouselContainer {
+    display: none;
+  }
+  .nikeFashionCarouselContainer {
+    display: none;
+  }
+  .singleImageCarouselContainer {
+    display: flex;
+  }
+  .topBigHeadingText {
+    font-size: 3rem;
+    /* border: 1px solid green; */
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .featureVedioWrapper {
+    height: 50vh;
+  }
+  .shopTextContainer {
+    height: 35vh;
+  }
+  .shopTextContainer {
+    margin-bottom: 1%;
+  }
+  .nikeFashionCarouselContainer {
+    margin-bottom: 1%;
+  }
+  .theLetestContainer {
+    margin-top: 5%;
+    height: 45vh;
+    background-color: black;
+  }
+  .latestImageWrapper {
+    margin-bottom: 0%;
+  }
+  .theLatestShoeInfoContainer {
+    height: 35vh;
+    /* border: 2px solid green; */
+    padding-top: 5%;
+  }
+  .topSmallExplanationText {
+    display: none;
+  }
+  .theLatestButton {
+    height: 15%;
+    margin-top: 10%;
+  }
+  .productDisplayContainer {
+    height: 50%;
+  }
+  .productDisplayWrapper {
+    height: 100%;
+    /* border: 2px solid green; */
+  }
 }

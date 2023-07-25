@@ -244,12 +244,24 @@
     display: none;
   }
   .activityWrapper {
-    width: 90%;
+    width: 100%;
+  }
+  .searchBarContainer {
+    width: 95%;
   }
 }
 
 @media (min-width: 577px) and (max-width: 991px) {
-  .NavBarOptionsWrapper {
-    margin-left: 20%;
+  .shoppingOptionsWrapper {
+    display: none;
+  }
+  .lastTwoMenu {
+    display: none;
+  }
+  .activityWrapper {
+    width: 100%;
+  }
+  .searchBarContainer {
+    width: 100%;
   }
 }

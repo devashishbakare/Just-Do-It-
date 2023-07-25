@@ -3,12 +3,18 @@
   width: 100vw;
   border: 1px solid black;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 .navbarContainer {
-  height: 6%;
-  width: 100%;
-  border: 1px solid black;
+  height: 7%;
+  width: 95%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid green; */
 }
 
 .featurePageContainer {
