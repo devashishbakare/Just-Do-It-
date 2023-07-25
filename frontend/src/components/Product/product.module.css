@@ -63,7 +63,8 @@ body {
 }
 
 .shoeAmountText {
-  font-size: 1.25vw;
+  margin-top: 1%;
+  font-size: 1rem;
   font-weight: 600;
   margin-left: 5%;
 }
@@ -676,4 +677,55 @@ body {
   font-size: 1rem;
   text-align: center;
   text-transform: capitalize;
+}
+
+@media (max-width: 576px) {
+  .productContainer {
+    width: 100%;
+  }
+  .productImagerContainer {
+    height: 60%;
+  }
+  .productInfoContainer {
+    height: 40%;
+  }
+  .shoeNameHeadingText {
+    font-size: 1.3rem;
+  }
+  .shoeAmountText,
+  .shoeTypeText,
+  .shoeColorCount {
+    font-size: 1.2rem;
+  }
+  .shoePriceContainer {
+    /* border: 1px solid green; */
+    /* margin-bottom: 3%; */
+    padding-bottom: 5%;
+  }
+  .shoeHeadingContainer {
+    /* border: 2px solid red; */
+    height: auto;
+  }
+}
+@media (min-width: 577px) and (max-width: 991px) {
+  .productContainer {
+    width: 48%;
+  }
+  .shoeNameHeadingText {
+    font-size: 1.3rem;
+  }
+  .productImagerContainer {
+    height: 65%;
+  }
+  .shoeHeadingContainer {
+    gap: 3%;
+  }
+  .shoePriceContainer {
+    margin-top: 7%;
+  }
+  .shoeAmountText,
+  .shoeTypeText,
+  .shoeColorCount {
+    font-size: 1.1rem;
+  }
 }

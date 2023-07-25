@@ -3,6 +3,7 @@ import style from "./shopPage.module.css";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Aside/Sidebar";
 import ProductContainer from "../ShopProducts/ProductContainer";
+import { HiAdjustmentsHorizontal, HiXMark } from "react-icons/hi2";
 import shopContext from "../../Context /ShopContext";
 const ShopPage = () => {
   const [filterOptions, setFilterOptions] = useState({
@@ -25,6 +26,7 @@ const ShopPage = () => {
       { name: "8-100", label: "Over 8K", checked: false },
     ],
   });
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const handleFilterOptionChange = (sectionName, optionName) => {
     if (
@@ -65,8 +67,40 @@ const ShopPage = () => {
               onFilterOptionChange={handleFilterOptionChange}
             />
           </div>
+
           <div className={style.shopProductContainer}>
+            <div className={style.filterBar}>
+              <span
+                className={style.filterText}
+                onClick={() => setShowDrawer(!showDrawer)}
+              >
+                <HiAdjustmentsHorizontal className={style.filterIcon} />
+                Filters
+              </span>
+            </div>
             <ProductContainer appliedFilters={filterOptions} />
+          </div>
+
+          <div
+            className={`${style.sideDrawer} ${
+              showDrawer ? style.sideDrawerIn : ""
+            }`}
+          >
+            <div className={style.filterDrawerTextWrapper}>
+              <span className={style.filterTextHeading}>
+                Filters
+                <HiXMark
+                  className={style.filterIcon}
+                  onClick={() => setShowDrawer(false)}
+                />
+              </span>
+            </div>
+            <div className={style.filterMenuWrapper}>
+              <Sidebar
+                filterOptions={filterOptions}
+                onFilterOptionChange={handleFilterOptionChange}
+              />
+            </div>
           </div>
         </div>
       </div>
