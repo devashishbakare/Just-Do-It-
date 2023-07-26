@@ -10,6 +10,8 @@ const authMiddleware = require("./config/authMiddleware");
 const db = require("./config/mongoose");
 db();
 
+app.set("view engine", "ejs");
+app.set("views", "./views/mailers");
 app.use(
   session({
     secret: process.env.MONGO_STORE_SECREAT_KEY,

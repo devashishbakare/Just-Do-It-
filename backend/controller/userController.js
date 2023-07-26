@@ -267,6 +267,11 @@ const deleteSession = async (req, res) => {
   }
 };
 
+const placeOrderTemplate = async (req, res) => {
+  console.log("here we come");
+  return res.render("placeOrder");
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -276,4 +281,5 @@ module.exports = {
   fetchUserOrders,
   updateUserDetails,
   deleteSession,
+  placeOrderTemplate,
 };

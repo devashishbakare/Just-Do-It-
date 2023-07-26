@@ -4,6 +4,7 @@ const User = require("../model/user");
 const FavoriteItem = require("../model/favoriteItem");
 const Address = require("../model/address");
 const Order = require("../model/order");
+const nodeMailerController = require("../controller/nodeMailerController");
 const addProduct = async (req, res) => {
   try {
     const {
@@ -518,6 +519,15 @@ const placeOrder = async (req, res) => {
       { new: true }
     );
 
+    const dataForMail = fetchDetailsToSendInMail(userId, order._id);
+    if (dataForMail === null) {
+      console.log("error in fetching data");
+      return res.status(500).json("there is issue while sending mail");
+    }
+    nodeMailerController.sendMailOnPlaceOrder(dataForMail, user.email);
+
+    console.log("mail data ", dataForMail);
+
     return res.status(200).json(order._id);
   } catch (error) {
     console.log(error);
@@ -617,6 +627,55 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const placeOrderTemplate = async (req, res) => {
+  console.log("here we come");
+  return res.render("placeOrder");
+};
+
+const fetchDetailsToSendInMail = async (userId, orderId) => {
+  try {
+    const order = await Order.findById(orderId);
+    const user = await User.findById(userId);
+
+    if (!order || !user) {
+      return res.status(404).json("user of order not found");
+    }
+    const address = await Address.findById(order.address);
+    const cartItemCollections = order.cartIds;
+    const orderDetails = {
+      address,
+      totalAmount: order.totalAmount,
+      date: order.createdAt,
+      size: 0,
+    };
+    cartItemDetails = [];
+
+    const cartItemInfo = await Promise.all(
+      cartItemCollections.map(async (eachCartItem) => {
+        const cartItem = await CartItem.findById(eachCartItem);
+        const productInfo = await ShoeDetails.findById(cartItem.productItemId);
+        const cartItemInfoCollections = {
+          color: cartItem.color,
+          size: cartItem.size,
+          price: cartItem.price,
+          quantity: cartItem.quantity,
+          productInfo,
+        };
+        cartItemDetails.push(cartItemInfoCollections);
+      })
+    );
+    orderDetails.size = cartItemDetails.length;
+    const response = {
+      orderDetails,
+      cartItemDetails,
+    };
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -636,4 +695,5 @@ module.exports = {
   deleteAllCartItem,
   fetchOrderDetails,
   deleteOrder,
+  placeOrderTemplate,
 };
