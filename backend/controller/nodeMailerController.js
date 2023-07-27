@@ -1,9 +1,9 @@
 const nodeMailer = require("../config/nodemailer");
+const ejs = require("ejs");
 
-const sendMailOnPlaceOrder = (orderDetails, userEmailAddress) => {
-  console.log("we are in node_cotroller in placing order");
+const sendMailOnPlaceOrder = (orderDetail, userEmailAddress) => {
   let htmlPage = nodeMailer.renderTemplate(
-    { orders: orderDetails },
+    { order: orderDetail },
     "/placeOrder.ejs"
   );
 
@@ -26,10 +26,9 @@ const sendMailOnPlaceOrder = (orderDetails, userEmailAddress) => {
   );
 };
 
-const sendMailOnCancleOrder = (orderDetails, userEmailAddress) => {
-  console.log("we are in node_cotroller in placing order");
+const sendMailOnCancleOrder = (orderDetail, userEmailAddress) => {
   let htmlPage = nodeMailer.renderTemplate(
-    { order: orderDetails },
+    { order: orderDetail },
     "/cancleOrder.ejs"
   );
 

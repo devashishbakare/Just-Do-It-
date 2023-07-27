@@ -519,11 +519,11 @@ const placeOrder = async (req, res) => {
       { new: true }
     );
 
-    const dataForMail = fetchDetailsToSendInMail(userId, order._id);
-    if (dataForMail === null) {
-      console.log("error in fetching data");
-      return res.status(500).json("there is issue while sending mail");
-    }
+    const dataForMail = {
+      name: user.name,
+      size: order.cartIds.length,
+      totalAmount: order.totalAmount,
+    };
     nodeMailerController.sendMailOnPlaceOrder(dataForMail, user.email);
 
     console.log("mail data ", dataForMail);
@@ -605,20 +605,25 @@ const deleteOrder = async (req, res) => {
     const userId = req.userId;
     console.log(orderId + "orderId");
     const order = await Order.findById(orderId);
-
-    if (!order) {
+    const user = await User.findById(userId);
+    if (!order || !user) {
       return res.status(404).json("order not found");
     }
 
+    const dataForMail = {
+      name: user.name,
+      size: order.cartIds.length,
+      totalAmount: order.totalAmount,
+    };
+    nodeMailerController.sendMailOnCancleOrder(dataForMail, user.email);
+
     const deleteAddress = await Address.findByIdAndDelete(order.address);
 
-    const user = await User.findById(userId);
+    const updatedOrder = await Order.findByIdAndDelete(orderId);
 
     const updatedStatus = await user.updateOne({
       $pull: { orders: order._id },
     });
-
-    const updatedOrder = await Order.findByIdAndDelete(orderId);
 
     return res.status(200).json({ updatedStatus, user });
   } catch (error) {
@@ -628,8 +633,15 @@ const deleteOrder = async (req, res) => {
 };
 
 const placeOrderTemplate = async (req, res) => {
-  console.log("here we come");
-  return res.render("placeOrder");
+  const data = await fetchDetailsToSendInMail(
+    "64ba71c164047feca181964d",
+    "64c20a3cf7e3b645a91e07b8"
+  );
+  console.log("here is data " + data);
+  return res.render("placeOrder", {
+    title: "Incident Details",
+    orders: data,
+  });
 };
 
 const fetchDetailsToSendInMail = async (userId, orderId) => {
