@@ -6,10 +6,12 @@ import axios from "axios";
 import baseUrl from "../Constant";
 import Spinners from "../Spinners";
 import { useNavigate } from "react-router-dom";
+//razorpay_Doc = https://razorpay.com/docs/payments/server-integration/nodejs/payment-gateway/build-integration/
 export const Checkout = React.memo(() => {
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
+  const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
   const [address, setAddress] = useState({
     country: "",
@@ -89,6 +91,70 @@ export const Checkout = React.memo(() => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleOnlinePayment = async (amount) => {
+    try {
+      const isUserLoggedIn = localStorage.getItem("isLoggedIn");
+      if (isUserLoggedIn == "false") {
+        navigate("/login", { state: currentState });
+      }
+      const data = {
+        amount,
+      };
+      const response = await axios.post(`${baseUrl}/payment/createOrder`, data);
+      if (response.status === 200) {
+        console.log("order Id", response.data);
+        handleOpenRazorpay(response.data);
+      }
+    } catch (error) {
+      //todo : add notification here for something went wrong with online payment, try again later
+      console.log(error, error.response);
+    }
+  };
+
+  const handleOpenRazorpay = async (order) => {
+    var options = {
+      key: "rzp_test_uYsyA6UZFPgGxV", // Enter the Key ID generated from the Dashboard
+      amount: Number(order.amount), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: order.currency,
+      name: "Nike Store",
+      description: "Test Transaction",
+      image:
+        "http://res.cloudinary.com/djgouef8q/image/upload/v1689941580/vlquytreyljotsbsdfms.jpg",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: async function (response) {
+        console.log(response, 121);
+        const data = {
+          order_id: order.id,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_signature: response.razorpay_signature,
+          razorpay_payment_id: response.razorpay_payment_id,
+        };
+        const responseForVarification = await axios.post(
+          `${baseUrl}/payment/verify`,
+          data
+        );
+        if (responseForVarification.status === 200) {
+          handlePlaceOrder();
+        } else {
+          //todo : add notification like something went wrong
+        }
+      },
+      prefill: {
+        name: "Devashish Bakare",
+        email: "devashishbakare@gmail.com",
+        contact: "7774816727",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
@@ -232,7 +298,15 @@ export const Checkout = React.memo(() => {
                             COD
                           </span>
                         </div>
-                        <div className={style.paymentMethodBox}>
+                        <div
+                          className={style.onlinePaymentWrapper}
+                          onClick={() => handleOnlinePayment(totalAmount)}
+                        >
+                          <span className={style.paymentMethodText}>
+                            Online Payment
+                          </span>
+                        </div>
+                        {/* <div className={style.paymentMethodBox}>
                           <span className={style.paymentMethodText}>UPI</span>
                         </div>
                         <div className={style.paymentMethodBox}>
@@ -244,7 +318,7 @@ export const Checkout = React.memo(() => {
                           <span className={style.paymentMethodText}>
                             Debit Card
                           </span>
-                        </div>
+                        </div> */}
                       </div>
                     </>
                   )}

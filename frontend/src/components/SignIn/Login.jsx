@@ -15,6 +15,9 @@ export const Login = () => {
   console.log("url " + url);
 
   const handleLoginStatusUpdate = (status) => {
+    if (status === true) {
+      localStorage.setItem("isLoggedIn", "true");
+    }
     setShowLoginForm(status);
     if (data) {
       navigate(`${url}`, { state: data });

@@ -12,7 +12,7 @@
 .contentContainer {
   height: 93%;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +42,7 @@
 .orderPlacePriceBox {
   height: 35%;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +50,7 @@
 .orderAddressWrapper {
   height: 65%;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
   margin-top: 2%;

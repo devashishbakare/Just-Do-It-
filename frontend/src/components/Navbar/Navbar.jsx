@@ -100,7 +100,7 @@ const Navbar = () => {
   return (
     <>
       <div className={style.navbarContainer}>
-        <div className={style.nikeLogoConatainer}>
+        <div className={style.nikeLogoConatainer} onClick={() => navigate("/")}>
           <SiNike className={style.nikeLogo} />
         </div>
         <div className={style.shoppingOptionsWrapper}>

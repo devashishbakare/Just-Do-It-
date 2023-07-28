@@ -217,13 +217,15 @@
   border: 1px solid black;
   display: flex;
   align-items: center;
+  gap: 5%;
 }
 
 .paymentMethodBox,
 .paymentAviailableBox {
   margin-left: 3%;
   position: relative;
-  width: 10%;
+  width: auto;
+  padding: 0% 5%;
   height: 70%;
   border: 1px solid black;
   overflow: hidden;
@@ -251,11 +253,26 @@
 }
 
 .paymentMethodText {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 1; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.onlinePaymentWrapper {
+  height: 70%;
+  width: auto;
+  padding: 0% 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  cursor: pointer;
 }
 @media (max-width: 576px) {
   .checkoutWidthCenterWrapper {
