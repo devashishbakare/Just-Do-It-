@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import style from "./productDetails.module.css";
 import axios from "axios";
 import baseUrl from "../Constant";
@@ -15,7 +15,6 @@ import {
 } from "react-icons/md";
 
 export const ProductDetails = () => {
-  const location = useLocation();
   const props = JSON.parse(localStorage.getItem("productDetails"));
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();

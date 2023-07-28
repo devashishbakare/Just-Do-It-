@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import style from "./navbar.module.css";
 import { SiNike } from "react-icons/si";
 import axios from "axios";
 import baseUrl from "../Constant";
+import { AiFillCloseCircle } from "react-icons/ai";
+import Spinner from "../Spinners";
 import {
   BsPerson,
   BsMinecart,
@@ -20,6 +22,10 @@ const Navbar = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(
     LoginStatus === "false" ? false : true
   );
+
+  const [searchKey, setSearchKey] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
   const currentState = { from: window.location.pathname };
   const [isHovered, setIsHovered] = useState(false);
@@ -52,6 +58,45 @@ const Navbar = () => {
     }
   };
 
+  const fetchSearchResult = async (key) => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get(
+        `${baseUrl}/shoe/searchProduct?searchKey=${key}`
+      );
+      if (response.status === 200) {
+        console.log("coutner");
+        console.log(response.data);
+        setSearchResult(response.data);
+      }
+    } catch (error) {
+      console.log("error in seaching result " + error);
+      //todo : may be add a notification here in case a failure
+    } finally {
+      setLoading(false);
+    }
+  };
+  const debouncing = useRef(null);
+  const handleInput = (event) => {
+    setSearchKey(event.target.value);
+
+    clearTimeout(debouncing.current);
+
+    debouncing.current = setTimeout(() => {
+      fetchSearchResult(searchKey);
+    }, 1000);
+  };
+
+  const productDisaplyNavigation = (shoeDetails) => {
+    localStorage.setItem("productDetails", JSON.stringify(shoeDetails));
+    navigate("/productDetails");
+  };
+
+  const closeResultSection = () => {
+    setSearchKey("");
+    setSearchResult([]);
+  };
   return (
     <>
       <div className={style.navbarContainer}>
@@ -148,13 +193,7 @@ const Navbar = () => {
             >
               <span className={style.navbarOptoinsText}>Kid</span>
             </div>
-            <div
-              className={`${style.navbarOptions} ${style.lastTwoMenu}`}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <span className={style.navbarOptoinsText}>Sale</span>
-            </div>
+
             <div
               className={`${style.navbarOptions} ${style.lastTwoMenu}`}
               onMouseEnter={handleMouseEnter}
@@ -168,7 +207,12 @@ const Navbar = () => {
           <div className={style.searchBarContainer}>
             <div className={style.searchBar}>
               <FaSearch className={style.searchIcon} />
-              <input className={style.seachInputFeild} placeholder="Search" />
+              <input
+                className={style.seachInputFeild}
+                value={searchKey}
+                onChange={handleInput}
+                placeholder="Search.."
+              />
             </div>
           </div>
           <div className={style.navBarIconContainer}>
@@ -254,6 +298,38 @@ const Navbar = () => {
             )}
           </div>
         </div>
+        {searchResult.length > 0 && (
+          <>
+            <div className={style.searchResultContainer}>
+              <div className={style.closeResultWrapper}>
+                <span className={style.closeResultText}>Search Results</span>
+                <span onClick={closeResultSection}>
+                  <AiFillCloseCircle className={style.closeResultIcon} />
+                </span>
+              </div>
+              {searchResult.map((result, index) => (
+                <>
+                  <div
+                    className={style.shoeResultRow}
+                    key={index - "searchResult"}
+                    onClick={() => productDisaplyNavigation(result)}
+                  >
+                    <span className={style.imageWrapper}>
+                      <img
+                        src={result.images[0]}
+                        alt="shoeImage"
+                        className={style.shoeResultImage}
+                      />
+                    </span>
+                    <span className={style.shoeResultShoeName}>
+                      {result.name}
+                    </span>
+                  </div>
+                </>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
