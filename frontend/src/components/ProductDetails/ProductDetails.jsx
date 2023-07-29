@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./productDetails.module.css";
 import axios from "axios";
 import baseUrl from "../Constant";
-import Spinners from "../Spinners";
 import Navbar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsMinecart, BsHeart } from "react-icons/bs";
-import { SiNike } from "react-icons/si";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
@@ -38,6 +38,22 @@ export const ProductDetails = () => {
     if (isUserLoggedIn == "false") {
       navigate("/login", { state: currentState });
     } else {
+      if (selectedColor === -1 || selecttedSize === -1) {
+        toast.error(
+          "kindly complete all required information before proceeding",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
+        return;
+      }
       const token = localStorage.getItem("token");
       const info = {
         productItemId: props._id,
@@ -90,6 +106,22 @@ export const ProductDetails = () => {
       navigate("/login", { state: currentState });
       console.log("does rendering come'e here?");
     } else {
+      if (selectedColor === -1 || selecttedSize === -1) {
+        toast.error(
+          "kindly complete all required information before proceeding",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
+        return;
+      }
       try {
         const token = localStorage.getItem("token");
         const config = {
@@ -331,6 +363,7 @@ export const ProductDetails = () => {
         <div className={style.contactSectionContainer}>
           <ContactFooter />
         </div>
+        <ToastContainer />
       </div>
     </>
   );

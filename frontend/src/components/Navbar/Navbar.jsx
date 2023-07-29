@@ -114,7 +114,10 @@ const Navbar = () => {
               New & Featured
               {isHovered && (
                 <>
-                  <div className={style.hoverContainer}>
+                  <div
+                    className={style.hoverContainer}
+                    onClick={() => navigate("/shop")}
+                  >
                     <div className={style.hoverOptionsContainer}>
                       <div className={style.optionContainer}>
                         <span className={style.hoverOptionHeading}>
@@ -280,7 +283,7 @@ const Navbar = () => {
                         <span className={style.menuIcons}>
                           <BiLogOutCircle className={style.menuIconStyle} />
                         </span>
-                        <span className={style.profileHoverMenu}>Sign Out</span>
+                        <span className={style.profileHoverMenu}>Logout</span>
                       </div>
                     </div>
                   </>
@@ -292,7 +295,7 @@ const Navbar = () => {
                   className={style.signInText}
                   onClick={() => navigate("/login", { state: currentState })}
                 >
-                  Sign In
+                  Login
                 </div>
               </>
             )}

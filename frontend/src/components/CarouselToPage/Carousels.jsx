@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "./carousels.module.css";
+import { useNavigate } from "react-router-dom";
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
@@ -7,7 +8,7 @@ import {
 const Carousels = ({ images }) => {
   const [moveLeft, setMoveLeft] = useState(false);
   const [currIndex, setCurrIndex] = useState(0);
-
+  const navigate = useNavigate();
   const handleNextClick = () => {
     setMoveLeft(true);
     setTimeout(() => {
@@ -44,6 +45,7 @@ const Carousels = ({ images }) => {
               className={style.curouselImage}
               src={image}
               alt="carousel_images"
+              onClick={() => navigate("/shop")}
             />
           </div>
         ))}

@@ -77,8 +77,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   /* border: 2px solid cyan; */
-  margin: 10px;
+  margin-bottom: 10px;
 }
 .loginLogo {
   height: 60%;
@@ -94,8 +96,8 @@
 .loginSlogan {
   height: 40%;
   width: 100%;
-  /* border: 1px solid black; */
-  font-size: 1.7rem;
+  /* border: 1px solid red; */
+  font-size: 1.5rem;
   font-family: Impact, fantasy;
   display: flex;
   align-items: center;
@@ -149,6 +151,7 @@
 }
 
 .privacyText {
+  padding: 1%;
   font-size: 0.8rem;
   font-weight: 200;
   opacity: 0.8;
@@ -226,7 +229,7 @@
 @media (max-width: 576px) {
   .loginBoxContainer {
     /* border: 3px solid green; */
-    width: 70%;
+    width: 85%;
   }
   .loginSlogan {
     font-size: 1.3rem;
@@ -239,6 +242,6 @@
 @media (min-width: 577px) and (max-width: 991px) {
   .loginBoxContainer {
     /* border: 3px solid green; */
-    width: 45%;
+    width: 60%;
   }
 }

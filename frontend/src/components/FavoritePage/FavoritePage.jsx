@@ -6,6 +6,7 @@ import baseUrl from "../Constant";
 import axios from "axios";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
+import { useNavigate } from "react-router-dom";
 const FavoritePage = () => {
   //fetching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
@@ -16,6 +17,7 @@ const FavoritePage = () => {
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   //fetching all favorite item on initial rendering
   useEffect(() => {
@@ -211,8 +213,14 @@ const FavoritePage = () => {
                     <>
                       <div className={style.noCartBoardContainer}>
                         <span className={style.noElementInCart}>
-                          No Favorite Shoes Added...
+                          Your favorite shoes are yet to be added. Get started
                         </span>
+                        <button
+                          className={style.eseentialsShopButton}
+                          onClick={() => navigate("/shop")}
+                        >
+                          Shop
+                        </button>
                       </div>
                     </>
                   )}

@@ -51,7 +51,8 @@
 .imageWrapper {
   height: 75%;
   width: 100%;
-  /* border: 1px solid green; */
+  /* border: 2px solid green; */
+  /* cursor: pointer; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,6 +134,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.noCartBoardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.noElementInCart {
+  text-align: center;
+  padding: 2%;
+}
+.eseentialsShopButton {
+  height: 50px;
+  width: 100px;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  border-radius: 35px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
 }
 @media (max-width: 576px) {
   .favoriteCartWrapper {

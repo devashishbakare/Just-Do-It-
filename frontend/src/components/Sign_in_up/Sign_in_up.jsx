@@ -5,6 +5,8 @@ import axios from "axios";
 import baseUrl from "../Constant";
 import Navbar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sign_in_up = ({ updateChange }) => {
   const userLoggedIn = localStorage.getItem("isLoggedIn");
@@ -50,6 +52,41 @@ const Sign_in_up = ({ updateChange }) => {
     event.preventDefault();
 
     if (userTryToRegister === true) {
+      if (
+        credentials.email === "" ||
+        credentials.name === "" ||
+        credentials.password === "" ||
+        credentials.confirmPassword === ""
+      ) {
+        toast.error(
+          "Fields can't be empty. Please fill in the data correctly",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
+        return;
+      }
+      if (credentials.confirmPassword !== credentials.password) {
+        toast.error("Password and confirm password are not correct", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+
       try {
         const response = await axios.post(
           `${baseUrl}/user/register`,
@@ -60,13 +97,21 @@ const Sign_in_up = ({ updateChange }) => {
           localStorage.setItem("token", response.data);
           console.log(response.data);
           console.log("succesfull");
-          setResponseMessage("");
           updateChange(true);
         }
       } catch (err) {
         console.log(err, " Error in registering user");
         console.log(err.response.data);
-        setResponseMessage(err.response.data);
+        toast.error(err.response.data, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     } else {
       try {
@@ -77,13 +122,21 @@ const Sign_in_up = ({ updateChange }) => {
           console.log("here we updated a status after login");
           localStorage.setItem("token", response.data);
           console.log(response.data);
-          setResponseMessage("");
           updateChange(true);
         }
       } catch (err) {
         console.log(err, "Error while Logging");
         console.log(err.response.data);
-        setResponseMessage(err.response.data);
+        toast.error(err.response.data, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     }
 
@@ -110,12 +163,22 @@ const Sign_in_up = ({ updateChange }) => {
         console.log("here we updated a status after login");
         localStorage.setItem("token", response.data);
         console.log(response.data);
-        setResponseMessage("");
+
         updateChange(true);
       }
     } catch (error) {
-      console.log("error in guest login " + error);
-      console.log(error.response.data);
+      // console.log("error in guest login " + error);
+      // console.log(error.response.data);
+      toast.error("Something went wrong, try to register", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -241,18 +304,6 @@ const Sign_in_up = ({ updateChange }) => {
                   </>
                 )}
               </div>
-
-              {responseMessage ? (
-                <>
-                  <div className={style.responseMessageWrapper}>
-                    <span className={style.responseMessageText}>
-                      {responseMessage}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                ""
-              )}
             </div>
           </div>
         </div>
@@ -260,6 +311,7 @@ const Sign_in_up = ({ updateChange }) => {
         <div className={style.ContactSectionWrapper}>
           <ContactFooter />
         </div>
+        <ToastContainer />
       </div>
     </>
   );

@@ -175,16 +175,18 @@ const Cart = () => {
         </>
       ) : (
         <>
-          {isLoading === true ? (
-            <>
-              <Spinners />
-            </>
-          ) : (
-            <>
-              <div className={style.cartContainer}>
-                <div className={style.navBarContainer}>
-                  <Navbar />
+          <div className={style.cartContainer}>
+            <div className={style.navBarContainer}>
+              <Navbar />
+            </div>
+            {isLoading === true ? (
+              <>
+                <div className={style.centerSpinnerWrapper}>
+                  <Spinners />
                 </div>
+              </>
+            ) : (
+              <>
                 <div className={style.cartHeadingText}>Cart</div>
                 <div className={style.cartProductContainer}>
                   {cartProducts.length > 0 ? (
@@ -225,7 +227,14 @@ const Cart = () => {
                                     className={style.productSizeAndColorWrapper}
                                   >
                                     <span className={style.sizeText}>
-                                      Size : {cartProduct.cartItem.size} Uk
+                                      Size :{" "}
+                                      {
+                                        cartProduct.productDetails
+                                          .availableSize[
+                                          cartProduct.cartItem.size
+                                        ]
+                                      }{" "}
+                                      Uk
                                     </span>
                                     <span className={style.colorText}>
                                       Color : &nbsp;
@@ -327,18 +336,25 @@ const Cart = () => {
                     <>
                       <div className={style.noCartBoardContainer}>
                         <span className={style.noElementInCart}>
-                          No Cart Item Added ...
+                          Cart is currently empty. Add some shoes to get
+                          started!
                         </span>
+                        <button
+                          className={style.eseentialsShopButton}
+                          onClick={() => navigate("/shop")}
+                        >
+                          Shop
+                        </button>
                       </div>
                     </>
                   )}
                 </div>
-                <div className={style.contactSectionContainer}>
-                  <ContactFooter />
-                </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
+            <div className={style.contactSectionContainer}>
+              <ContactFooter />
+            </div>
+          </div>
         </>
       )}
     </>

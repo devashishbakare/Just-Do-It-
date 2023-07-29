@@ -61,12 +61,13 @@
   right: 0%;
   height: 250px;
   width: 100%;
-  /* border: 1px solid red; */
+  /* border: 3px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
   z-index: 999;
+  cursor: pointer;
 }
 
 .hoverOptionsContainer {
@@ -116,7 +117,7 @@
 }
 .navBarIconContainer {
   height: 100%;
-  width: 30%;
+  width: 40%;
   /* border: 1px solid red; */
   display: flex;
   gap: 1%;
@@ -170,10 +171,6 @@
   font-size: 1.1rem;
   background-color: rgb(227, 224, 224);
 }
-/*   <span className={style.menuIcons}>
-                          <BsPersonFill />
-                        </span>
-                        <span className={style.profileHoverMenu}>Profile</span> */
 .menuIcons {
   height: 100%;
   width: 35%;
@@ -311,6 +308,9 @@
   }
   .searchBarContainer {
     width: 95%;
+  }
+  .navBarIcons {
+    font-size: 20px;
   }
   .searchResultContainer {
     position: absolute;

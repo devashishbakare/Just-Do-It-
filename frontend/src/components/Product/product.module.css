@@ -655,7 +655,7 @@ body {
 .signInWrapper {
   height: 8%;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .responseMessageWrapper {
@@ -666,17 +666,6 @@ body {
   justify-content: center;
   /* border: 1px solid red; */
   background-color: white;
-}
-
-.responseMessageText {
-  margin: 11%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: red;
-  font-size: 1rem;
-  text-align: center;
-  text-transform: capitalize;
 }
 
 @media (max-width: 576px) {
