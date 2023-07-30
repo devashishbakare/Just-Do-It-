@@ -5,12 +5,15 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import axios from "axios";
 import baseUrl from "../Constant";
 import Spinners from "../Spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 //razorpay_Doc = https://razorpay.com/docs/payments/server-integration/nodejs/payment-gateway/build-integration/
 export const Checkout = React.memo(() => {
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
+
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
   const [address, setAddress] = useState({
@@ -38,6 +41,22 @@ export const Checkout = React.memo(() => {
   };
 
   const handlePlaceOrder = async () => {
+    if (checkAddress() === false) {
+      toast.error(
+        "Kindly complete all required information before proceeding",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+      return;
+    }
     try {
       setIsLoading(true);
       let addAddress = await axios.post(`${baseUrl}/shoe/addAddress`, address);
@@ -88,28 +107,68 @@ export const Checkout = React.memo(() => {
     } catch (error) {
       console.log(error);
       console.log("Error in placing order");
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleOnlinePayment = async (amount) => {
+    if (checkAddress() === false) {
+      toast.error(
+        "Kindly complete all required information before proceeding",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+      return;
+    }
+
     try {
       const isUserLoggedIn = localStorage.getItem("isLoggedIn");
       if (isUserLoggedIn == "false") {
         navigate("/login", { state: currentState });
       }
+      setIsLoading(true);
       const data = {
         amount,
       };
       const response = await axios.post(`${baseUrl}/payment/createOrder`, data);
       if (response.status === 200) {
         console.log("order Id", response.data);
+        setIsLoading(false);
         handleOpenRazorpay(response.data);
       }
     } catch (error) {
       //todo : add notification here for something went wrong with online payment, try again later
       console.log(error, error.response);
+      setIsLoading(false);
+      toast.error("Oops! Something went wrong. Please try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -155,6 +214,24 @@ export const Checkout = React.memo(() => {
     };
     var rzp = new window.Razorpay(options);
     rzp.open();
+  };
+
+  const checkAddress = () => {
+    const { country, fullName, mobileNumber, pincode, addressLine, landmark } =
+      address;
+
+    if (
+      country === "" ||
+      fullName === "" ||
+      mobileNumber === "" ||
+      pincode === "" ||
+      addressLine === "" ||
+      landmark === ""
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return (
@@ -306,19 +383,6 @@ export const Checkout = React.memo(() => {
                             Online Payment
                           </span>
                         </div>
-                        {/* <div className={style.paymentMethodBox}>
-                          <span className={style.paymentMethodText}>UPI</span>
-                        </div>
-                        <div className={style.paymentMethodBox}>
-                          <span className={style.paymentMethodText}>
-                            Credit Card
-                          </span>
-                        </div>
-                        <div className={style.paymentMethodBox}>
-                          <span className={style.paymentMethodText}>
-                            Debit Card
-                          </span>
-                        </div> */}
                       </div>
                     </>
                   )}
@@ -362,6 +426,7 @@ export const Checkout = React.memo(() => {
 
           {/* todo : we have to add contact section here */}
         </div>
+        <ToastContainer />
       </div>
     </>
   );

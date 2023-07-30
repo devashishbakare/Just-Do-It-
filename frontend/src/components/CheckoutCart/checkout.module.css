@@ -179,7 +179,7 @@
   height: 70%;
   width: 90%;
   overflow-y: scroll;
-  border: 1px solid green;
+  border: 1px solid black;
 }
 
 .formInputAndTextWrapper {
@@ -318,6 +318,10 @@
   .orderSummeryText {
     width: 95%;
     padding-left: 0%;
+  }
+  .summeryButtonText {
+    height: 75%;
+    margin: 0% 2%;
   }
 }
 @media (min-width: 577px) and (max-width: 991px) {

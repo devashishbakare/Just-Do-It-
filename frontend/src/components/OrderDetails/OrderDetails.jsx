@@ -93,7 +93,10 @@ export const OrderDetails = React.memo(() => {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
+        setIsLoading(false);
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       }
     } catch (error) {
       console.log(error.response);
@@ -178,7 +181,7 @@ export const OrderDetails = React.memo(() => {
                           <div className={style.quantityWrapper}>
                             <div className={style.increaseIcon}>
                               <span className={style.quantityText}>
-                                Quantity
+                                Quantity:
                               </span>
                               <span className={style.quantityText}>
                                 {orderItem.quantity}

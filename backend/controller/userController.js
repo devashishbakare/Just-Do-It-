@@ -229,7 +229,7 @@ const updateUserDetails = async (req, res) => {
       name: name === "" ? user.name : name,
       email: email === "" ? user.email : email,
       userImage: userImage === "" ? user.userImage : userImage,
-      password: updatedPasswordHash,
+      password: password === "" ? user.password : updatedPasswordHash,
     };
 
     const updatedUser = await User.findOneAndUpdate(

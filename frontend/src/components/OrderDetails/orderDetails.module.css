@@ -21,7 +21,7 @@
 .productsWrapper {
   height: 100%;
   width: 70%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   /* flex-direction: column; */
   overflow: hidden;
@@ -33,10 +33,12 @@
 .priceAndAddressWrapper {
   height: 100%;
   width: 30%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
 }
 
 .orderPlacePriceBox {
@@ -61,6 +63,8 @@
   width: 90%;
   /* border: 2px solid green; */
   display: flex;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.4);
 }
 
 .cartProductImageWrapper {
@@ -334,7 +338,9 @@
     width: 97%;
   }
   .showProductCart {
-    height: 35%;
+    height: 30%;
+    width: 100%;
+    /* border: 1px solid red; */
   }
   .orderPlacePriceBox {
     height: 100%;
@@ -354,6 +360,22 @@
   .productOrderTopAddressHeading,
   .productOrderAddressOutput {
     margin-left: 5%;
+  }
+  .sizeText {
+    width: 35%;
+  }
+  .colorText {
+    width: 50%;
+    text-transform: capitalize;
+  }
+  .cartProductPrice {
+    font-size: 1.1rem;
+  }
+  .cartProductImageWrapper {
+    background-color: whitesmoke;
+  }
+  .cartProductImag {
+    height: 80%;
   }
 }
 

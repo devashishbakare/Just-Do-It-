@@ -688,6 +688,14 @@ const fetchDetailsToSendInMail = async (userId, orderId) => {
   }
 };
 
+const clearCart = async (req, res) => {
+  try {
+    const response = await CartItem.deleteMany({});
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json("something went wrong");
+  }
+};
 module.exports = {
   addProduct,
   fetchAllProduct,
@@ -708,4 +716,5 @@ module.exports = {
   fetchOrderDetails,
   deleteOrder,
   placeOrderTemplate,
+  clearCart,
 };
