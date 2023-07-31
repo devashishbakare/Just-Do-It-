@@ -353,16 +353,26 @@ const fetchCategory = async (req, res) => {
 
 const searchProduct = async (req, res) => {
   try {
-    let keyword = req.query.searchKey;
-    console.log("keyword ", keyword);
-    const allProductInfo = await ShoeDetails.find({
-      name: { $regex: keyword, $options: "i" },
-    });
+    const { searchKey, page, pageSize } = req.query;
+    const currentPage = parseInt(page) || 1;
+    const itemsPerPage = parseInt(pageSize) || 5;
 
-    return res.status(200).json(allProductInfo);
+    const skip = (currentPage - 1) * itemsPerPage;
+
+    const regex = new RegExp(searchKey, "i");
+    const data = await ShoeDetails.find({ name: regex })
+      .skip(skip)
+      .limit(itemsPerPage);
+
+    const totalResults = await ShoeDetails.countDocuments({ name: regex });
+
+    res.status(200).json({
+      data,
+      totalPages: Math.ceil(totalResults / itemsPerPage),
+    });
   } catch (error) {
-    console.error("error", error);
-    return res.status(500).json("catching error while searching");
+    console.error("Error fetching search results:", error);
+    res.status(500).json("Error in fetching data");
   }
 };
 

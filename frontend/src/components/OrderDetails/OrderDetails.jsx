@@ -83,6 +83,7 @@ export const OrderDetails = React.memo(() => {
       );
 
       if (response.status === 200) {
+        setIsLoading(false);
         toast.success("Order has been deleted successfully", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -93,7 +94,7 @@ export const OrderDetails = React.memo(() => {
           progress: undefined,
           theme: "dark",
         });
-        setIsLoading(false);
+
         setTimeout(() => {
           navigate("/");
         }, 3000);

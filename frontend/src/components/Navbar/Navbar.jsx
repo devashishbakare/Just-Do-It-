@@ -26,10 +26,13 @@ const Navbar = () => {
   const [searchKey, setSearchKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
   const currentState = { from: window.location.pathname };
   const [isHovered, setIsHovered] = useState(false);
   const [profileMouseHover, setProfileMouseHover] = useState(false);
+  const [totalSearchResult, setTotalSearchResult] = useState(-1);
+
   const navigate = useNavigate();
 
   const handleMouseEnter = () => {
@@ -58,17 +61,19 @@ const Navbar = () => {
     }
   };
 
-  const fetchSearchResult = async (key) => {
+  const fetchSearchResult = async (key, currentPage) => {
     try {
       setLoading(true);
 
       const response = await axios.get(
-        `${baseUrl}/shoe/searchProduct?searchKey=${key}`
+        `${baseUrl}/shoe/searchProduct?searchKey=${key}&page=${currentPage}&pageSize=${pageSize}`
       );
       if (response.status === 200) {
         console.log("coutner");
         console.log(response.data);
-        setSearchResult(response.data);
+        setSearchResult(response.data.data);
+        setCurrentPage(currentPage);
+        setTotalSearchResult(response.data.totalPages);
       }
     } catch (error) {
       console.log("error in seaching result " + error);
@@ -84,8 +89,18 @@ const Navbar = () => {
     clearTimeout(debouncing.current);
 
     debouncing.current = setTimeout(() => {
-      fetchSearchResult(searchKey);
+      fetchSearchResult(searchKey, 1);
     }, 1000);
+  };
+
+  const handleNextButtonClick = () => {
+    const nextPage = currentPage + 1;
+    fetchSearchResult(searchKey, nextPage);
+  };
+
+  const handlePrevButtonClick = () => {
+    const nextPage = currentPage - 1;
+    fetchSearchResult(searchKey, nextPage);
   };
 
   const productDisaplyNavigation = (shoeDetails) => {
@@ -95,6 +110,8 @@ const Navbar = () => {
 
   const closeResultSection = () => {
     setSearchKey("");
+    setCurrentPage(1);
+    setTotalSearchResult(-1);
     setSearchResult([]);
   };
   return (
@@ -330,6 +347,29 @@ const Navbar = () => {
                   </div>
                 </>
               ))}
+              <div className={style.searchNavigationWrapper}>
+                <button
+                  onClick={handlePrevButtonClick}
+                  // disabled={currentPage === 1 || currentPage === 2}
+                  className={`${
+                    currentPage !== 1
+                      ? style.searchNavigationButton
+                      : style.hideButton
+                  }`}
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={handleNextButtonClick}
+                  className={`${
+                    currentPage !== totalSearchResult
+                      ? style.searchNavigationButton
+                      : style.hideButton
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </>
         )}
