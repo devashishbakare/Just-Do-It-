@@ -10,9 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Sign_in_up = ({ updateChange }) => {
   const userLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log("userLoggedIn status " + userLoggedIn);
   const [userTryToRegister, setUserTryToRegister] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -95,12 +93,9 @@ const Sign_in_up = ({ updateChange }) => {
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("token", response.data);
-          console.log(response.data);
-          console.log("succesfull");
           updateChange(true);
         }
       } catch (err) {
-        console.log(err, " Error in registering user");
         console.log(err.response.data);
         toast.error(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
@@ -119,13 +114,10 @@ const Sign_in_up = ({ updateChange }) => {
 
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          console.log("here we updated a status after login");
           localStorage.setItem("token", response.data);
-          console.log(response.data);
           updateChange(true);
         }
       } catch (err) {
-        console.log(err, "Error while Logging");
         console.log(err.response.data);
         toast.error(err.response.data, {
           position: toast.POSITION.TOP_CENTER,
@@ -160,15 +152,11 @@ const Sign_in_up = ({ updateChange }) => {
 
       if (response.status === 200) {
         localStorage.setItem("isLoggedIn", "true");
-        console.log("here we updated a status after login");
         localStorage.setItem("token", response.data);
-        console.log(response.data);
-
         updateChange(true);
       }
     } catch (error) {
-      // console.log("error in guest login " + error);
-      // console.log(error.response.data);
+      console.log(error.response.data);
       toast.error("Something went wrong, try to register", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,

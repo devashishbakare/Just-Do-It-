@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 import style from "./featurePage.module.css";
-import {
-  FaTwitter,
-  FaFacebookF,
-  FaYoutube,
-  FaInstagram,
-  FaMapMarker,
-} from "react-icons/fa";
 import ContactFooter from "../ContactSection/ContactFooter";
 import Carousel from "../CarouselToPage/Carousels";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +26,7 @@ const FeaturePage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleCarousel = (direction, imageArray) => {
     if (direction === "prev") {
-      console.log("index " + currentImageIndex);
+      // console.log("index " + currentImageIndex);
       setCurrentImageIndex(
         currentImageIndex === 0 ? imageArray.length - 1 : currentImageIndex - 1
       );

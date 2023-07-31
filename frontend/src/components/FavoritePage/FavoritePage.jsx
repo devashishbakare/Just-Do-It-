@@ -7,14 +7,16 @@ import axios from "axios";
 import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const FavoritePage = () => {
   //fetching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status  " + LoginStatus);
   const [showLoginForm, setShowLoginForm] = useState(
     LoginStatus === "false" ? false : true
   );
 
+  // states
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const FavoritePage = () => {
       setIsLoading(true);
       try {
         const token = localStorage.getItem("token");
-        console.log("token " + token);
+        // console.log("token " + token);
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -39,8 +41,8 @@ const FavoritePage = () => {
             config
           );
           if (response.status === 200) {
-            console.log("favorite fetch data " + response.data);
-            console.log("value " + response.data[0].shoeDetails);
+            // console.log("favorite fetch data " + response.data);
+            // console.log("value " + response.data[0].shoeDetails);
             setProducts(response.data);
           }
         } else {
@@ -60,6 +62,7 @@ const FavoritePage = () => {
     setShowLoginForm(status);
   };
 
+  // removing from favorites
   const handleRemoveFromFavorite = async (favoriteItem_id) => {
     try {
       setIsLoading(true);
@@ -87,13 +90,22 @@ const FavoritePage = () => {
         );
       }
       setIsLoading(false);
-      console.log("suuu " + favoriteItem_id);
     } catch (error) {
-      console.log(error);
-      console.log(error.data);
+      console.log(error.response.data);
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
+  // moving to cart
   const handleFavoriteToCartMove = async (addToCartItem_id, product_id) => {
     console.log("favId " + addToCartItem_id);
     console.log("productId " + product_id);
@@ -125,9 +137,18 @@ const FavoritePage = () => {
         );
       }
       setIsLoading(false);
-      console.log("suuu " + addToCartItem_id);
     } catch (error) {
-      console.log("error in moving to cart " + error);
+      console.log(error.response.data);
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -157,10 +178,10 @@ const FavoritePage = () => {
                 <>
                   {products.length > 0 ? (
                     <>
-                      {products.map((product) => (
+                      {products.map((product, index) => (
                         <div
                           className={style.favoriteCartWrapper}
-                          key={product.favoriteItemId}
+                          key={index + "/" + product.favoriteItemId}
                         >
                           <div className={style.imageWrapper}>
                             <img
@@ -231,6 +252,7 @@ const FavoritePage = () => {
                 <ContactFooter />
               </div>
             </div>
+            <ToastContainer />;
           </div>
         </>
       )}

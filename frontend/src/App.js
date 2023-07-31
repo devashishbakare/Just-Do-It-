@@ -17,7 +17,7 @@ function App() {
       try {
         const response = await axios.get(`${baseUrl}/user/loginStatus`);
         let status = response.data === true ? "true" : "false";
-        console.log("App Load status " + status);
+
         localStorage.setItem("isLoggedIn", status);
       } catch (error) {
         console.log("error in fecthing login status ", error);

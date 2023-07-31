@@ -256,9 +256,7 @@ const updateUserDetails = async (req, res) => {
 
 const deleteSession = async (req, res) => {
   try {
-    // const status = await
     const store = req.sessionStore;
-    console.log(store + " store");
     await store.clear();
     return res.status(200).json("seesion has been deleted");
   } catch (error) {
@@ -268,7 +266,6 @@ const deleteSession = async (req, res) => {
 };
 
 const placeOrderTemplate = async (req, res) => {
-  console.log("here we come");
   return res.render("placeOrder");
 };
 

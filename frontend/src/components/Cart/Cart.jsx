@@ -8,7 +8,10 @@ import Spinners from "../Spinners";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Cart = () => {
+  // sum of cart
   let storeCartSum = parseInt(localStorage.getItem("cartSum"), 10);
   const [cartSum, setCartSum] = useState(
     storeCartSum === null ? 0 : storeCartSum
@@ -17,11 +20,11 @@ const Cart = () => {
   const navigate = useNavigate();
   //fatching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status in cart " + LoginStatus);
   const [showLoginForm, setShowLoginForm] = useState(
     LoginStatus === "false" ? false : true
   );
 
+  // states
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,7 +39,7 @@ const Cart = () => {
             authorization: `Bearer ${token}`,
           },
         };
-        console.log("can I come here 2");
+        //console.log("can I come here 2");
         const response = await axios.get(`${baseUrl}/shoe/cartItems`, config);
         if (response.status === 200) {
           let sum = 0;
@@ -45,7 +48,7 @@ const Cart = () => {
             const quantity = cartProduct.cartItem.quantity;
             const price = cartProduct.productDetails.price;
             sum += quantity * price;
-            console.log("index " + index);
+            //console.log("index " + index);
           }
 
           localStorage.setItem("cartSum", sum);
@@ -53,14 +56,14 @@ const Cart = () => {
           setCartSum(sum);
         }
       } catch (error) {
-        console.log("Error in fetching cart product");
+        //console.log("Error in fetching cart product");
         console.log(error);
       } finally {
         setIsLoading(false);
       }
     };
     fetchCartProducts();
-    console.log("rending count");
+    // console.log("rending count");
   }, [showLoginForm]);
 
   //updating when user gets sign-in/up
@@ -68,6 +71,7 @@ const Cart = () => {
     setShowLoginForm(status);
   };
 
+  // handleing quantity updaes
   const handleQuantitySelection = async (quantity, cartId, index) => {
     let productOldQuantity = cartProducts[index].cartItem.quantity;
     let productPrice = cartProducts[index].cartItem.price;
@@ -120,6 +124,7 @@ const Cart = () => {
     }
   };
 
+  // handeling cart product deletion
   const handleCartProductDeletion = async (indexToRemove) => {
     try {
       const token = localStorage.getItem("token");
@@ -156,10 +161,21 @@ const Cart = () => {
         setCartProducts(updatedCartProducts);
       }
     } catch (error) {
-      console.log("error in deleting cart");
+      // console.log("error in deleting cart");
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
+  // moving for checkout
   const handleCheckout = () => {
     localStorage.setItem("cartDetails", JSON.stringify(cartProducts));
     navigate("/checkout");
@@ -197,7 +213,7 @@ const Cart = () => {
                             <>
                               <div
                                 className={style.showProductCart}
-                                key={index + "-" + cartProduct.cartItem._id}
+                                key={index + "key" + cartProduct.cartItem._id}
                               >
                                 <div className={style.cartProductImageWrapper}>
                                   <img
@@ -354,6 +370,7 @@ const Cart = () => {
             <div className={style.contactSectionContainer}>
               <ContactFooter />
             </div>
+            <ToastContainer />
           </div>
         </>
       )}

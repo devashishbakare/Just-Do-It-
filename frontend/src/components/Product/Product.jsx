@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Product = React.memo(({ props }) => {
   const navigate = useNavigate();
+  // setting up data to be render for product detail view"
   const handleProductDetailsClick = () => {
     localStorage.setItem("productDetails", JSON.stringify(props));
     navigate("/productDetails", { state: props });

@@ -18,11 +18,11 @@ const createOrder = (req, res) => {
           .status(500)
           .json("something went wrong while creating order");
       }
-      console.log(order);
+      // console.log(order);
       return res.status(200).json(order);
     });
   } catch (error) {
-    console.log("Something went wrong while creating order" + error);
+    // console.log("Something went wrong while creating order" + error);
     return res.status(500).json("Error in creating order");
   }
 };

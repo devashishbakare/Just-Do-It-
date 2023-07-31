@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import style from "./orderDetails.module.css";
 import Navbar from "../Navbar/Navbar";
-import ContactFooter from "../ContactSection/ContactFooter";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
@@ -12,11 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 export const OrderDetails = React.memo(() => {
   const location = useLocation();
   const orderId = location.state;
-  console.log("orderId", orderId);
   const token = localStorage.getItem("token");
-  console.log("token!!! " + token);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log("is Loggd in " + isLoggedIn);
   const [isLoading, setIsLoading] = useState(true);
   const [orderItems, setOrderItems] = useState({});
   const navigate = useNavigate();
@@ -25,9 +21,7 @@ export const OrderDetails = React.memo(() => {
     const fetchOrderDetails = async () => {
       try {
         setIsLoading(true);
-        console.log("here we go!!!");
         const token = localStorage.getItem("token");
-
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -47,14 +41,20 @@ export const OrderDetails = React.memo(() => {
         );
 
         if (orderDetails.status === 200) {
-          console.log("here we are setting data");
-          console.log(orderDetails.data);
-
           setOrderItems(orderDetails.data);
         }
       } catch (error) {
         console.log("error", error);
-        toast.error("Something went wrong, please try agian later");
+        toast.error("Something went wrong, try again later", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       } finally {
         setIsLoading(false);
       }

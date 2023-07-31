@@ -10,10 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 //razorpay_Doc = https://razorpay.com/docs/payments/server-integration/nodejs/payment-gateway/build-integration/
 export const Checkout = React.memo(() => {
+  // states, data needed to compute component
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
-
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
   const [address, setAddress] = useState({
@@ -87,8 +87,6 @@ export const Checkout = React.memo(() => {
           config
         );
         if (response.status === 200) {
-          //todo : navigate to the page of viewOrder details, where user can delete the order
-          //todo : on right side of page you have to add the cancle order
           localStorage.removeItem("cartDetails");
           setAddress({
             country: "",
@@ -98,15 +96,11 @@ export const Checkout = React.memo(() => {
             addressLine: "",
             landmark: "",
           });
-
-          //todo : navigate to order details page
-          console.log("all good");
           navigate("/orderDetails", { state: response.data });
         }
       }
     } catch (error) {
       console.log(error);
-      console.log("Error in placing order");
       toast.error("Something went wrong, try again later", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
@@ -151,12 +145,10 @@ export const Checkout = React.memo(() => {
       };
       const response = await axios.post(`${baseUrl}/payment/createOrder`, data);
       if (response.status === 200) {
-        console.log("order Id", response.data);
         setIsLoading(false);
         handleOpenRazorpay(response.data);
       }
     } catch (error) {
-      //todo : add notification here for something went wrong with online payment, try again later
       console.log(error, error.response);
       setIsLoading(false);
       toast.error("Oops! Something went wrong. Please try again later", {
@@ -174,16 +166,15 @@ export const Checkout = React.memo(() => {
 
   const handleOpenRazorpay = async (order) => {
     var options = {
-      key: "rzp_test_uYsyA6UZFPgGxV", // Enter the Key ID generated from the Dashboard
-      amount: Number(order.amount), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key: "rzp_test_uYsyA6UZFPgGxV",
+      amount: Number(order.amount),
       currency: order.currency,
       name: "Nike Store",
       description: "Test Transaction",
       image:
         "http://res.cloudinary.com/djgouef8q/image/upload/v1689941580/vlquytreyljotsbsdfms.jpg",
-      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      order_id: order.id,
       handler: async function (response) {
-        console.log(response, 121);
         const data = {
           order_id: order.id,
           razorpay_order_id: response.razorpay_order_id,
@@ -196,8 +187,6 @@ export const Checkout = React.memo(() => {
         );
         if (responseForVarification.status === 200) {
           handlePlaceOrder();
-        } else {
-          //todo : add notification like something went wrong
         }
       },
       prefill: {

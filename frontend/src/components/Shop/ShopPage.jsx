@@ -4,7 +4,6 @@ import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Aside/Sidebar";
 import ProductContainer from "../ShopProducts/ProductContainer";
 import { HiAdjustmentsHorizontal, HiXMark } from "react-icons/hi2";
-import shopContext from "../../Context /ShopContext";
 const ShopPage = () => {
   const [filterOptions, setFilterOptions] = useState({
     genderFilterClick: false,

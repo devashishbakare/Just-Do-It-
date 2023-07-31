@@ -17,10 +17,10 @@ const sendMailOnPlaceOrder = (orderDetail, userEmailAddress) => {
     },
     function (err, info) {
       if (err) {
-        console.log("error in sending mail", err);
+        // console.log("error in sending mail", err);
         return false;
       }
-      console.log("massage has been sent ", info);
+      // console.log("massage has been sent ", info);
       return true;
     }
   );
@@ -42,10 +42,10 @@ const sendMailOnCancleOrder = (orderDetail, userEmailAddress) => {
     },
     function (err, info) {
       if (err) {
-        console.log("error in sending mail", err);
+        // console.log("error in sending mail", err);
         return false;
       }
-      console.log("massage has been sent", info);
+      // console.log("massage has been sent", info);
       return true;
     }
   );

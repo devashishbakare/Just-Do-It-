@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "./productContainer.module.css";
 import Product from "../Product/Product";
 import axios from "axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import baseUrl from "../Constant";
 const ProductContainer = ({ appliedFilters }) => {
   const [storeProduct, setStoreProduct] = useState([]);
@@ -18,10 +19,24 @@ const ProductContainer = ({ appliedFilters }) => {
     };
 
     const fetchAllProduct = async () => {
-      const response = await axios.get(`${baseUrl}/shoe/shopNow`, config);
-      // console.log(response.data);
-      setStoreProduct(response.data);
-      setProducts(response.data);
+      try {
+        const response = await axios.get(`${baseUrl}/shoe/shopNow`, config);
+        if (response.status === 200) {
+          setStoreProduct(response.data);
+          setProducts(response.data);
+        }
+      } catch (error) {
+        toast.error("Something went wrong, try again later", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     };
 
     fetchAllProduct();
@@ -105,6 +120,7 @@ const ProductContainer = ({ appliedFilters }) => {
           <Product key={eachProduct._id} props={eachProduct} />
         ))}
       </div>
+      <ToastContainer />
     </div>
   );
 };

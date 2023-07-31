@@ -125,7 +125,7 @@ const fetchCartItems = async (req, res) => {
   try {
     const userId = req.userId;
 
-    console.log("cart userId", userId);
+    // console.log("cart userId", userId);
 
     const user = await User.findById(userId);
     if (!user) {
@@ -247,7 +247,6 @@ const addToFavorite = async (req, res) => {
 
 const deleleFromFavorite = async (req, res) => {
   try {
-    console.log(req.body);
     const userId = req.userId;
     const { favoriteItemId } = req.body;
 
@@ -283,7 +282,6 @@ const deleleFromFavorite = async (req, res) => {
 const fetchFavorite = async (req, res) => {
   try {
     const userId = req.userId;
-    console.log("userId", userId);
     const user = await User.findById(userId);
 
     if (!user) {
@@ -379,8 +377,6 @@ const searchProduct = async (req, res) => {
 const moveToCartFromFavorite = async (req, res) => {
   const userId = req.userId;
   const { favoriteItemId, productItemId } = req.body;
-
-  console.log("suu " + req.body);
   const user = await User.findById(userId);
   const favoriteItem = await FavoriteItem.findById(favoriteItemId);
 
@@ -487,7 +483,7 @@ const addAddress = async (req, res) => {
 
 const placeOrder = async (req, res) => {
   const userId = req.userId;
-  console.log("userId in placeOrder " + userId);
+  // console.log("userId in placeOrder " + userId);
   const { cartItemIds, addressId, paymentMethod, totalAmount } = req.body;
 
   try {
@@ -536,7 +532,7 @@ const placeOrder = async (req, res) => {
     };
     nodeMailerController.sendMailOnPlaceOrder(dataForMail, user.email);
 
-    console.log("mail data ", dataForMail);
+    // console.log("mail data ", dataForMail);
 
     return res.status(200).json(order._id);
   } catch (error) {
@@ -569,7 +565,7 @@ const fetchOrderDetails = async (req, res) => {
     const userId = req.userId;
 
     const orderId = req.params.id;
-    console.log("userId in details " + userId + " orderId " + orderId);
+    // console.log("userId in details " + userId + " orderId " + orderId);
     const order = await Order.findById(orderId);
     const user = await User.findById(userId);
 
@@ -613,7 +609,7 @@ const deleteOrder = async (req, res) => {
   try {
     const { orderId } = req.body;
     const userId = req.userId;
-    console.log(orderId + "orderId");
+    // console.log(orderId + "orderId");
     const order = await Order.findById(orderId);
     const user = await User.findById(userId);
     if (!order || !user) {
@@ -647,7 +643,7 @@ const placeOrderTemplate = async (req, res) => {
     "64ba71c164047feca181964d",
     "64c20a3cf7e3b645a91e07b8"
   );
-  console.log("here is data " + data);
+  // console.log("here is data " + data);
   return res.render("placeOrder", {
     title: "Incident Details",
     orders: data,

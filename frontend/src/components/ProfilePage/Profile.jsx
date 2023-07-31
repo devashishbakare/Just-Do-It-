@@ -9,16 +9,18 @@ import baseUrl from "../Constant";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 export const Profile = () => {
+  // fetching login status
+  const LoginStatus = localStorage.getItem("isLoggedIn");
+  const [showLoginForm, setShowLoginForm] = useState(
+    LoginStatus === "false" ? false : true
+  );
+
+  //states
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [userDetails, setUserDetails] = useState({});
   const [orderDetails, setOrderDetails] = useState([]);
   const [updatePasswordClick, setUpdatePasswordClick] = useState(false);
-  const navigate = useNavigate();
-  const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status  " + LoginStatus);
-  const [showLoginForm, setShowLoginForm] = useState(
-    LoginStatus === "false" ? false : true
-  );
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -63,7 +65,7 @@ export const Profile = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong, while uploading", {
+      toast.error("Something went wrong while uploading, Try again later", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
         hideProgressBar: true,
@@ -87,6 +89,7 @@ export const Profile = () => {
     setColorSelected(updatedColorArray);
     setDisplayMenu(menuIndex);
   };
+
   //updating when user gets sign-in/up
   const handleLoginStatusUpdate = (status) => {
     setShowLoginForm(status);
@@ -137,7 +140,6 @@ export const Profile = () => {
   }, [showLoginForm]);
 
   const showOrderDetails = (order) => {
-    console.log(order);
     navigate("/orderDetails", { state: order._id });
   };
 

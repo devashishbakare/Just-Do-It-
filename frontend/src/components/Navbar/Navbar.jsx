@@ -4,7 +4,8 @@ import { SiNike } from "react-icons/si";
 import axios from "axios";
 import baseUrl from "../Constant";
 import { AiFillCloseCircle } from "react-icons/ai";
-import Spinner from "../Spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   BsPerson,
   BsMinecart,
@@ -14,15 +15,16 @@ import {
 } from "react-icons/bs";
 import { BiLogOutCircle } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 const Navbar = () => {
+  // updating login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status  " + LoginStatus);
   const [userLoggedIn, setUserLoggedIn] = useState(
     LoginStatus === "false" ? false : true
   );
 
+  // states
   const [searchKey, setSearchKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
@@ -51,13 +53,21 @@ const Navbar = () => {
         localStorage.removeItem("token");
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("productDetails");
-        console.log(response.data);
         setUserLoggedIn(false);
         navigate("/");
       }
     } catch (error) {
       console.log(error.response);
-      console.log("there is error in logging out at frontend");
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -69,15 +79,23 @@ const Navbar = () => {
         `${baseUrl}/shoe/searchProduct?searchKey=${key}&page=${currentPage}&pageSize=${pageSize}`
       );
       if (response.status === 200) {
-        console.log("coutner");
-        console.log(response.data);
         setSearchResult(response.data.data);
         setCurrentPage(currentPage);
         setTotalSearchResult(response.data.totalPages);
       }
     } catch (error) {
+      setLoading(false);
       console.log("error in seaching result " + error);
-      //todo : may be add a notification here in case a failure
+      toast.error("Something went wrong, try again later", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } finally {
       setLoading(false);
     }
@@ -373,6 +391,7 @@ const Navbar = () => {
             </div>
           </>
         )}
+        <ToastContainer />
       </div>
     </>
   );

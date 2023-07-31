@@ -78,7 +78,6 @@ export const ProductDetails = () => {
         );
 
         if (response.status === 200) {
-          console.log(response.data);
           if (slideNotification === true) {
             setNotificationFor("Cart");
           } else {
@@ -90,21 +89,28 @@ export const ProductDetails = () => {
           }
           setSelectedColor(-1);
           setSelectedSize(-1);
-        } else {
-          console.log("there is error in add to cart");
         }
       } catch (err) {
-        console.log(err + " error in cart selection");
         console.log(err.response.data);
+        toast.error("Something went wrong, try again later", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     }
   };
 
   const handleAddToFavorite = async () => {
+    // fetching user login details
     const isUserLoggedIn = localStorage.getItem("isLoggedIn");
     if (isUserLoggedIn == "false") {
       navigate("/login", { state: currentState });
-      console.log("does rendering come'e here?");
     } else {
       if (selectedColor === -1 || selecttedSize === -1) {
         toast.error(
@@ -158,18 +164,24 @@ export const ProductDetails = () => {
           }
           setSelectedColor(-1);
           setSelectedSize(-1);
-        } else {
-          console.log("there is error in add to cart");
         }
       } catch (err) {
-        console.log(err + " error in cart selection");
         console.log(err.response.data);
+        toast.error("Something went wrong, try again later", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     }
   };
   const handleCarousel = (direction) => {
     if (direction === "prev") {
-      console.log("index " + currentImageIndex);
       setCurrentImageIndex(
         currentImageIndex === 0
           ? props.images.length - 1

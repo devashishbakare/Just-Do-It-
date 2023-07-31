@@ -3,8 +3,8 @@ import style from "./login.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Sign_in_up from "../Sign_in_up/Sign_in_up";
 export const Login = () => {
+  // updating login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
-  console.log("logIn Status Login " + LoginStatus);
   const [showLoginForm, setShowLoginForm] = useState(
     LoginStatus === "false" ? false : true
   );
@@ -12,7 +12,6 @@ export const Login = () => {
   const location = useLocation();
   const url = location.state.from;
   const data = location.state.data;
-  console.log("url " + url);
 
   const handleLoginStatusUpdate = (status) => {
     if (status === true) {
