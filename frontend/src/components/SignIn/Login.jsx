@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./login.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import Sign_in_up from "../Sign_in_up/Sign_in_up";
+import SignInUp from "../Sign_in_up/Sign_in_up";
 export const Login = () => {
   // updating login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
@@ -30,7 +30,7 @@ export const Login = () => {
       {showLoginForm === false && (
         <>
           <div className={style.loginComponentWrapper}>
-            <Sign_in_up updateChange={handleLoginStatusUpdate} />
+            <SignInUp updateChange={handleLoginStatusUpdate} />
           </div>
         </>
       )}

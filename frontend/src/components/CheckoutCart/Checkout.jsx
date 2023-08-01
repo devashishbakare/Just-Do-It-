@@ -136,7 +136,7 @@ export const Checkout = React.memo(() => {
 
     try {
       const isUserLoggedIn = localStorage.getItem("isLoggedIn");
-      if (isUserLoggedIn == "false") {
+      if (isUserLoggedIn === "false") {
         navigate("/login", { state: currentState });
       }
       setIsLoading(true);

@@ -5,7 +5,7 @@ import ContactFooter from "../ContactSection/ContactFooter";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import baseUrl from "../Constant";
 import Spinners from "../Spinners";
-import Sign_in_up from "../Sign_in_up/Sign_in_up";
+import SignInUp from "../Sign_in_up/Sign_in_up";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -186,7 +186,7 @@ const Cart = () => {
       {showLoginForm === false ? (
         <>
           <div className={style.loginComponentWrapper}>
-            <Sign_in_up updateChange={handleLoginStatusUpdate} />
+            <SignInUp updateChange={handleLoginStatusUpdate} />
           </div>
         </>
       ) : (

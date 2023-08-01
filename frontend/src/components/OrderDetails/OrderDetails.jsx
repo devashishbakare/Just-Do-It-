@@ -12,7 +12,6 @@ export const OrderDetails = React.memo(() => {
   const location = useLocation();
   const orderId = location.state;
   const token = localStorage.getItem("token");
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const [isLoading, setIsLoading] = useState(true);
   const [orderItems, setOrderItems] = useState({});
   const navigate = useNavigate();
@@ -29,10 +28,7 @@ export const OrderDetails = React.memo(() => {
           },
         };
         //deleting cart item, after placing order
-        const deleteCartItem = await axios.delete(
-          `${baseUrl}/shoe/deleteAllCartItems`,
-          config
-        );
+        await axios.delete(`${baseUrl}/shoe/deleteAllCartItems`, config);
 
         //fetching data from orderId
         const orderDetails = await axios.get(
@@ -61,7 +57,7 @@ export const OrderDetails = React.memo(() => {
     };
 
     fetchOrderDetails();
-  }, []);
+  }, [orderId]);
 
   const handleDeleteOrder = async (req, res) => {
     try {

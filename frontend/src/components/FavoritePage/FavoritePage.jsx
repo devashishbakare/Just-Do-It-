@@ -5,7 +5,7 @@ import ContactFooter from "../ContactSection/ContactFooter";
 import baseUrl from "../Constant";
 import axios from "axios";
 import Spinners from "../Spinners";
-import Sign_in_up from "../Sign_in_up/Sign_in_up";
+import SignInUp from "../Sign_in_up/Sign_in_up";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -157,7 +157,7 @@ const FavoritePage = () => {
       {showLoginForm === false ? (
         <>
           <div className={style.loginComponentWrapper}>
-            <Sign_in_up updateChange={handleLoginStatusUpdate} />
+            <SignInUp updateChange={handleLoginStatusUpdate} />
           </div>
         </>
       ) : (

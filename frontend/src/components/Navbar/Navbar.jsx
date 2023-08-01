@@ -16,7 +16,7 @@ import {
 import { BiLogOutCircle } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Sign_in_up from "../Sign_in_up/Sign_in_up";
+
 const Navbar = () => {
   // updating login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
@@ -26,7 +26,7 @@ const Navbar = () => {
 
   // states
   const [searchKey, setSearchKey] = useState("");
-  const [loading, setLoading] = useState(false);
+
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
@@ -73,8 +73,6 @@ const Navbar = () => {
 
   const fetchSearchResult = async (key, currentPage) => {
     try {
-      setLoading(true);
-
       const response = await axios.get(
         `${baseUrl}/shoe/searchProduct?searchKey=${key}&page=${currentPage}&pageSize=${pageSize}`
       );
@@ -84,7 +82,6 @@ const Navbar = () => {
         setTotalSearchResult(response.data.totalPages);
       }
     } catch (error) {
-      setLoading(false);
       console.log("error in seaching result " + error);
       toast.error("Something went wrong, try again later", {
         position: toast.POSITION.TOP_CENTER,
@@ -96,8 +93,6 @@ const Navbar = () => {
         progress: undefined,
         theme: "dark",
       });
-    } finally {
-      setLoading(false);
     }
   };
   const debouncing = useRef(null);
@@ -108,7 +103,7 @@ const Navbar = () => {
 
     debouncing.current = setTimeout(() => {
       fetchSearchResult(searchKey, 1);
-    }, 1000);
+    }, 800);
   };
 
   const handleNextButtonClick = () => {
@@ -345,6 +340,7 @@ const Navbar = () => {
                   <AiFillCloseCircle className={style.closeResultIcon} />
                 </span>
               </div>
+
               {searchResult.map((result, index) => (
                 <>
                   <div
@@ -365,6 +361,7 @@ const Navbar = () => {
                   </div>
                 </>
               ))}
+
               <div className={style.searchNavigationWrapper}>
                 <button
                   onClick={handlePrevButtonClick}

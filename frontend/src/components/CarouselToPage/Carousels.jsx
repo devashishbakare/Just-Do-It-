@@ -58,6 +58,7 @@ const Carousels = ({ images }) => {
       <div className={style.nextButtonContainer} onClick={handleNextClick}>
         <MdOutlineArrowForwardIos className={style.carouselIcons} />
       </div>
+      {moveLeft && <></>}
     </div>
   );
 };

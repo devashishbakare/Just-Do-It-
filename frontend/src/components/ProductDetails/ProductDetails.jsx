@@ -20,22 +20,13 @@ export const ProductDetails = () => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState(-1);
   const [selecttedSize, setSelectedSize] = useState(-1);
-  const [showProductFlag, setShowProductFlag] = useState(false);
   const [slideNotification, setSlideNotifcation] = useState(false);
   const [notificationFor, setNotificationFor] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handleCloseModal = () => {
-    setShowProductFlag(!showProductFlag);
-    setSelectedColor(-1);
-    setSelectedSize(-1);
-    setSlideNotifcation(false);
-    setNotificationFor("");
-  };
-
   const handleAddToCart = async () => {
     const isUserLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isUserLoggedIn == "false") {
+    if (isUserLoggedIn === "false") {
       navigate("/login", { state: currentState });
     } else {
       if (selectedColor === -1 || selecttedSize === -1) {
@@ -109,7 +100,7 @@ export const ProductDetails = () => {
   const handleAddToFavorite = async () => {
     // fetching user login details
     const isUserLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isUserLoggedIn == "false") {
+    if (isUserLoggedIn === "false") {
       navigate("/login", { state: currentState });
     } else {
       if (selectedColor === -1 || selecttedSize === -1) {

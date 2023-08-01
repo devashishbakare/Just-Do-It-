@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Sign_in_up = ({ updateChange }) => {
-  const userLoggedIn = localStorage.getItem("isLoggedIn");
   const [userTryToRegister, setUserTryToRegister] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "",

@@ -3,8 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import style from "./profile.module.css";
 import Spinners from "../Spinners";
-import Sign_in_up from "../Sign_in_up/Sign_in_up";
-import { useNavigate, Link } from "react-router-dom";
+import SignInUp from "../Sign_in_up/Sign_in_up";
+import { useNavigate } from "react-router-dom";
 import baseUrl from "../Constant";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
@@ -222,7 +222,7 @@ export const Profile = () => {
       {showLoginForm === false ? (
         <>
           <div className={style.loginComponentWrapper}>
-            <Sign_in_up updateChange={handleLoginStatusUpdate} />
+            <SignInUp updateChange={handleLoginStatusUpdate} />
           </div>
         </>
       ) : (
@@ -320,7 +320,7 @@ export const Profile = () => {
                                           >
                                             <img
                                               src="http://res.cloudinary.com/djgouef8q/image/upload/v1689941580/vlquytreyljotsbsdfms.jpg"
-                                              alt="Nike Image"
+                                              alt="Nike_Image"
                                               className={style.nikeProductImage}
                                             />
                                           </div>

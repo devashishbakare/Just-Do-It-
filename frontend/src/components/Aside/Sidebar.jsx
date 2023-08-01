@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./sidebar.module.css";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 const Sidebar = ({ filterOptions, onFilterOptionChange }) => {
