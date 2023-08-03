@@ -36,7 +36,7 @@ const Navbar = () => {
   const [totalSearchResult, setTotalSearchResult] = useState(-1);
 
   const navigate = useNavigate();
-  const { cartCount } = useContext(CartCountContext);
+  const { cartCount, setCartCount } = useContext(CartCountContext);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -54,6 +54,7 @@ const Navbar = () => {
         localStorage.removeItem("token");
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("productDetails");
+        setCartCount(0);
         setUserLoggedIn(false);
         navigate("/");
       }

@@ -107,8 +107,8 @@ const loginUser = async (req, res) => {
       req.session.isLoggedIn = true;
       await req.session.save();
     }
-
-    return res.status(200).json(token);
+    const cartCount = user.cart.length;
+    return res.status(200).json({ token, cartCount });
   } catch (error) {
     console.log("error", error);
     return res.status(500).json("error in login user");

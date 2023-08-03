@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./sign_in_up.module.css";
 import { SiNike } from "react-icons/si";
 import axios from "axios";
@@ -7,8 +7,10 @@ import Navbar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CartCountContext from "../CartCountContext";
 
 const Sign_in_up = ({ updateChange }) => {
+  const { setCartCount } = useContext(CartCountContext);
   const [userTryToRegister, setUserTryToRegister] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "",
@@ -113,7 +115,8 @@ const Sign_in_up = ({ updateChange }) => {
 
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("token", response.data);
+          localStorage.setItem("token", response.data.token);
+          setCartCount(response.data.cartCount);
           updateChange(true);
         }
       } catch (err) {
@@ -151,7 +154,8 @@ const Sign_in_up = ({ updateChange }) => {
 
       if (response.status === 200) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("token", response.data);
+        localStorage.setItem("token", response.data.token);
+        setCartCount(response.data.cartCount);
         updateChange(true);
       }
     } catch (error) {
