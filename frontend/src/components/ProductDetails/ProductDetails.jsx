@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./productDetails.module.css";
 import axios from "axios";
@@ -13,11 +13,12 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-
+import CartCountContext from "../CartCountContext";
 export const ProductDetails = () => {
   const props = JSON.parse(localStorage.getItem("productDetails"));
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
+  const { setCartCount } = useContext(CartCountContext);
   const [selectedColor, setSelectedColor] = useState(-1);
   const [selecttedSize, setSelectedSize] = useState(-1);
   const [slideNotification, setSlideNotifcation] = useState(false);
@@ -80,6 +81,7 @@ export const ProductDetails = () => {
           }
           setSelectedColor(-1);
           setSelectedSize(-1);
+          setCartCount((prevCount) => prevCount + 1);
         }
       } catch (err) {
         console.log(err.response.data);
@@ -143,7 +145,7 @@ export const ProductDetails = () => {
         );
 
         if (response.status === 200) {
-          console.log(response.data);
+          // console.log(response.data);
           if (slideNotification === true) {
             setNotificationFor("Favorite");
           } else {

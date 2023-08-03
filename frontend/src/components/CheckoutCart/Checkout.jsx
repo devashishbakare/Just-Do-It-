@@ -13,6 +13,8 @@ export const Checkout = React.memo(() => {
   // states, data needed to compute component
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState("Cash On Delivery");
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
@@ -78,7 +80,7 @@ export const Checkout = React.memo(() => {
         const data = {
           cartItemIds,
           addressId,
-          paymentMethod: "COD",
+          paymentMethod: selectedPaymentMethod,
           totalAmount,
         };
         const response = await axios.post(
@@ -139,6 +141,7 @@ export const Checkout = React.memo(() => {
       if (isUserLoggedIn === "false") {
         navigate("/login", { state: currentState });
       }
+      setSelectedPaymentMethod("Online Payment");
       setIsLoading(true);
       const data = {
         amount,
@@ -151,6 +154,7 @@ export const Checkout = React.memo(() => {
     } catch (error) {
       console.log(error, error.response);
       setIsLoading(false);
+      setSelectedPaymentMethod("Cash On Delivery");
       toast.error("Oops! Something went wrong. Please try again later", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,

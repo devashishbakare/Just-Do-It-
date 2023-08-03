@@ -131,6 +131,24 @@
   align-items: center;
   justify-content: center;
 }
+.cartConatainer {
+  position: relative;
+}
+.cartCountWrapper {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  top: 15%;
+  right: 25%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cartCount {
+  color: white;
+}
 .profileContainer {
   /* border: 2px solid red; */
   position: relative;
@@ -359,6 +377,10 @@
   .closeResultText {
     font-weight: 600;
   }
+  .cartCountWrapper {
+    top: 15%;
+    right: 8%;
+  }
 }
 
 @media (min-width: 577px) and (max-width: 991px) {
@@ -393,5 +415,9 @@
 
   .shoeResultShoeName {
     font-size: 1.2rem;
+  }
+  .cartCountWrapper {
+    top: 15%;
+    right: 20%;
   }
 }

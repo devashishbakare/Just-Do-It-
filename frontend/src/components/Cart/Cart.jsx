@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./cart.module.css";
 import Navbar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
@@ -10,6 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CartCountContext from "../CartCountContext";
 const Cart = () => {
   // sum of cart
   let storeCartSum = parseInt(localStorage.getItem("cartSum"), 10);
@@ -18,6 +19,8 @@ const Cart = () => {
   );
 
   const navigate = useNavigate();
+  const { setCartCount } = useContext(CartCountContext);
+
   //fatching login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
   const [showLoginForm, setShowLoginForm] = useState(
@@ -159,6 +162,7 @@ const Cart = () => {
           }
         );
         setCartProducts(updatedCartProducts);
+        setCartCount((prevCount) => prevCount - 1);
       }
     } catch (error) {
       // console.log("error in deleting cart");

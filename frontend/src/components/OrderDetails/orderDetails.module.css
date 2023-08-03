@@ -275,16 +275,35 @@
   font-size: 1.8rem;
   font-weight: 700;
 }
+.addressRowWrapper {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* border: 1px solid black; */
+}
 .topAddressHeading {
-  margin-top: 2%;
-  margin-left: 4%;
+  margin-left: 3%;
   font-size: 1.2rem;
   font-weight: 600;
 }
-.addressOutput {
-  margin-left: 4%;
+.topAddressHeadingRow {
+  margin-top: 2%;
+  margin-left: 3%;
+  margin-bottom: 1%;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.addressOutputRow {
+  margin-left: 3%;
   margin-top: 1%;
   margin-bottom: 2%;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.addressOutput {
+  margin-left: 3%;
   font-size: 1.1rem;
   font-weight: 400;
 }
@@ -310,19 +329,37 @@
   font-size: 1.8rem;
   font-weight: 700;
 }
+.productOrderAddressRowWrapper {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* border: 2px solid black; */
+}
 .productOrderTopAddressHeading {
-  margin-top: 2%;
+  /* margin-top: 2%; */
   /* margin-left: 4%; */
   font-size: 1.2rem;
   font-weight: 600;
 }
 .productOrderAddressOutput {
-  /* margin-left: 4%; */
-  margin-top: 1%;
-  margin-bottom: 2%;
+  margin-left: 1%;
   font-size: 1.1rem;
   font-weight: 400;
 }
+.productOrderTopAddressHeadingRow {
+  margin-top: 1%;
+  margin-left: 4.5%;
+  margin-bottom: 1%;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.productOrderAddressOutputRow {
+  margin-left: 4.5%;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
 @media (max-width: 576px) {
   .contentContainer {
     flex-direction: column;

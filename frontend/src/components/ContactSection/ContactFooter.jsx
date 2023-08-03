@@ -24,17 +24,12 @@ const ContactFooter = () => {
               <span className={style.infoBlockText}>order status</span>
               <span className={style.infoBlockText}>Delivery</span>
               <span className={style.infoBlockText}>returns</span>
-              <span className={style.infoBlockText}>payment options</span>
-              <span className={style.infoBlockText}>
-                contact us on nike.com inquiries
-              </span>
             </div>
             <div className={style.infoBlock}>
               <span className={style.infoBlockHeadingText}>About Nike</span>
               <span className={style.infoBlockText}>News</span>
               <span className={style.infoBlockText}>Careers</span>
               <span className={style.infoBlockText}>investors</span>
-              <span className={style.infoBlockText}>Sustainability</span>
             </div>
           </div>
           <div className={style.navigationContainer}>

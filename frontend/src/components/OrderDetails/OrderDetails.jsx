@@ -191,8 +191,9 @@ export const OrderDetails = React.memo(() => {
                   ))}
 
                 <div className={style.productOrderAddressWrapper}>
+                  {/*
                   <span className={style.productOrderAddressHeadingText}>
-                    Delivery Address
+                    Delivery Details
                   </span>
                   <span className={style.productOrderTopAddressHeading}>
                     Country
@@ -200,28 +201,28 @@ export const OrderDetails = React.memo(() => {
                   <span className={style.productOrderAddressOutput}>
                     {orderItems.orderDetails.address.country}
                   </span>
-                  {/*  */}
+                 
                   <span className={style.productOrderTopAddressHeading}>
                     Full Name
                   </span>
                   <span className={style.productOrderAddressOutput}>
                     {orderItems.orderDetails.address.fullName}
                   </span>
-                  {/*  */}
+                 
                   <span className={style.productOrderTopAddressHeading}>
                     Mobile Number
                   </span>
                   <span className={style.productOrderAddressOutput}>
                     {orderItems.orderDetails.address.mobileNumber}
                   </span>
-                  {/*  */}
+                 
                   <span className={style.productOrderTopAddressHeading}>
                     Pincode
                   </span>
                   <span className={style.productOrderAddressOutput}>
                     {orderItems.orderDetails.address.pincode}
                   </span>
-                  {/*  */}
+                 
                   <span className={style.productOrderTopAddressHeading}>
                     Address Line
                   </span>
@@ -229,11 +230,89 @@ export const OrderDetails = React.memo(() => {
                     {" "}
                     {orderItems.orderDetails.address.addressLine}
                   </span>
-                  {/*  */}
+                 
                   <span className={style.productOrderTopAddressHeading}>
                     Landmark
                   </span>
                   <span className={style.productOrderAddressOutput}>
+                    {orderItems.orderDetails.address.landmark}
+                  </span>
+                  */}
+                  <span className={style.productOrderAddressHeadingText}>
+                    Delivery Details
+                  </span>
+                  <div className={style.productOrderAddressRowWrapper}>
+                    <span className={style.productOrderTopAddressHeading}>
+                      Payment Method :{" "}
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.paymentMethod}
+                    </span>
+                  </div>
+                  <div className={style.productOrderAddressRowWrapper}>
+                    <span className={style.productOrderTopAddressHeading}>
+                      Payment Status :
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.paymentMethod === "Online Payment" ? (
+                        <>Successfull</>
+                      ) : (
+                        <>Not Yet Paid</>
+                      )}
+                    </span>
+                  </div>
+                  <div className={style.productOrderAddressRowWrapper}>
+                    <span className={style.productOrderTopAddressHeading}>
+                      Country :
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.orderDetails.address.country}
+                    </span>
+                  </div>
+
+                  {/*  */}
+                  <div className={style.productOrderAddressRowWrapper}>
+                    <span className={style.productOrderTopAddressHeading}>
+                      Full Name :
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.orderDetails.address.fullName}
+                    </span>
+                  </div>
+
+                  {/*  */}
+                  <div className={style.productOrderAddressRowWrapper}>
+                    <span className={style.productOrderTopAddressHeading}>
+                      Mobile Number :
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.orderDetails.address.mobileNumber}
+                    </span>
+                  </div>
+
+                  {/*  */}
+                  <div className={style.productOrderAddressRowWrapper}>
+                    {" "}
+                    <span className={style.productOrderTopAddressHeading}>
+                      Pincode :
+                    </span>
+                    <span className={style.productOrderAddressOutput}>
+                      {orderItems.orderDetails.address.pincode}
+                    </span>
+                  </div>
+
+                  {/*  */}
+                  <span className={style.productOrderTopAddressHeadingRow}>
+                    Address Line
+                  </span>
+                  <span className={style.productOrderAddressOutputRow}>
+                    {orderItems.orderDetails.address.addressLine}
+                  </span>
+                  {/*  */}
+                  <span className={style.productOrderTopAddressHeadingRow}>
+                    Landmark
+                  </span>
+                  <span className={style.productOrderAddressOutputRow}>
                     {orderItems.orderDetails.address.landmark}
                   </span>
                 </div>
@@ -275,35 +354,72 @@ export const OrderDetails = React.memo(() => {
                 </div>
                 <div className={style.orderAddressWrapper}>
                   <span className={style.addressHeadingText}>
-                    Delivery Address
+                    Delivery Details
                   </span>
-                  <span className={style.topAddressHeading}>Country</span>
-                  <span className={style.addressOutput}>
-                    {orderItems.orderDetails.address.country}
-                  </span>
+                  <div className={style.addressRowWrapper}>
+                    <span className={style.topAddressHeading}>
+                      Payment Method :{" "}
+                    </span>
+                    <span className={style.addressOutput}>
+                      {orderItems.paymentMethod}
+                    </span>
+                  </div>
+                  <div className={style.addressRowWrapper}>
+                    <span className={style.topAddressHeading}>
+                      Payment Status :
+                    </span>
+                    <span className={style.addressOutput}>
+                      {orderItems.paymentMethod === "Online Payment" ? (
+                        <>Successfull</>
+                      ) : (
+                        <>Not Yet Paid</>
+                      )}
+                    </span>
+                  </div>
+                  <div className={style.addressRowWrapper}>
+                    <span className={style.topAddressHeading}>Country :</span>
+                    <span className={style.addressOutput}>
+                      {orderItems.orderDetails.address.country}
+                    </span>
+                  </div>
+
                   {/*  */}
-                  <span className={style.topAddressHeading}>Full Name</span>
-                  <span className={style.addressOutput}>
-                    {orderItems.orderDetails.address.fullName}
-                  </span>
+                  <div className={style.addressRowWrapper}>
+                    <span className={style.topAddressHeading}>Full Name :</span>
+                    <span className={style.addressOutput}>
+                      {orderItems.orderDetails.address.fullName}
+                    </span>
+                  </div>
+
                   {/*  */}
-                  <span className={style.topAddressHeading}>Mobile Number</span>
-                  <span className={style.addressOutput}>
-                    {orderItems.orderDetails.address.mobileNumber}
-                  </span>
+                  <div className={style.addressRowWrapper}>
+                    <span className={style.topAddressHeading}>
+                      Mobile Number :
+                    </span>
+                    <span className={style.addressOutput}>
+                      {orderItems.orderDetails.address.mobileNumber}
+                    </span>
+                  </div>
+
                   {/*  */}
-                  <span className={style.topAddressHeading}>Pincode</span>
-                  <span className={style.addressOutput}>
-                    {orderItems.orderDetails.address.pincode}
-                  </span>
+                  <div className={style.addressRowWrapper}>
+                    {" "}
+                    <span className={style.topAddressHeading}>Pincode :</span>
+                    <span className={style.addressOutput}>
+                      {orderItems.orderDetails.address.pincode}
+                    </span>
+                  </div>
+
                   {/*  */}
-                  <span className={style.topAddressHeading}>Address Line</span>
-                  <span className={style.addressOutput}>
+                  <span className={style.topAddressHeadingRow}>
+                    Address Line
+                  </span>
+                  <span className={style.addressOutputRow}>
                     {orderItems.orderDetails.address.addressLine}
                   </span>
                   {/*  */}
-                  <span className={style.topAddressHeading}>Landmark</span>
-                  <span className={style.addressOutput}>
+                  <span className={style.topAddressHeadingRow}>Landmark</span>
+                  <span className={style.addressOutputRow}>
                     {orderItems.orderDetails.address.landmark}
                   </span>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import style from "./navbar.module.css";
 import { SiNike } from "react-icons/si";
 import axios from "axios";
@@ -16,7 +16,7 @@ import {
 import { BiLogOutCircle } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import CartCountContext from "../CartCountContext";
 const Navbar = () => {
   // updating login status
   const LoginStatus = localStorage.getItem("isLoggedIn");
@@ -36,6 +36,7 @@ const Navbar = () => {
   const [totalSearchResult, setTotalSearchResult] = useState(-1);
 
   const navigate = useNavigate();
+  const { cartCount } = useContext(CartCountContext);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -253,13 +254,20 @@ const Navbar = () => {
               className={style.favoriteContainer}
               onClick={() => navigate("/favorite")}
             >
-              <BsHeart className={style.navBarIcons} />
+              <BsHeart className={`${style.navBarIcons}`} />
             </div>
             <div
               className={style.cartConatainer}
               onClick={() => navigate("/cart")}
             >
               <BsMinecart className={style.navBarIcons} />
+              {cartCount !== 0 && (
+                <>
+                  <div className={style.cartCountWrapper}>
+                    <span className={style.cartCount}>{cartCount}</span>
+                  </div>
+                </>
+              )}
             </div>
             {userLoggedIn ? (
               <>
@@ -365,7 +373,6 @@ const Navbar = () => {
               <div className={style.searchNavigationWrapper}>
                 <button
                   onClick={handlePrevButtonClick}
-                  // disabled={currentPage === 1 || currentPage === 2}
                   className={`${
                     currentPage !== 1
                       ? style.searchNavigationButton

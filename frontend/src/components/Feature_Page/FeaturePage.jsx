@@ -108,23 +108,12 @@ const FeaturePage = () => {
           </div>
         </div>
         <div className={style.theLatestShoeInfoContainer}>
-          <span className={style.topSmallHeadingText}>
-            Air Jordan 1 High OG
-          </span>
-          {/* <span className={style.topBigHeadingText}></span> */}
-          <span className={style.topBigHeadingText}>
+          <span className={style.latestTopSmallText}>Air Jordan 1 High OG</span>
+          <span className={style.latestBigHeading}>
             to take flight you don't need a cape
           </span>
-          <span className={style.topSmallExplanationText}>
-            Get ready to swing into action with the upcoming Air Jordan 1 High
-            OG 'Next Chapter' as seen in 'Spider-Man: Across the Spider-Verse',
-            exclusively in theaters. Available in full family sizing,
-          </span>
-          <span className={style.topSmallExplanationText}>
-            outfit the whole crew and look fly in any universe.
-          </span>
           <button
-            className={`${style.shopButton} ${style.theLatestButton}`}
+            className={style.theLatestButton}
             onClick={() => navigate("/shop")}
           >
             Shop

@@ -5,6 +5,7 @@ const FavoriteItem = require("../model/favoriteItem");
 const Address = require("../model/address");
 const Order = require("../model/order");
 const nodeMailerController = require("../controller/nodeMailerController");
+const mongoose = require("mongoose");
 const addProduct = async (req, res) => {
   try {
     const {
@@ -88,6 +89,24 @@ const addToCart = async (req, res) => {
 
     if (!user) {
       return res.status(404).json("user not found");
+    }
+
+    let isPresent = false;
+    const userCartItems = await Promise.all(
+      user.cart.map(async (cartId) => {
+        const cartItemDetails = await CartItem.findById(cartId);
+        if (
+          cartItemDetails &&
+          cartItemDetails.productItemId === productItemId &&
+          cartItemDetails.size === size
+        ) {
+          isPresent = true;
+        }
+        return cartItemDetails;
+      })
+    );
+    if (isPresent === true) {
+      return res.status(200).json("already present");
     }
 
     let price = quantity * productPrice;
@@ -212,6 +231,23 @@ const addToFavorite = async (req, res) => {
     if (!user) {
       return res.status(404).json("user not found");
     }
+    let isPresent = false;
+    const userFavoriteItems = await Promise.all(
+      user.favorites.map(async (favoriteId) => {
+        const favoriteItemDetails = await FavoriteItem.findById(favoriteId);
+        if (
+          favoriteItemDetails &&
+          favoriteItemDetails.productItemId === productItemId &&
+          favoriteItemDetails.size === size
+        ) {
+          isPresent = true;
+        }
+        return favoriteItemDetails;
+      })
+    );
+    if (isPresent === true) {
+      return res.status(200).json("already present");
+    }
 
     let price = quantity * productPrice;
     const favoriteItemDetails = new FavoriteItem({
@@ -241,7 +277,7 @@ const addToFavorite = async (req, res) => {
     return res.status(200).json(response);
   } catch (error) {
     console.error("error", error);
-    return res.status(500).json("catching error in add to cart");
+    return res.status(500).json("catching error in add to favorite");
   }
 };
 
@@ -485,6 +521,7 @@ const placeOrder = async (req, res) => {
   const userId = req.userId;
   // console.log("userId in placeOrder " + userId);
   const { cartItemIds, addressId, paymentMethod, totalAmount } = req.body;
+  console.log("payment method ", paymentMethod);
 
   try {
     if (
@@ -525,6 +562,7 @@ const placeOrder = async (req, res) => {
       { new: true }
     );
 
+    //sending mail to user on placing order
     const dataForMail = {
       name: user.name,
       size: order.cartIds.length,
@@ -532,7 +570,7 @@ const placeOrder = async (req, res) => {
     };
     nodeMailerController.sendMailOnPlaceOrder(dataForMail, user.email);
 
-    // console.log("mail data ", dataForMail);
+    console.log("mail data ", dataForMail);
 
     return res.status(200).json(order._id);
   } catch (error) {
@@ -594,8 +632,10 @@ const fetchOrderDetails = async (req, res) => {
         cartItemDetails.push(cartItemInfoCollections);
       })
     );
+
     const response = {
       orderDetails,
+      paymentMethod: order.paymentMethod,
       cartItemDetails,
     };
     return res.status(200).json(response);
@@ -616,6 +656,7 @@ const deleteOrder = async (req, res) => {
       return res.status(404).json("order not found");
     }
 
+    // sending mail to user on cancelling order
     const dataForMail = {
       name: user.name,
       size: order.cartIds.length,
@@ -624,6 +665,12 @@ const deleteOrder = async (req, res) => {
     nodeMailerController.sendMailOnCancleOrder(dataForMail, user.email);
 
     const deleteAddress = await Address.findByIdAndDelete(order.address);
+
+    const deleteCartItemStatus = await Promise.all(
+      order.cartIds.map(async (cartId) => {
+        return await CartItem.findByIdAndDelete(cartId);
+      })
+    );
 
     const updatedOrder = await Order.findByIdAndDelete(orderId);
 
