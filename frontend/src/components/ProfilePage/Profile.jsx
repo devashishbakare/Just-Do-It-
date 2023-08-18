@@ -202,7 +202,7 @@ export const Profile = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong, visit again later", {
+      toast.error("Something went wrong, try again later", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
         hideProgressBar: true,
@@ -270,14 +270,19 @@ export const Profile = () => {
                         >
                           Orders
                         </span>
-                        <span
-                          className={`${style.menu} ${
-                            colorSelected[1] ? style.selectedMenu : ""
-                          }`}
-                          onClick={() => updateDisplayMenu(1)}
-                        >
-                          Edit Profile
-                        </span>
+                        {(userDetails.email === "johndoe@gmail.com") ===
+                          false && (
+                          <>
+                            <span
+                              className={`${style.menu} ${
+                                colorSelected[1] ? style.selectedMenu : ""
+                              }`}
+                              onClick={() => updateDisplayMenu(1)}
+                            >
+                              Edit Profile
+                            </span>
+                          </>
+                        )}
                       </div>
                       <div className={style.menuOutputContainer}>
                         {/* Favorites */}

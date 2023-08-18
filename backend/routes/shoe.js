@@ -37,6 +37,4 @@ router.delete(
 );
 router.get("/orderDetails/:id", authenticate, shoeController.fetchOrderDetails);
 router.delete("/deleteOrder", authenticate, shoeController.deleteOrder);
-router.get("/placeOrder", shoeController.placeOrderTemplate);
-router.delete("/clearCart", shoeController.clearCart);
 module.exports = router;

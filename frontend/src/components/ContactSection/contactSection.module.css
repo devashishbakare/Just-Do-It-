@@ -9,16 +9,19 @@
 }
 
 .footerTopContainer {
-  height: 83%;
+  height: auto;
   width: 100%;
   display: flex;
   /* border: 2px solid white; */
+  margin-bottom: 3%;
 }
 .footerBottomContainer {
   height: 15%;
   width: 100%;
   display: flex;
   /* border: 1px solid white; */
+  align-items: center;
+  justify-content: center;
 }
 
 .aboutContainer {
@@ -29,8 +32,7 @@
   align-items: center;
   justify-content: center;
   margin-left: 6%;
-  /* margin-bottom: 2%; */
-  gap: 1%;
+  gap: 4%;
 }
 
 .infoBlock {
@@ -50,7 +52,7 @@
 }
 
 .infoBlockHeadingText {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
@@ -60,7 +62,7 @@
 }
 
 .infoBlockText {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 200;
   font-family: "Open Sans", sans-serif;
   text-transform: capitalize;
@@ -73,10 +75,10 @@
 
 .navigationIconsWrapper {
   height: 20%;
-  width: 31%;
+  width: 50%;
   position: absolute;
   color: white;
-  top: 8%;
+  top: 13%;
   right: 5%;
   /* border: 1px solid white; */
   display: flex;
@@ -88,8 +90,8 @@
 
 .navigationIcon {
   border: 1px solid white;
-  height: 75%;
-  width: 20%;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -209,16 +211,28 @@
   cursor: pointer;
 }
 
+.mobileIcons {
+  display: none;
+}
+
 @media (max-width: 576px) {
   .footerTopContainer {
     flex-direction: column;
     overflow: hidden;
   }
   .aboutContainer {
-    height: 80%;
+    height: auto;
     width: 100%;
     /* border: 1px solid red; */
+    margin-left: 1%;
+    padding-bottom: 7%;
     overflow: hidden;
+  }
+  .infoBlock {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    gap: 1px;
   }
   .navigationContainer {
     display: none;
@@ -227,11 +241,11 @@
     display: none;
   }
   .navigationIcon {
-    height: 100%;
-    width: 10%;
+    height: 40px;
+    width: 40px;
     margin: 0;
     padding: 0;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
   }
   .footerBottomContainer {
     height: 30%;
@@ -258,6 +272,25 @@
   }
   .bottomFooterRightWrapper {
     display: none;
+  }
+  .mobileIcons {
+    display: block;
+    height: 60px;
+    max-width: auto;
+    /* border: 1px solid white; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navigationIconsMobile {
+    height: 100%;
+    width: 100%;
+    /* border: 1px solid white; */
+    display: flex;
+    margin-left: 3%;
+    align-items: center;
+    gap: 12px;
+    /* border: 1px solid red; */
   }
 }
 
@@ -267,8 +300,9 @@
     overflow: hidden;
   }
   .aboutContainer {
-    height: 80%;
+    height: auto;
     width: 100%;
+    margin-left: 2%;
     /* border: 1px solid red; */
     overflow: hidden;
   }
@@ -283,7 +317,7 @@
     width: 10%;
     margin: 0;
     padding: 0;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
   }
   .footerBottomContainer {
     height: 30%;
@@ -311,6 +345,22 @@
   .bottomFooterRightWrapper {
     display: none;
   }
+  .mobileIcons {
+    display: block;
+    height: 60px;
+    max-width: 400px;
+    /* border: 1px solid white; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navigationIconsMobile {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    margin-left: 5%;
+    align-items: center;
+    gap: 15px;
+    /* border: 1px solid red; */
+  }
 }
-
-/* when I apply this media query @media (min-width: 577px) and (max-width: 991px), a changes that I made here, will be available to @media (max-width: 576px)? */

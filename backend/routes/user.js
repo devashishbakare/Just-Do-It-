@@ -11,8 +11,6 @@ router.get("/userDetails", authenticate, userController.fetchUserDetails);
 router.get("/fetchOrders", authenticate, userController.fetchUserOrders);
 router.put("/updateUser", authenticate, userController.updateUserDetails);
 router.delete("/deleteSessions", userController.deleteSession);
-
-//testing ejs for sending mails
 router.get("/placeOrder", userController.placeOrderTemplate);
 
 module.exports = router;

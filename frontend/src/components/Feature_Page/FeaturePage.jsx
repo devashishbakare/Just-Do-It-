@@ -107,13 +107,16 @@ const FeaturePage = () => {
             />
           </div>
         </div>
-        <div className={style.theLatestShoeInfoContainer}>
-          <span className={style.latestTopSmallText}>Air Jordan 1 High OG</span>
-          <span className={style.latestBigHeading}>
+
+        <div className={style.letestTrendWrapper}>
+          <span className={style.latestTrendSmallHeading}>
+            Air Jordan 1 High OG
+          </span>
+          <span className={style.latestTrendBigHeading}>
             to take flight you don't need a cape
           </span>
           <button
-            className={style.theLatestButton}
+            className={style.latestTrendShopButton}
             onClick={() => navigate("/shop")}
           >
             Shop

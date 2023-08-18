@@ -26,7 +26,8 @@ const Navbar = () => {
 
   // states
   const [searchKey, setSearchKey] = useState("");
-
+  const [resultFound, setResultFound] = useState(true);
+  const pattern = /^(?!^\s+$)(?!^[0-9])([a-zA-Z0-9\s-]+)$/;
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
@@ -75,10 +76,27 @@ const Navbar = () => {
 
   const fetchSearchResult = async (key, currentPage) => {
     try {
+      if (pattern.test(searchKey) === false) {
+        toast.warning("input type not allowed, try string", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+
       const response = await axios.get(
         `${baseUrl}/shoe/searchProduct?searchKey=${key}&page=${currentPage}&pageSize=${pageSize}`
       );
       if (response.status === 200) {
+        if (response.data.data.length === 0) {
+          setResultFound(false);
+        }
         setSearchResult(response.data.data);
         setCurrentPage(currentPage);
         setTotalSearchResult(response.data.totalPages);
@@ -124,6 +142,7 @@ const Navbar = () => {
   };
 
   const closeResultSection = () => {
+    setResultFound(true);
     setSearchKey("");
     setCurrentPage(1);
     setTotalSearchResult(-1);
@@ -340,6 +359,20 @@ const Navbar = () => {
             )}
           </div>
         </div>
+        {resultFound === false && (
+          <>
+            <div className={style.searchResultContainer}>
+              <div className={style.closeResultWrapper}>
+                <span className={style.closeResultText}>
+                  Result Not Found..
+                </span>
+                <span onClick={closeResultSection}>
+                  <AiFillCloseCircle className={style.closeResultIcon} />
+                </span>
+              </div>
+            </div>
+          </>
+        )}
         {searchResult.length > 0 && (
           <>
             <div className={style.searchResultContainer}>

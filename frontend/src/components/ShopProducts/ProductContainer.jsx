@@ -5,10 +5,11 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import baseUrl from "../Constant";
+import Spinners from "../Spinners";
 const ProductContainer = ({ appliedFilters }) => {
   const [storeProduct, setStoreProduct] = useState([]);
   const [products, setProducts] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   // fetching data for initial redering
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const ProductContainer = ({ appliedFilters }) => {
 
     const fetchAllProduct = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(`${baseUrl}/shoe/shopNow`, config);
         if (response.status === 200) {
           setStoreProduct(response.data);
@@ -36,6 +38,8 @@ const ProductContainer = ({ appliedFilters }) => {
           progress: undefined,
           theme: "dark",
         });
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -115,11 +119,22 @@ const ProductContainer = ({ appliedFilters }) => {
   // const { selectedGender } = useContext(shopContext);
   return (
     <div className={style.productListContainer}>
-      <div className={style.productWrapper}>
-        {products.map((eachProduct) => (
-          <Product key={eachProduct._id} props={eachProduct} />
-        ))}
-      </div>
+      {isLoading ? (
+        <>
+          <div className={style.centerSpinner}>
+            <Spinners />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={style.productWrapper}>
+            {products.map((eachProduct) => (
+              <Product key={eachProduct._id} props={eachProduct} />
+            ))}
+          </div>
+        </>
+      )}
+
       <ToastContainer />
     </div>
   );

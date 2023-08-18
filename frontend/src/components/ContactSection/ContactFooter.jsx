@@ -14,7 +14,7 @@ const ContactFooter = () => {
         <div className={style.footerTopContainer}>
           <div className={style.aboutContainer}>
             <div className={style.infoBlock}>
-              <span className={style.infoBlockHeadingText}>find a store</span>
+              <span className={style.infoBlockHeadingText}>find store</span>
               <span className={style.infoBlockText}>become a member</span>
               <span className={style.infoBlockText}>send us feedback</span>
               <span className={style.infoBlockText}>find a store</span>
@@ -49,6 +49,22 @@ const ContactFooter = () => {
             </div>
           </div>
         </div>
+        <div className={style.mobileIcons}>
+          <div className={style.navigationIconsMobile}>
+            <div className={style.navigationIcon}>
+              <FaTwitter className={style.iconsCss} />
+            </div>
+            <div className={style.navigationIcon}>
+              <FaFacebookF className={style.iconsCss} />
+            </div>
+            <div className={style.navigationIcon}>
+              <FaYoutube className={style.iconsCss} />
+            </div>
+            <div className={style.navigationIcon}>
+              <FaInstagram className={style.iconsCss} />
+            </div>
+          </div>
+        </div>
         <div className={style.footerBottomContainer}>
           <div className={style.bottomFooterLeftWrapper}>
             <div className={style.locationWrapper}>
@@ -64,7 +80,7 @@ const ContactFooter = () => {
               <li>nike privacy policy</li>
               <li>terms of use</li>
               <li>Terms of sale</li>
-              <li>Guides</li>
+              <li>Guide sale</li>
             </ui>
           </div>
         </div>
