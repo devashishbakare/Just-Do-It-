@@ -364,7 +364,7 @@ const Navbar = () => {
             <div className={style.searchResultContainer}>
               <div className={style.closeResultWrapper}>
                 <span className={style.closeResultText}>
-                  Result Not Found..
+                  Product Not Found..
                 </span>
                 <span onClick={closeResultSection}>
                   <AiFillCloseCircle className={style.closeResultIcon} />

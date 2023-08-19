@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import style from "./favoritePage.module.css";
 import NavBar from "../Navbar/Navbar";
 import ContactFooter from "../ContactSection/ContactFooter";
@@ -9,8 +9,10 @@ import SignInUp from "../Sign_in_up/Sign_in_up";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CartCountContext from "../CartCountContext";
 const FavoritePage = () => {
   //fetching login status
+  const { setCartCount } = useContext(CartCountContext);
   const LoginStatus = localStorage.getItem("isLoggedIn");
   const [showLoginForm, setShowLoginForm] = useState(
     LoginStatus === "false" ? false : true
@@ -45,8 +47,6 @@ const FavoritePage = () => {
             // console.log("value " + response.data[0].shoeDetails);
             setProducts(response.data);
           }
-        } else {
-          //todo : throw a sign-in and sign-up box
         }
         setIsLoading(false);
       } catch (err) {
@@ -130,6 +130,7 @@ const FavoritePage = () => {
         config
       );
       if (response.status === 200) {
+        setCartCount(response.data.cartCount);
         setProducts((prevProduct) =>
           products.filter(
             (eachProduct) => eachProduct.favoriteItemId !== addToCartItem_id

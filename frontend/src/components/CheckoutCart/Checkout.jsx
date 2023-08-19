@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./checkout.module.css";
 import Navbar from "../Navbar/Navbar";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
@@ -8,13 +8,13 @@ import Spinners from "../Spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import CartCountContext from "../CartCountContext";
 //razorpay_Doc = https://razorpay.com/docs/payments/server-integration/nodejs/payment-gateway/build-integration/
 export const Checkout = React.memo(() => {
   // states, data needed to compute component
+  const { setCartCount } = useContext(CartCountContext);
   const [isLoding, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(Array(2).fill(false));
-  const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState("Cash On Delivery");
   const totalAmount = parseInt(localStorage.getItem("cartSum"), 10);
   const currentState = { from: window.location.pathname };
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const Checkout = React.memo(() => {
     });
   };
 
-  const handlePlaceOrder = async () => {
+  const handlePlaceOrder = async (paymentMethod) => {
     if (checkAddress() === false) {
       toast.error(
         "Kindly complete all required information before proceeding",
@@ -80,7 +80,7 @@ export const Checkout = React.memo(() => {
         const data = {
           cartItemIds,
           addressId,
-          paymentMethod: selectedPaymentMethod,
+          paymentMethod: paymentMethod,
           totalAmount,
         };
         const response = await axios.post(
@@ -98,6 +98,7 @@ export const Checkout = React.memo(() => {
             addressLine: "",
             landmark: "",
           });
+          setCartCount(0);
           navigate("/orderDetails", { state: response.data });
         }
       }
@@ -141,20 +142,21 @@ export const Checkout = React.memo(() => {
       if (isUserLoggedIn === "false") {
         navigate("/login", { state: currentState });
       }
-      setSelectedPaymentMethod("Online Payment");
       setIsLoading(true);
       const data = {
         amount,
       };
       const response = await axios.post(`${baseUrl}/payment/createOrder`, data);
       if (response.status === 200) {
+        console.log("create order is successfull");
+
         setIsLoading(false);
         handleOpenRazorpay(response.data);
       }
     } catch (error) {
       console.log(error, error.response);
       setIsLoading(false);
-      setSelectedPaymentMethod("Cash On Delivery");
+
       toast.error("Oops! Something went wrong. Please try again later", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
@@ -190,7 +192,7 @@ export const Checkout = React.memo(() => {
           data
         );
         if (responseForVarification.status === 200) {
-          handlePlaceOrder();
+          handlePlaceOrder("Online Payment");
         }
       },
       prefill: {
@@ -406,7 +408,7 @@ export const Checkout = React.memo(() => {
                     <div className={style.summeryButton}>
                       <button
                         className={style.summeryButtonText}
-                        onClick={handlePlaceOrder}
+                        onClick={() => handlePlaceOrder("Cash On delivery")}
                       >
                         Place Order
                       </button>

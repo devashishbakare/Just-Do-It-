@@ -265,6 +265,7 @@
   background-color: black;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {

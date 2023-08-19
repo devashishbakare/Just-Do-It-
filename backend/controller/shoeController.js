@@ -440,11 +440,9 @@ const moveToCartFromFavorite = async (req, res) => {
   });
 
   const updatedFavorite = await FavoriteItem.deleteOne({ _id: favoriteItemId });
-
+  const cartCount = user.cart.length + 1;
   const response = {
-    cartItem,
-    user,
-    updatedFavorite,
+    cartCount,
   };
   return res.status(200).json(response);
 };
